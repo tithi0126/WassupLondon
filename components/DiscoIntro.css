@@ -1,0 +1,110 @@
+:root {
+  --blue: #82A0FF;
+  --pink: #F0BEFA;
+  --bg: var(--blue);
+  --fg: #14142b;
+  --muted: #2b3470;
+  --accent: var(--pink);
+}
+
+body.lock {
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* Loader */
+#loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--pink);
+  color: var(--fg);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 4vw;
+  transition: transform 1s cubic-bezier(.77,0,.18,1);
+}
+#loader.done {
+  transform: translateY(-100%);
+}
+#loader h1 {
+  font-size: clamp(14px, 2vw, 22px);
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+#count {
+  font-size: clamp(64px, 16vw, 220px);
+  font-weight: 700;
+  line-height: .8;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Disco scene */
+#scene {
+  position: relative;
+  height: 500vh;
+}
+#stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 45%, #2b2066, #120e33 55%, #05040f);
+}
+#dots {
+  position: absolute;
+  inset: -30%;
+  background-image: radial-gradient(circle, rgba(240,190,250,.85) 0 4px, transparent 4px);
+  background-size: 70px 70px;
+  opacity: .5;
+  will-change: transform;
+}
+#stage canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+#stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,10,.55) 100%);
+}
+#hint {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 6vh;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: #ffffffaa;
+}
+#title {
+  z-index: 2;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 9vh;
+  text-align: center;
+  font-size: clamp(28px, 6vw, 80px);
+  font-weight: 700;
+  letter-spacing: -.02em;
+  color: #fff;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 40px rgba(255, 255, 255, 0.6), 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+.flash, .cover {
+  z-index: 3;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+.flash { background: #fff; }
+.cover { background: var(--bg); }

@@ -1,0 +1,474 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Saptapadi Weddings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Manrope:wght@500;700&family=Newsreader:opsz,wght@6..72,400&display=swap">
+<style>
+/* Layout: one long scroll-driven story. Fixed top bar + vertical marquee rail; hero with 3D ring; pinned scenes whose progress drives every transform; dark and cream sections alternate. */
+:root{
+  --ink:#0f0f11; --paper:#eeeae1; --coral:#e8735e; --white:#fbf8f2; --black:#111;
+  --line-d:rgba(255,255,255,.13); --line-l:rgba(0,0,0,.14);
+  --display:'Bodoni Moda','Didot','Times New Roman',serif;
+  --body:'Newsreader',Georgia,serif;
+  --ui:'Manrope','Helvetica Neue',Arial,sans-serif;
+  --bar:28px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--ink);color:var(--white);font-family:var(--body);overflow-x:clip}
+a{color:inherit}
+button{font:inherit}
+:focus-visible{outline:2px solid var(--coral);outline-offset:3px}
+
+/* chrome */
+.chrome{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;height:var(--bar);z-index:60;background:var(--ink);color:var(--white);border-bottom:1px solid var(--line-d);display:flex;align-items:center;justify-content:space-between;padding-right:14px;font:500 10px var(--ui);letter-spacing:.08em;text-transform:uppercase}
+.chrome .menu{width:var(--bar);height:calc(var(--bar) - 1px);display:grid;place-items:center;background:none;border:0;border-right:1px solid var(--line-d);color:inherit;cursor:pointer}
+.chrome .brand{position:absolute;left:44px;text-decoration:none}
+.chrome .right{display:flex;gap:8px;align-items:center;margin-left:auto}
+.rail{position:fixed;left:0;top:calc(var(--bar) + env(safe-area-inset-top,0px));bottom:0;width:var(--bar);overflow:hidden;z-index:50;mix-blend-mode:difference;color:#fff;border-right:1px solid rgba(255,255,255,.18);pointer-events:none}
+.rail-track{display:flex;flex-direction:column;animation:rail 36s linear infinite}
+.rail-track span{writing-mode:vertical-rl;transform:rotate(180deg);font:italic 400 11px var(--display);white-space:nowrap;padding:8px 0;letter-spacing:.03em}
+@keyframes rail{to{transform:translateY(-50%)}}
+
+/* menu */
+.menu-panel{position:fixed;inset:0;z-index:70;background:var(--coral);color:var(--black);padding:calc(var(--bar) + 40px) 6vw 6vw calc(var(--bar) + 6vw);display:flex;flex-direction:column;justify-content:center;gap:4px;clip-path:inset(0 0 100% 0);transition:clip-path .7s cubic-bezier(.7,0,.2,1);visibility:hidden}
+.menu-panel.open{clip-path:inset(0);visibility:visible}
+.menu-panel a{font:400 clamp(2.6rem,9vw,7rem)/.95 var(--display);text-transform:uppercase;text-decoration:none;letter-spacing:-.01em;width:max-content;max-width:100%;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.menu-panel a:hover{transform:translateX(2vw);font-style:italic}
+.menu-close{position:absolute;top:calc(var(--bar) + 14px);right:20px;background:none;border:1px solid var(--black);border-radius:999px;padding:8px 16px;font:700 11px var(--ui);text-transform:uppercase;letter-spacing:.08em;cursor:pointer}
+
+main{margin-left:var(--bar);padding-top:var(--bar);overflow-x:clip}
+.scene{position:relative}
+.stick{position:sticky;top:var(--bar);height:calc(100vh - var(--bar));overflow:hidden}
+.dark{background:var(--ink);color:var(--white)}
+.cream{background:var(--paper);color:var(--black)}
+.disp{font-family:var(--display);font-weight:400;text-transform:uppercase;letter-spacing:-.015em;line-height:.86;margin:0}
+
+.pill{display:inline-flex;align-items:center;gap:10px;background:var(--coral);color:var(--black);border-radius:999px;padding:12px 20px;font:700 clamp(12px,1.05vw,15px) var(--ui);text-transform:uppercase;text-decoration:none;letter-spacing:.01em;transition:transform .3s cubic-bezier(.2,.8,.2,1),background .3s,color .3s}
+.pill svg{width:11px;height:11px;transition:transform .3s}
+.pill:hover{background:var(--black);color:var(--white);transform:translateY(-2px)}
+.pill:hover svg{transform:translate(2px,-2px)}
+.dark .pill:hover{background:var(--white);color:var(--black)}
+.small-link{font:500 10px var(--ui);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;display:inline-flex;gap:6px;align-items:center}
+.small-link:hover{text-decoration:underline}
+
+/* placeholder photos */
+.ph{position:absolute;inset:0;overflow:hidden}
+.ph svg{width:100%;height:100%;display:block}
+
+/* hero */
+.hero{height:calc(100vh - var(--bar));min-height:520px;position:relative;background:var(--ink);overflow:hidden}
+.hero-in{position:absolute;inset:0;padding:4vh 2vw 0 2vw}
+.mega{display:flex;flex-direction:column;position:relative;z-index:2}
+.mega span{display:block;font-size:min(24vw,38vh)}
+.mega .l1{align-self:flex-start}
+.mega .l2{align-self:flex-end}
+.hero .small-link{position:absolute;left:2vw;bottom:3vh;z-index:3}
+.hero .sub{position:absolute;right:2vw;bottom:3vh;font:italic 400 clamp(13px,1.4vw,18px)/1.3 var(--body);max-width:30ch;text-align:right;color:rgba(251,248,242,.7)}
+.ring3d{position:absolute;left:14vw;top:10vh;width:var(--s);height:var(--s);--s:min(26vw,40vh);perspective:900px;z-index:3;will-change:transform}
+.ring{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(var(--rx,16deg)) rotateY(var(--ry,70deg)) rotateZ(var(--rz,-8deg))}
+.ring i{position:absolute;inset:0;border-radius:50%;border:calc(var(--s)*.065) solid #d9a85a}
+.gem{position:absolute;left:50%;top:-1%;width:calc(var(--s)*.2);height:calc(var(--s)*.17);transform:translate(-50%,-70%);clip-path:polygon(50% 0,100% 38%,50% 100%,0 38%);background:conic-gradient(from 20deg,#fff,#ffd3dc,#e8735e,#fff,#f7c3a8,#fff)}
+
+/* story */
+.story{height:230vh}
+.story .stick{background:var(--ink)}
+.story .stick::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(var(--line-d),var(--line-d)) 52% 74%/1px 26% no-repeat,linear-gradient(var(--line-d),var(--line-d)) 0 86%/100% 1px no-repeat}
+.disk{position:absolute;left:50%;top:44%;width:min(54vw,62vh);aspect-ratio:1;margin:calc(min(54vw,62vh)/-2) 0 0 calc(min(54vw,62vh)/-2);will-change:transform}
+.disk svg{width:100%;height:100%;overflow:visible}
+.rt{transform-box:fill-box;transform-origin:center}
+.rt text{font-family:var(--display);font-size:38px;fill:rgba(251,248,242,.5)}
+.story .para{position:absolute;left:3%;bottom:5%;width:min(36ch,36%);font-size:clamp(11px,1vw,14px);line-height:1.38;color:rgba(251,248,242,.88)}
+.story .cta{position:absolute;right:3%;bottom:4%}
+
+/* horizontal scroll */
+.hs{height:460vh}
+.hs .stick{background:var(--ink)}
+.track{display:flex;align-items:center;height:100%;will-change:transform;width:max-content;padding-left:1vw}
+.let{flex:none;font:400 min(92vh,64vw)/.8 var(--display);padding:0 1.5vw;text-transform:uppercase}
+.shot{flex:none;position:relative;width:min(36vw,52vh);height:calc(100% - 6vh)}
+.shot .lab{position:absolute;left:0;right:0;bottom:3%;text-align:center;font:400 clamp(1.4rem,3.4vw,3.2rem)/1 var(--display);text-transform:uppercase;color:var(--white);z-index:2;text-shadow:0 2px 14px rgba(0,0,0,.35)}
+
+/* promises */
+.pr{height:760vh}
+.pr .stick{background:var(--ink)}
+.emblem{position:absolute;left:50%;top:38%;width:min(24vw,30vh);transform:translateX(-50%);z-index:1}
+.emblem svg{width:100%;display:block}
+.pr-head{position:absolute;left:3%;top:6%;z-index:5;font-size:min(8.4vw,15vh);will-change:transform}
+.pr-head span{display:block}
+.slot{position:absolute;visibility:hidden;z-index:2;overflow:hidden}
+.slot .ph{transform-origin:50% 100%}
+.s1{left:6%;top:36%;width:24%;height:60%}
+.s2{left:48%;top:44%;width:28%;height:52%}
+.s3{left:58%;top:8%;width:34%;height:54%}
+.s4{left:14%;top:16%;width:30%;height:78%}
+.s5{left:32%;top:16%;width:36%;height:76%}
+.panel{position:absolute;inset:0;z-index:8;background:var(--paper);color:var(--black);transform:translateX(100%);will-change:transform;overflow:hidden}
+.panel::before{content:"";position:absolute;inset:0;background:linear-gradient(var(--line-l),var(--line-l)) 50% 70%/1px 30% no-repeat,linear-gradient(var(--line-l),var(--line-l)) 0 82%/100% 1px no-repeat}
+.panel h3{position:absolute;left:7%;top:26%;font-size:min(7.2vw,14vh)}
+.panel .emblem2{position:absolute;left:50%;top:22%;width:min(15vw,22vh);transform:translateX(-5%)}
+.panel .emblem2 svg{width:100%;display:block}
+.panel p{position:absolute;left:3%;bottom:5%;width:min(46ch,44%);font-size:clamp(11px,1vw,14px);line-height:1.38;margin:0}
+.panel .rside{position:absolute;right:3%;bottom:4%;display:flex;align-items:center;gap:18px}
+.badge{width:clamp(56px,7vw,92px);aspect-ratio:1;position:relative}
+.badge svg{width:100%;height:100%;overflow:visible}
+.badge text{font:700 9.5px var(--ui);letter-spacing:.14em;fill:var(--black)}
+
+/* journey */
+.jr{height:560vh}
+.jr .stick{background:var(--paper);color:var(--black)}
+.jr .lines{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ln{display:block;overflow:hidden;padding-block:.03em}
+.ln span{display:block;font-size:min(17vw,22vh);will-change:transform}
+.jp{position:absolute;opacity:0;z-index:3;will-change:transform}
+.j1{left:34%;top:12%;width:22%;height:42%}
+.j2{left:12%;top:46%;width:25%;height:46%}
+.j3{left:62%;top:38%;width:24%;height:44%}
+.j4{left:44%;top:46%;width:20%;height:36%}
+.jr .cta{position:absolute;left:50%;bottom:4%;transform:translateX(-50%);opacity:0;z-index:4}
+
+/* services */
+.services{background:var(--paper);color:var(--black);padding:14vh 3vw 14vh 3vw}
+.services .eyebrow{font:700 11px var(--ui);letter-spacing:.14em;text-transform:uppercase;margin-bottom:28px;display:block}
+.row{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) auto;gap:20px;align-items:center;padding:22px 1.2vw;border-top:1px solid var(--line-l);text-decoration:none;position:relative;transition:padding .45s cubic-bezier(.2,.8,.2,1),background .35s,color .35s}
+.row:last-child{border-bottom:1px solid var(--line-l)}
+.row h4{margin:0;font:400 clamp(2rem,5.4vw,5rem)/.95 var(--display);text-transform:uppercase;letter-spacing:-.01em;min-width:0}
+.row p{margin:0;font-size:clamp(13px,1.1vw,16px);line-height:1.4;max-width:42ch}
+.row svg{width:22px;height:22px;transition:transform .35s}
+.row:hover{background:var(--coral);padding-left:3vw}
+.row:hover svg{transform:translate(4px,-4px)}
+
+/* finale */
+.fin{height:420vh}
+.fin .stick{background:var(--ink)}
+.fin .lines{position:absolute;left:3%;right:3%;top:0;z-index:4;will-change:transform;white-space:nowrap}
+.fin .lines div{display:block;font-family:var(--display);text-transform:uppercase;line-height:.84;letter-spacing:-.02em;white-space:nowrap;width:max-content;margin:0 auto}
+.fin-img{position:absolute;left:50%;top:14%;width:min(48vw,58vh);height:62%;margin-left:calc(min(48vw,58vh)/-2);z-index:2;will-change:transform}
+.fin-img .ring-t{position:absolute;inset:-14%;z-index:3}
+.fin-img .ring-t svg{width:100%;height:100%;overflow:visible}
+.fin-img .ring-t text{font:400 15px var(--display);fill:rgba(255,255,255,.85);letter-spacing:.2em}
+.fin-cta{position:absolute;left:3%;bottom:5%;z-index:6;opacity:0}
+.fin-right{position:absolute;right:3%;bottom:5%;z-index:6;text-align:right;opacity:0;font-family:var(--display);text-transform:uppercase;font-size:clamp(1.3rem,2.8vw,2.6rem);line-height:1}
+.fin-right small{display:block;margin-top:8px;font:500 10px var(--ui);letter-spacing:.08em}
+.fin-credit{position:absolute;right:3%;bottom:1.8%;z-index:6;font:500 9px var(--ui);letter-spacing:.08em;text-transform:uppercase;opacity:0;text-decoration:none}
+
+@media (max-width:700px){
+  :root{--bar:24px}
+  .chrome .brand{left:36px}
+  .hero .sub{display:none}
+  .story .para{width:60%;bottom:12%}
+  .story .cta{right:auto;left:3%;bottom:3%}
+  .panel h3{top:18%}
+  .panel p{width:88%;bottom:15%}
+  .panel .rside{right:auto;left:3%;bottom:3%}
+  .panel .emblem2{display:none}
+  .row{grid-template-columns:1fr auto}
+  .row p{grid-column:1 / -1;order:3}
+  .s1{left:4%;width:42%}.s2{left:40%;width:50%}.s3{left:30%;width:62%}
+  .j1{left:30%;width:36%}.j2{left:6%;width:42%}.j3{left:54%;width:40%}.j4{left:34%;width:32%}
+}
+@media (prefers-reduced-motion:reduce){.rail-track{animation:none}}
+</style>
+
+<div class="chrome">
+  <button class="menu" id="menuBtn" aria-label="Open menu" aria-expanded="false"><svg width="14" height="8" viewBox="0 0 14 8" fill="none" stroke="currentColor"><path d="M0 .5h14M0 7.5h14"/></svg></button>
+  <a class="brand" href="#top">Saptapadi</a>
+  <div class="right"><span>Now booking 2027</span><span aria-hidden="true">&#8599; &#8599;</span></div>
+</div>
+<aside class="rail" aria-hidden="true"><div class="rail-track" id="railTrack"></div></aside>
+
+<nav class="menu-panel" id="menuPanel" aria-label="Menu">
+  <button class="menu-close" id="menuClose">Close</button>
+  <a href="#top">Home</a>
+  <a href="#story">Our story</a>
+  <a href="#services">Services</a>
+  <a href="https://capped-swipe-upstream.ngrok-free.dev/" target="_blank" rel="noopener">Plan your wedding</a>
+</nav>
+
+<main id="app">
+  <!-- hero -->
+  <section class="hero" id="top">
+    <div class="hero-in">
+      <div class="ring3d" id="ring3d"><div class="ring" id="ring"><div class="gem"></div></div></div>
+      <h1 class="mega disp"><span class="l1">Sapta</span><span class="l2">Padi</span></h1>
+    </div>
+    <a class="small-link" href="#story">Weddings &amp; events <span aria-hidden="true">&#8599;</span></a>
+    <div class="sub">Seven steps around the fire. One team behind every one of them.</div>
+  </section>
+
+  <!-- story -->
+  <section class="scene story" id="story">
+    <div class="stick">
+      <div class="disk" id="disk">
+        <svg viewBox="0 0 400 400" id="diskSvg" aria-hidden="true"></svg>
+      </div>
+      <p class="para" id="storyPara">Saptapadi is a wedding planning and event management studio in Ahmedabad. We plan the mehendi, the sangeet, the pheras and the reception as one story, and we take care of every vendor, ritual and guest so your families can simply enjoy the day.</p>
+      <div class="cta" id="storyCta"><a class="pill" href="https://capped-swipe-upstream.ngrok-free.dev/" target="_blank" rel="noopener">Plan your wedding <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 10 10 2M4 2h6v6"/></svg></a></div>
+    </div>
+  </section>
+
+  <!-- horizontal letters and photos -->
+  <section class="scene hs" id="hs">
+    <div class="stick">
+      <div class="track" id="track">
+        <div class="let">S</div><div class="shot"><div class="ph" data-k="1"></div><div class="lab">Saptapadi</div></div>
+        <div class="let">S</div><div class="shot"><div class="ph" data-k="2"></div><div class="lab">Saptapadi</div></div>
+        <div class="let">S</div><div class="shot"><div class="ph" data-k="3"></div><div class="lab">Saptapadi</div></div>
+        <div class="let">S</div><div class="shot"><div class="ph" data-k="4"></div><div class="lab">Saptapadi</div></div>
+        <div class="let">S</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- promises -->
+  <section class="scene pr" id="pr">
+    <div class="stick">
+      <div class="emblem" id="emblem"></div>
+      <h2 class="pr-head disp" id="prHead"><span>Every ceremony</span><span>under one roof</span></h2>
+      <div class="slot s1"><div class="ph" data-k="1"></div></div>
+      <div class="slot s2"><div class="ph" data-k="5"></div></div>
+      <div class="slot s3"><div class="ph" data-k="3"></div></div>
+      <div class="slot s4"><div class="ph" data-k="6"></div></div>
+      <div class="slot s5"><div class="ph" data-k="2"></div></div>
+      <div class="panel" id="panel">
+        <h3 class="disp">Every<br>detail,<br>handled</h3>
+        <div class="emblem2" id="emblem2"></div>
+        <p>One team plans your mehendi, haldi, sangeet, pheras and reception. We manage vendors, guest travel, rituals and the day-of timeline, so you and both families can enjoy every moment.</p>
+        <div class="rside">
+          <div class="badge" id="badge"></div>
+          <a class="pill" href="https://capped-swipe-upstream.ngrok-free.dev/" target="_blank" rel="noopener">Start planning <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 10 10 2M4 2h6v6"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- journey -->
+  <section class="scene jr" id="jr">
+    <div class="stick">
+      <div class="lines disp">
+        <span class="ln"><span>Seven</span></span>
+        <span class="ln"><span>Vows</span></span>
+        <span class="ln"><span>One</span></span>
+        <span class="ln"><span>Day</span></span>
+      </div>
+      <div class="jp j1"><div class="ph" data-k="4"></div></div>
+      <div class="jp j2"><div class="ph" data-k="1"></div></div>
+      <div class="jp j3"><div class="ph" data-k="5"></div></div>
+      <div class="jp j4"><div class="ph" data-k="6"></div></div>
+      <div class="cta"><a class="pill" href="#services">See services <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 10 10 2M4 2h6v6"/></svg></a></div>
+    </div>
+  </section>
+
+  <!-- services -->
+  <section class="services" id="services">
+    <span class="eyebrow">What we plan</span>
+    <a class="row" href="https://capped-swipe-upstream.ngrok-free.dev/" target="_blank" rel="noopener"><h4>Full planning</h4><p>Budget, venues, vendors, guest lists and a timeline for every function.</p><svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 19 19 3M7 3h12v12"/></svg></a>
+    <a class="row" href="https://capped-swipe-upstream.ngrok-free.dev/" target="_blank" rel="noopener"><h4>Decor &amp; design</h4><p>Mandaps, florals, lighting and stage design built around your palette.</p><svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 19 19 3M7 3h12v12"/></svg></a>
+    <a class="row" href="https://capped-swipe-upstream.ngrok-free.dev/" target="_blank" rel="noopener"><h4>Guest hospitality</h4><p>Room blocks, airport pickups, welcome kits and itineraries for travelling families.</p><svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 19 19 3M7 3h12v12"/></svg></a>
+    <a class="row" href="https://capped-swipe-upstream.ngrok-free.dev/" target="_blank" rel="noopener"><h4>Rituals</h4><p>Pandit, muhurat and ceremony schedules arranged with respect for both traditions.</p><svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 19 19 3M7 3h12v12"/></svg></a>
+    <a class="row" href="https://capped-swipe-upstream.ngrok-free.dev/" target="_blank" rel="noopener"><h4>Destination weddings</h4><p>Site visits, permits and logistics for Udaipur, Goa and beyond.</p><svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 19 19 3M7 3h12v12"/></svg></a>
+    <a class="row" href="https://capped-swipe-upstream.ngrok-free.dev/" target="_blank" rel="noopener"><h4>Day-of team</h4><p>A floor team that runs cues, vendors and family logistics from setup to farewell.</p><svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 19 19 3M7 3h12v12"/></svg></a>
+  </section>
+
+  <!-- finale -->
+  <section class="scene fin" id="fin">
+    <div class="stick">
+      <div class="fin-img" id="finImg">
+        <div class="ph" data-k="2"></div>
+        <div class="ring-t" id="finRing"></div>
+      </div>
+      <div class="lines" id="finLines">
+        <div data-fit>Say I do</div>
+        <div data-fit>Say I do</div>
+        <div data-fit>Say I do</div>
+        <div data-fit>With us</div>
+      </div>
+      <div class="fin-cta" id="finCta"><a class="pill" href="https://capped-swipe-upstream.ngrok-free.dev/" target="_blank" rel="noopener">Book a call <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 10 10 2M4 2h6v6"/></svg></a></div>
+      <div class="fin-right" id="finRight">Now planning 2027<small>Ahmedabad &middot; Udaipur &middot; Goa</small></div>
+      <a class="fin-credit" id="finCredit" href="#top">Sample content, replace before launch</a>
+    </div>
+  </section>
+</main>
+
+<script>
+(function(){
+  var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+  var clamp=function(v,a,b){a=a==null?0:a;b=b==null?1:b;return Math.min(b,Math.max(a,v))};
+  var lerp=function(a,b,t){return a+(b-a)*t};
+  var ease=function(t){return 1-Math.pow(1-t,3)};
+  var seg=function(p,a,b){return clamp((p-a)/(b-a))};
+  var BAR=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--bar'))||28;
+
+  /* ---------- generated artwork (placeholder photos, flowers, emblems) ---------- */
+  var gid=0;
+  var PAL={1:['#8c1d3b','#2c0914'],2:['#d08a2e','#5c3009'],3:['#3f6b57','#0e2219'],4:['#7a5391','#22112d'],5:['#d1705c','#531e17'],6:['#2f4a6b','#0b1525']};
+  function rays(n,r1,r2,cx,cy){var s='';for(var i=0;i<n;i++){var a=i*Math.PI*2/n;s+='M'+(cx+Math.cos(a)*r1)+' '+(cy+Math.sin(a)*r1)+'L'+(cx+Math.cos(a)*r2)+' '+(cy+Math.sin(a)*r2)}return '<path d="'+s+'"/>'}
+  function petals(n,rx,ry,cy){var s='';for(var i=0;i<n;i++)s+='<ellipse cx="0" cy="'+cy+'" rx="'+rx+'" ry="'+ry+'" transform="rotate('+(i*360/n)+')"/>';return s}
+  var MOT={
+    1:'<circle cx="50" cy="62" r="34"/><circle cx="50" cy="62" r="24"/><circle cx="50" cy="62" r="14"/><path d="M50 26v72M14 62h72M24 36l52 52M76 36 24 88"/>',
+    2:'<path d="M6 130V66a44 44 0 0 1 88 0v64M22 130V68a28 28 0 0 1 56 0v62M38 130V70a12 12 0 0 1 24 0v60"/><path d="M50 14v10M44 19h12"/>',
+    3:'<g transform="translate(50 66)">'+petals(10,7,20,-26)+'</g><circle cx="50" cy="66" r="6"/>',
+    4:rays(16,12,44,50,60)+'<circle cx="50" cy="60" r="8"/>',
+    5:'<path d="M18 104h64M26 104c0-34 48-34 48 0M50 38v14M44 44h12M30 96h40"/><circle cx="50" cy="38" r="3"/>',
+    6:rays(10,6,16,28,34)+rays(10,6,16,74,52)+rays(10,4,10,50,92)+'<circle cx="28" cy="34" r="2"/><circle cx="74" cy="52" r="2"/><circle cx="50" cy="92" r="2"/>'
+  };
+  function art(k){
+    var id='g'+(++gid), p=PAL[k]||PAL[1];
+    return '<svg viewBox="0 0 100 130" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="'+id+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="'+p[0]+'"/><stop offset="1" stop-color="'+p[1]+'"/></linearGradient><radialGradient id="'+id+'r" cx=".5" cy=".4" r=".7"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs><rect width="100" height="130" fill="url(#'+id+')"/><rect width="100" height="130" fill="url(#'+id+'r)"/><g fill="none" stroke="#fff6ee" stroke-opacity=".42" stroke-width=".7">'+MOT[k]+'</g></svg>';
+  }
+  $$('.ph').forEach(function(n){n.innerHTML=art(+n.getAttribute('data-k')||1)});
+
+  function flower(){return '<g fill="none" stroke="#fbf1e6" stroke-width="1.2" stroke-linejoin="round">'+petals(16,9,22,-26)+petals(12,7,15,-15)+'<circle r="5"/></g>'}
+  $('#diskSvg').innerHTML='<defs><path id="cp" d="M200,200 m-165,0 a165,165 0 1,1 330,0 a165,165 0 1,1 -330,0"/></defs>'
+    +'<g class="rt" id="rt"><text><textPath href="#cp" textLength="1026" lengthAdjust="spacing">Let’s plan your love story ✦ Let’s plan your love story ✦</textPath></text></g>'
+    +'<circle cx="200" cy="200" r="92" fill="#e8735e"/><g transform="translate(200 200) scale(1.55)">'+flower()+'</g>';
+
+  function emblemSVG(){
+    return '<svg viewBox="0 0 120 220" fill="none" stroke="#e8735e" stroke-width="1" aria-hidden="true"><defs><path id="cap'+(++gid)+'" d="M60,14 a46,46 0 0 1 46,46 v100 a46,46 0 0 1 -92,0 v-100 a46,46 0 0 1 46,-46 z"/></defs>'
+      +'<path d="M60,6 a54,54 0 0 1 54,54 v100 a54,54 0 0 1 -108,0 v-100 a54,54 0 0 1 54,-54 z"/><path d="M60,22 a38,38 0 0 1 38,38 v100 a38,38 0 0 1 -76,0 v-100 a38,38 0 0 1 38,-38 z" stroke-opacity=".5"/>'
+      +'<text fill="#e8735e" stroke="none" font-size="6.2" letter-spacing="1.6" font-family="Manrope,sans-serif" font-weight="700"><textPath href="#cap'+gid+'" startOffset="2%">SAPTAPADI WEDDINGS · AHMEDABAD · UDAIPUR · GOA · SAPTAPADI WEDDINGS · AHMEDABAD ·</textPath></text>'
+      +'<g transform="translate(60 110) scale(.8)" stroke-width="1.2">'+petals(12,6,16,-18)+'<circle r="5"/></g><circle cx="60" cy="110" r="30" stroke-opacity=".4"/></svg>';
+  }
+  $('#emblem').innerHTML=emblemSVG(); $('#emblem2').innerHTML=emblemSVG();
+
+  $('#badge').innerHTML='<svg viewBox="0 0 100 100" aria-hidden="true"><defs><path id="bp" d="M50,50 m-40,0 a40,40 0 1,1 80,0 a40,40 0 1,1 -80,0"/></defs><g id="badgeRot" style="transform-box:fill-box;transform-origin:center"><text><textPath href="#bp" textLength="248" lengthAdjust="spacing">KEEP SCROLLING DOWN ✦ KEEP SCROLLING DOWN ✦</textPath></text></g><circle cx="50" cy="50" r="28" fill="#e8735e"/><g transform="translate(50 50) scale(.5)" fill="none" stroke="#fbf1e6" stroke-width="2.4">'+petals(12,8,18,-18)+'</g></svg>';
+  $('#finRing').innerHTML='<svg viewBox="0 0 400 400" aria-hidden="true"><defs><path id="fp" d="M200,200 m-185,0 a185,185 0 1,1 370,0 a185,185 0 1,1 -370,0"/></defs><g id="finRot" style="transform-box:fill-box;transform-origin:center"><text><textPath href="#fp" textLength="1150" lengthAdjust="spacing">WE HAVE THE PLAN · YOU HAVE THE DAY · WE HAVE THE PLAN · YOU HAVE THE DAY ·</textPath></text></g><g transform="translate(200 200) scale(2.4)" fill="none" stroke="#fbf1e6" stroke-opacity=".7" stroke-width=".9">'+petals(14,7,18,-20)+'<circle r="5"/></g></svg>';
+
+  /* vertical rail marquee */
+  var rt=$('#railTrack'), unit='';
+  for(var i=0;i<14;i++)unit+='<span>We plan the whole day ●</span>';
+  rt.innerHTML=unit+unit;
+
+  /* 3D ring layers */
+  var ring=$('#ring'), layers='';
+  for(var z=-11;z<=11;z++){var l=40+Math.round((1-Math.abs(z)/11)*22);layers+='<i style="transform:translateZ('+z+'px);border-color:hsl(40 '+(55+Math.abs(z))+'% '+l+'%)"></i>'}
+  ring.insertAdjacentHTML('afterbegin',layers);
+
+  /* ---------- fit text lines to width ---------- */
+  function fit(){
+    $$('[data-fit]').forEach(function(el){
+      var w=el.parentElement.clientWidth;
+      el.style.fontSize='100px';
+      var sw=el.scrollWidth||el.getBoundingClientRect().width;
+      if(sw>0)el.style.fontSize=(100*w/sw)+'px';
+    });
+    cacheSizes();
+  }
+  var trackW=0, finH=0;
+  function cacheSizes(){
+    trackW=$('#track').scrollWidth;
+    finH=$('#finLines').offsetHeight;
+  }
+
+  /* ---------- scenes ---------- */
+  var el={
+    ring3d:$('#ring3d'),mega:$('.mega'),disk:$('#disk'),rt:$('#rt'),para:$('#storyPara'),scta:$('#storyCta'),
+    track:$('#track'),emblem:$('#emblem'),head:$('#prHead'),slots:$$('.slot'),panel:$('#panel'),
+    lns:$$('.ln > span'),jps:$$('.jp'),jcta:$('.jr .cta'),
+    finLines:$('#finLines'),finImg:$('#finImg'),finRot:$('#finRot'),fcta:$('#finCta'),fright:$('#finRight'),fcred:$('#finCredit'),
+    badgeRot:$('#badgeRot')
+  };
+
+  function heroFn(p){
+    ring.style.setProperty('--ry',(70-p*170)+'deg');
+    ring.style.setProperty('--rx',(16-p*36)+'deg');
+    ring.style.setProperty('--rz',(-8+p*34)+'deg');
+    el.ring3d.style.transform='translate('+(p*30)+'vw,'+(p*40)+'vh) scale('+(1+p*.75)+')';
+    el.mega.style.transform='translateY('+(-p*12)+'vh)';
+  }
+  function storyFn(p){
+    var t=ease(seg(p,0,.42));
+    el.disk.style.transform='translateY('+lerp(48,0,t)+'vh) scale('+lerp(.3,1,t)+')';
+    el.rt.style.opacity=seg(p,.26,.5);
+    el.rt.style.transform='rotate('+(p*420-40)+'deg)';
+    var a=ease(seg(p,.42,.64));
+    el.para.style.opacity=a; el.para.style.transform='translateY('+((1-a)*24)+'px)';
+    el.scta.style.opacity=a; el.scta.style.transform='translateY('+((1-a)*24)+'px)';
+  }
+  function hsFn(p){
+    var max=Math.max(0,trackW-innerWidth*.88);
+    el.track.style.transform='translateX('+(-p*max)+'px)';
+  }
+  var PS=[.10,.21,.32,.43,.54];
+  function prFn(p){
+    var a=ease(seg(p,0,.12));
+    el.emblem.style.transform='translateX(-50%) translateY('+lerp(0,-120,a)+'vh)';
+    el.head.style.transform='translateY('+lerp(40,0,a)+'vh)';
+    el.slots.forEach(function(s,i){
+      var st=PS[i], en=i<4?PS[i+1]:9, vis=p>=st&&p<en;
+      s.style.visibility=vis?'visible':'hidden';
+      if(vis){var r=ease(seg(p,st,st+.06));s.style.clipPath='inset('+((1-r)*100)+'% 0 0 0)';s.firstElementChild.style.transform='scale('+lerp(1.3,1,r)+')'}
+    });
+    var f=el.slots[4], e=ease(seg(p,.68,.84));
+    f.style.left=lerp(32,0,e)+'%'; f.style.top=lerp(16,0,e)+'%'; f.style.width=lerp(36,100,e)+'%'; f.style.height=lerp(76,100,e)+'%';
+    var pe=ease(seg(p,.88,1));
+    el.panel.style.transform='translateX('+((1-pe)*100)+'%)';
+    f.style.transform='translateX('+(-pe*30)+'vw)';
+    if(el.badgeRot)el.badgeRot.style.transform='rotate('+(p*720)+'deg)';
+  }
+  var LT=[.02,.14,.26,.38], PT=[.08,.2,.32,.44];
+  function jrFn(p){
+    el.lns.forEach(function(n,i){var r=ease(seg(p,LT[i],LT[i]+.1));n.style.transform='translateY('+((1-r)*105)+'%)'});
+    el.jps.forEach(function(n,i){var r=ease(seg(p,PT[i],PT[i]+.1));n.style.opacity=r;n.style.transform='scale('+lerp(.7,1,r)+') translateY('+((1-r)*8)+'vh)'});
+    var b=ease(seg(p,.6,.76));
+    el.jcta.style.opacity=b; el.jcta.style.transform='translateX(-50%) translateY('+((1-b)*20)+'px)';
+  }
+  function finFn(p){
+    var sh=el.finLines.parentElement.clientHeight;
+    var dy=Math.max(0,finH-sh*.74);
+    el.finLines.style.transform='translateY('+(-dy*ease(seg(p,0,.82)))+'px)';
+    el.finImg.style.transform='translateY('+lerp(6,-150,seg(p,0,.72))+'vh)';
+    el.finRot.style.transform='rotate('+(p*300)+'deg)';
+    var c=ease(seg(p,.76,.94));
+    [el.fcta,el.fright,el.fcred].forEach(function(n){n.style.opacity=c});
+    el.fcta.style.transform='translateY('+((1-c)*20)+'px)';
+  }
+
+  var scenes={
+    hero:{node:$('.hero'),fn:heroFn,c:0,last:-1},
+    story:{node:$('#story'),fn:storyFn,c:0,last:-1},
+    hs:{node:$('#hs'),fn:hsFn,c:0,last:-1},
+    pr:{node:$('#pr'),fn:prFn,c:0,last:-1},
+    jr:{node:$('#jr'),fn:jrFn,c:0,last:-1},
+    fin:{node:$('#fin'),fn:finFn,c:0,last:-1}
+  };
+  function target(k){
+    var s=scenes[k], r=s.node.getBoundingClientRect();
+    if(k==='hero')return clamp((BAR-r.top)/r.height);
+    var st=s.node.firstElementChild.offsetHeight, den=r.height-st;
+    return den>0?clamp((BAR-r.top)/den):0;
+  }
+  var K=matchMedia('(prefers-reduced-motion: reduce)').matches?1:.13;
+  function loop(){
+    for(var k in scenes){
+      var s=scenes[k], t=target(k), d=t-s.c;
+      s.c=Math.abs(d)<.0003?t:s.c+d*K;
+      if(s.c!==s.last){s.fn(s.c);s.last=s.c}
+    }
+    requestAnimationFrame(loop);
+  }
+
+  /* ---------- menu & anchors ---------- */
+  var mp=$('#menuPanel'), mb=$('#menuBtn');
+  function menu(open){mp.classList.toggle('open',open);mb.setAttribute('aria-expanded',open?'true':'false')}
+  mb.addEventListener('click',function(){menu(!mp.classList.contains('open'))});
+  $('#menuClose').addEventListener('click',function(){menu(false)});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')menu(false)});
+  $$('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      var id=a.getAttribute('href');
+      e.preventDefault(); menu(false);
+      if(id==='#top'){window.scrollTo({top:0,behavior:'smooth'});return}
+      var t=$(id); if(t)window.scrollTo({top:t.getBoundingClientRect().top+window.scrollY-BAR,behavior:'smooth'});
+    });
+  });
+
+  /* ---------- start ---------- */
+  fit();
+  addEventListener('resize',fit);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){fit();for(var k in scenes)scenes[k].last=-1});
+  setTimeout(function(){fit()},600);
+  loop();
+})();
+</script>
+
+</body></html>

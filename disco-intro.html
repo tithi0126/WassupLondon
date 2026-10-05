@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Disco Intro</title>
+<style>
+:root{--blue:#82A0FF;--pink:#F0BEFA;--bg:var(--blue);--fg:#14142b;--muted:#2b3470;--accent:var(--pink);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--fg);font-family:'Helvetica Neue',Arial,sans-serif;overflow-x:hidden}
+body.lock{overflow:hidden;height:100vh}
+
+/* Loader */
+#loader{position:fixed;inset:0;z-index:100;background:var(--pink);color:var(--fg);display:flex;align-items:flex-end;justify-content:space-between;padding:4vw;transition:transform 1s cubic-bezier(.77,0,.18,1)}
+#loader.done{transform:translateY(-100%)}
+#loader h1{font-size:clamp(14px,2vw,22px);letter-spacing:.3em;text-transform:uppercase;font-weight:400}
+#count{font-size:clamp(64px,16vw,220px);font-weight:700;line-height:.8;font-variant-numeric:tabular-nums}
+
+/* Disco scene */
+#scene{position:relative;height:500vh}
+#stage{position:sticky;top:0;height:100vh;overflow:hidden;background:radial-gradient(circle at 50% 45%,#2b2066,#120e33 55%,#05040f)}
+#dots{position:absolute;inset:-30%;background-image:radial-gradient(circle,rgba(240,190,250,.85) 0 4px,transparent 4px);background-size:70px 70px;opacity:.5;will-change:transform}
+canvas{position:absolute;inset:0;width:100%;height:100%}
+#stage::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 50%,rgba(0,0,10,.55) 100%)}
+#hint{position:absolute;z-index:2;left:0;right:0;bottom:6vh;text-align:center;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#ffffffaa}
+#title{z-index:2;position:absolute;left:0;right:0;top:9vh;text-align:center;font-size:clamp(28px,6vw,80px);font-weight:700;letter-spacing:-.02em;color:#fff}
+.flash,.cover{z-index:3;position:absolute;inset:0;pointer-events:none;opacity:0}
+.flash{background:#fff}.cover{background:var(--bg)}
+
+/* Existing site (replace this block with your own) */
+#site nav{display:flex;justify-content:space-between;padding:28px 5vw;font-size:14px;letter-spacing:.1em;text-transform:uppercase}
+#site section{padding:12vh 5vw;border-top:1px solid #14142b22}
+#site h2{font-size:clamp(36px,8vw,120px);line-height:.95;letter-spacing:-.03em;max-width:14ch}
+#site p{color:var(--muted);max-width:50ch;margin-top:24px;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:40px}
+.card{aspect-ratio:4/5;background:var(--pink);border-radius:24px;padding:20px;display:flex;align-items:flex-end}
+</style>
+</head>
+<body class="lock">
+
+<div id="loader"><h1>Warming up the dance floor</h1><div id="count">0</div></div>
+
+<div id="scene">
+  <div id="stage">
+    <canvas id="bg"></canvas>
+    <canvas id="c"></canvas>
+    <div id="title">Step inside</div>
+    <div id="hint">Scroll</div>
+    <div class="flash" id="flash"></div>
+    <div class="cover" id="cover"></div>
+  </div>
+</div>
+
+<!-- ======= YOUR EXISTING WEBSITE GOES HERE ======= -->
+<div id="site">
+  <nav><strong>BRAND</strong><span>Work · About · Contact</span></nav>
+  <section><h2>Your existing website starts here.</h2><p>Replace everything inside the #site element with your current site's markup.</p></section>
+  <section><h2>Selected work</h2><div class="grid"><div class="card">One</div><div class="card">Two</div><div class="card">Three</div></div></section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// ---- Loader ----
+const countEl=document.getElementById('count'),loader=document.getElementById('loader');
+let n=0;
+const iv=setInterval(()=>{
+  n+=Math.ceil(Math.random()*6);
+  if(n>=100){n=100;clearInterval(iv);setTimeout(()=>{loader.classList.add('done');document.body.classList.remove('lock')},300)}
+  countEl.textContent=n;
+},45);
+
+// ---- Palette ----
+const PAL=['#F0BEFA','#82A0FF','#ffe27a','#7dffd4','#ff8fb1','#ff9f5a','#b69cff','#ffffff'];
+const PALN=PAL.map(c=>parseInt(c.slice(1),16));
+// ---- Three.js disco ball ----
+const canvas=document.getElementById('c');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.outputEncoding=THREE.sRGBEncoding;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.2;
+
+// Procedural disco room that the mirror tiles reflect
+function makeEnv(){
+  const c=document.createElement('canvas');c.width=1024;c.height=512;const g=c.getContext('2d');
+  const bgr=g.createLinearGradient(0,0,0,512);
+  bgr.addColorStop(0,'#0a0828');bgr.addColorStop(.5,'#3a2a8c');bgr.addColorStop(1,'#07061a');
+  g.fillStyle=bgr;g.fillRect(0,0,1024,512);
+  for(let i=0;i<22;i++){
+    const x=Math.random()*1024,y=Math.random()*512,r=40+Math.random()*120,col=PAL[i%PAL.length];
+    const rg=g.createRadialGradient(x,y,0,x,y,r);
+    rg.addColorStop(0,col);rg.addColorStop(1,col+'00');
+    g.globalAlpha=.9;g.fillStyle=rg;g.fillRect(x-r,y-r,r*2,r*2);
+  }
+  g.globalAlpha=1;g.fillStyle='#fff';
+  for(let i=0;i<180;i++){g.beginPath();g.arc(Math.random()*1024,Math.random()*512,1.5+Math.random()*4,0,7);g.fill();}
+  for(let i=0;i<7;i++) g.fillRect(Math.random()*1000,70+Math.random()*300,25+Math.random()*50,50+Math.random()*90);
+  const tex=new THREE.CanvasTexture(c);tex.mapping=THREE.EquirectangularReflectionMapping;tex.encoding=THREE.sRGBEncoding;
+  const pm=new THREE.PMREMGenerator(renderer);const env=pm.fromEquirectangular(tex).texture;tex.dispose();pm.dispose();return env;
+}
+const scene=new THREE.Scene();scene.environment=makeEnv();
+const camera=new THREE.PerspectiveCamera(45,1,0.1,50);
+const R=1.5, ball=new THREE.Group(); scene.add(ball);
+
+// string
+const str=new THREE.Mesh(new THREE.CylinderGeometry(.015,.015,4,6),new THREE.MeshBasicMaterial({color:0xffffff}));
+str.position.y=R+2; scene.add(str);
+
+// mirror tiles
+const rings=34, tiles=[];
+for(let i=0;i<rings;i++){
+  const lat=-Math.PI/2+(i+.5)*Math.PI/rings, cnt=Math.max(4,Math.round(rings*2*Math.cos(lat)));
+  for(let j=0;j<cnt;j++) tiles.push([lat,j/cnt*Math.PI*2]);
+}
+const size=Math.PI*R/rings*.9;
+const mat=new THREE.MeshStandardMaterial({color:0xffffff,metalness:1,roughness:.04,envMapIntensity:1.8});
+const inst=new THREE.InstancedMesh(new THREE.BoxGeometry(size,size,size*.25),mat,tiles.length);
+const d=new THREE.Object3D(), col=new THREE.Color();
+tiles.forEach(([lat,lon],k)=>{
+  d.position.set(Math.cos(lat)*Math.cos(lon),Math.sin(lat),Math.cos(lat)*Math.sin(lon)).multiplyScalar(R);
+  d.lookAt(d.position.clone().multiplyScalar(2));
+  // slight random tilt so tiles sparkle individually
+  d.rotateX((Math.random()-.5)*.4); d.rotateY((Math.random()-.5)*.4);
+  d.updateMatrix(); inst.setMatrixAt(k,d.matrix);
+  const g=.75+Math.random()*.25; col.setRGB(g,g,g*(.95+Math.random()*.1));
+  if(Math.random()<.1) col.set(PALN[Math.floor(Math.random()*PALN.length)]);
+  inst.setColorAt(k,col);
+});
+ball.add(inst);
+// dark core so gaps read as the structure
+ball.add(new THREE.Mesh(new THREE.SphereGeometry(R*.97,24,24),new THREE.MeshBasicMaterial({color:0x0b0c22})));
+
+// sparkle stars on the ball
+const st=document.createElement('canvas');st.width=st.height=64;
+{const g=st.getContext('2d'),r=g.createRadialGradient(32,32,0,32,32,32);
+ r.addColorStop(0,'#fff');r.addColorStop(.25,'rgba(255,255,255,.5)');r.addColorStop(1,'rgba(255,255,255,0)');
+ g.fillStyle=r;g.fillRect(0,0,64,64);g.fillStyle='#fff';g.fillRect(31,2,2,60);g.fillRect(2,31,60,2);}
+const sp=[];for(let i=0;i<90;i++){const u=Math.random()*2-1,a=Math.random()*6.283,q=Math.sqrt(1-u*u);sp.push(q*Math.cos(a)*R*1.03,u*R*1.03,q*Math.sin(a)*R*1.03);}
+const spG=new THREE.BufferGeometry();spG.setAttribute('position',new THREE.Float32BufferAttribute(sp,3));
+const spM=new THREE.PointsMaterial({size:.32,map:new THREE.CanvasTexture(st),transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,color:0xffffff});
+ball.add(new THREE.Points(spG,spM));
+// colored orbiting lights
+scene.add(new THREE.AmbientLight(0x6670bb,.3));
+const lights=[0xF0BEFA,0x82A0FF,0xffe27a,0x7dffd4,0xff8fb1,0xffffff].map(c=>{const l=new THREE.PointLight(c,3.2,22);scene.add(l);return l});
+
+const bg=document.getElementById('bg'),bx=bg.getContext('2d');
+const spots=Array.from({length:240},(_,i)=>({a:Math.random()*6.283,r:Math.random(),s:.4+Math.random()*1.6,c:PAL[i%PAL.length],t:Math.random()*9}));
+const beams=Array.from({length:16},(_,i)=>({a:i/16*6.283,c:PAL[i%PAL.length],w:.035+Math.random()*.05}));
+function drawBg(t,p){
+  const W=bg.width,H=bg.height,cx=W/2,cy=H*.48,M=Math.hypot(W,H)/2,u=W/1000;
+  bx.globalCompositeOperation='source-over';bx.clearRect(0,0,W,H);
+  bx.globalCompositeOperation='lighter';
+  const rot=t*.00022+p*6,zoom=1+p*2.2;
+  // central glow
+  const gl=bx.createRadialGradient(cx,cy,0,cx,cy,M*.55*zoom);
+  gl.addColorStop(0,'rgba(240,190,250,'+(.35+.1*Math.sin(t*.004))+')');gl.addColorStop(.4,'rgba(130,160,255,.15)');gl.addColorStop(1,'rgba(130,160,255,0)');
+  bx.fillStyle=gl;bx.fillRect(0,0,W,H);
+  // sweeping beams
+  beams.forEach((b,i)=>{
+    const a=b.a+rot*(i%2?1:-.7),L=M*1.3;
+    const g=bx.createLinearGradient(cx,cy,cx+Math.cos(a)*L,cy+Math.sin(a)*L);
+    g.addColorStop(0,b.c+'66');g.addColorStop(1,b.c+'00');
+    bx.fillStyle=g;bx.beginPath();bx.moveTo(cx,cy);
+    bx.lineTo(cx+Math.cos(a-b.w)*L,cy+Math.sin(a-b.w)*L);
+    bx.lineTo(cx+Math.cos(a+b.w)*L,cy+Math.sin(a+b.w)*L);bx.fill();
+  });
+  // drifting light spots
+  spots.forEach(s=>{
+    const a=s.a+rot*s.s,r=((s.r+t*.00003*s.s)%1)*M*1.1*zoom;
+    const x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r*.8;
+    const tw=.45+.55*Math.abs(Math.sin(t*.003*s.s+s.t)),sz=(8+s.r*30)*u*Math.sqrt(zoom);
+    const g=bx.createRadialGradient(x,y,0,x,y,sz);
+    g.addColorStop(0,'#fff');g.addColorStop(.25,s.c);g.addColorStop(1,s.c+'00');
+    bx.globalAlpha=tw*Math.min(1,r/(M*.15));bx.fillStyle=g;bx.beginPath();bx.arc(x,y,sz,0,6.283);bx.fill();
+  });
+  bx.globalAlpha=1;
+}
+function resize(){
+  const dpr=Math.min(devicePixelRatio,1.5);bg.width=innerWidth*dpr;bg.height=innerHeight*dpr;
+  const w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);
+  camera.aspect=w/h;camera.updateProjectionMatrix();
+  scene.position.y=0;
+}
+addEventListener('resize',resize);resize();
+
+// ---- Scroll ----
+const sceneEl=document.getElementById('scene');
+const flash=document.getElementById('flash'),cover=document.getElementById('cover');
+const title=document.getElementById('title'),hint=document.getElementById('hint');
+let target=0,p=0;
+const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
+const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+function readScroll(){
+  const max=sceneEl.offsetHeight-innerHeight;
+  target=clamp(-sceneEl.getBoundingClientRect().top/max);
+}
+addEventListener('scroll',readScroll,{passive:true});readScroll();
+
+function tick(t){
+  p+=(target-p)*.08;               // smoothing
+  const z=ease(clamp(p/.85));
+  ball.rotation.y=p*Math.PI*7+t*0.0003;
+  ball.rotation.x=Math.sin(p*3)*.3;
+  camera.position.set(0,0,6.5-z*5.4); // zoom into the ball
+  camera.lookAt(0,0,0);
+  str.visible=z<.2;
+  ball.rotation.z=Math.sin(t*.0008)*.03; // gentle sway
+  spM.size=.3+Math.sin(t*.006)*.12;
+  lights.forEach((l,i)=>{
+    const a=t*0.0006*(1+i*.3)+i*1.6;
+    l.position.set(Math.cos(a)*4,Math.sin(a*1.3)*3,Math.sin(a)*4+1);
+  });
+  drawBg(t,p);
+  bg.style.opacity=1-clamp((p-.8)/.1);
+  flash.style.opacity=clamp((p-.62)/.2)*(1-clamp((p-.84)/.1));
+  cover.style.opacity=clamp((p-.86)/.1);
+  title.style.opacity=1-clamp(p/.15);
+  hint.style.opacity=1-clamp(p/.05);
+  renderer.render(scene,camera);
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+</script>
+</body>
+</html>

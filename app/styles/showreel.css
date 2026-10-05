@@ -1,0 +1,59 @@
+/* ─── Showreel Section ───────────────────────────────────────────────────── */
+.showreel-section {
+    position: relative;
+    width: 100%;
+    background: #0a0a0a;
+    overflow: visible;
+    padding-bottom: 100px;
+}
+
+/* ─── Responsive grid ── */
+.showreel-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+/* First card spans 2 columns on desktop only */
+.showreel-card--wide {
+    grid-column: span 2;
+}
+
+/* ─── Card hover ── */
+.showreel-card {
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.showreel-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 900px) {
+    .showreel-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 0 24px;
+    }
+
+    .showreel-card--wide {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 600px) {
+    .showreel-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 0 16px;
+    }
+
+    .showreel-card--wide {
+        grid-column: span 1;
+    }
+
+    .showreel-card {
+        aspect-ratio: 4/3 !important;
+    }
+}
