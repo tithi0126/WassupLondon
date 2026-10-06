@@ -1,4 +1,4 @@
-# Wassup London — Wedding Event Page UI
+# Wassup London
 
 A premium, editorial-style wedding event page designed for the **Wassup London** website.
 
