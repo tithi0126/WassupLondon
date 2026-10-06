@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CARDS_DATA } from "@/lib/data";
@@ -59,7 +60,10 @@ export default function ServiceCards() {
       {/* ─── Service Cards ─── */}
       <div className="cards-wrapper" id="cards-wrapper">
         {CARDS_DATA.map((card) => (
-          <div key={card.color} className={`card card-${card.color}`}>
+          <div
+            key={card.color}
+            className={`card card-${card.color} ${card.link ? 'card-clickable' : ''}`}
+          >
             <div className={`card-sticker sticker-${card.sticker}`}>
               <img
                 src={`/assets/Card-Sticker SVG/sticker-${card.sticker}.svg`}
@@ -69,7 +73,15 @@ export default function ServiceCards() {
                 aria-hidden="true"
               />
             </div>
-            <h3 className="card-title">{card.title}</h3>
+            <h3 className="card-title">
+              {card.link ? (
+                <Link href={card.link} className="card-title-link">
+                  {card.title}
+                </Link>
+              ) : (
+                card.title
+              )}
+            </h3>
             <svg
               width="100%"
               height="10"
@@ -94,6 +106,11 @@ export default function ServiceCards() {
                 </li>
               ))}
             </ul>
+            {card.link && (
+              <Link href={card.link} className="card-cta-link">
+                Explore Weddings &rarr;
+              </Link>
+            )}
           </div>
         ))}
       </div>

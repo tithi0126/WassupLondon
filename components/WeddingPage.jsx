@@ -5,329 +5,227 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
 
-const WEDDING_SERVICES = [
-    { id: 'full-planning', title: 'Full Planning', desc: 'Venue sourcing, supplier management, budget control and a detailed timeline for every function — from engagement to reception.' },
-    { id: 'decor-design', title: 'Décor & Design', desc: 'Mandaps, floral installations, lighting rigs and stage design built around your palette, theme and cultural tradition.' },
-    { id: 'catering', title: 'Catering', desc: 'Indian, Asian, Fusion and international menus. Canapé receptions, buffets and seated dinners with full front-of-house service.' },
-    { id: 'guest-hospitality', title: 'Guest Hospitality', desc: 'Hotel room blocks, airport transfers, welcome gifts and day-of itineraries for travelling families across the UK and abroad.' },
-    { id: 'entertainment', title: 'Entertainment', desc: 'DJ, MC, live musicians, dhol players, saxophonists — professionally curated sound, intelligent lighting and LED dance floors.' },
-    { id: 'day-of-team', title: 'Day-of Coordination', desc: 'A dedicated floor team that runs cues, suppliers and family logistics from morning setup to the final farewell.' },
+const SERVICES = [
+  ['01', 'Full Planning', 'From first moodboard to the last guest leaving — suppliers, schedules, budgets and every moving part.'],
+  ['02', 'Décor & Design', 'Floral installations, mandaps, tablescapes, lighting and spaces designed around your story.'],
+  ['03', 'Food & Hospitality', 'Indian, fusion and international menus, guest accommodation, transfers and welcome moments.'],
+  ['04', 'Entertainment', 'Dhol, DJs, live musicians, performers, lighting and dance floors — all curated as one experience.'],
+  ['05', 'Day-of Production', 'A calm, experienced team running cues, suppliers, family logistics and every transition on the day.'],
+  ['06', 'Destination Weddings', 'London, across the UK or somewhere entirely different. We bring the plan with you.'],
 ];
 
-const PROMISES = [
-    { num: '01', heading: 'One team, every function', body: 'We plan the mehndi, garba, sangeet, pheras and reception as one continuous story. No coordination gaps, no dropped balls.' },
-    { num: '02', heading: 'UK-rooted, culturally fluent', body: 'Based in London, we work across the UK and destination venues. We understand both British expectations and South Asian traditions.' },
-    { num: '03', heading: 'Transparent pricing', body: 'No hidden extras. Every supplier quote, catering rate and décor cost is itemised in a single shared document before you sign anything.' },
+const EVENTS = [
+  ['01', 'Mehndi', 'Colour, music, movement.'],
+  ['02', 'Sangeet', 'Big energy, perfectly timed.'],
+  ['03', 'Ceremony', 'Tradition, intimacy, meaning.'],
+  ['04', 'Reception', 'The night everyone remembers.'],
 ];
 
-const PAL = {
-    1: ['#29725f', '#0e2219'], 2: ['#4b69f0', '#0d1a5c'],
-    3: ['#a0325a', '#2e0a1a'], 4: ['#f5693c', '#5c1e0a'],
-    5: ['#82a0ff', '#1a2a5c'], 6: ['#1a1a1a', '#0a0a0a'],
+const IMAGES = {
+  hero: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2200&q=90',
+  couple: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1600&q=90',
+  details: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1400&q=90',
+  ceremony: 'https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1600&q=90',
+  dance: 'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1600&q=90',
+  table: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1600&q=90',
 };
-function artSVG(k) {
-    const p = PAL[k] || PAL[1];
-    const motifs = [
-        '<circle cx="50" cy="62" r="34" fill="none" stroke="#fff6ee" stroke-opacity=".35" stroke-width=".8"/><circle cx="50" cy="62" r="22" fill="none" stroke="#fff6ee" stroke-opacity=".35" stroke-width=".8"/><path d="M50 26v72M14 62h72" stroke="#fff6ee" stroke-opacity=".35" stroke-width=".8"/>',
-        '<path d="M6 130V66a44 44 0 0 1 88 0v64M22 130V68a28 28 0 0 1 56 0v62" fill="none" stroke="#fff6ee" stroke-opacity=".35" stroke-width=".8"/>',
-        '<path d="M18 104h64M26 104c0-34 48-34 48 0M50 38v14M44 44h12M30 96h40" fill="none" stroke="#fff6ee" stroke-opacity=".35" stroke-width=".8"/>',
-        '<path d="M30 34L50 14L70 34M22 70L50 22L78 70M10 100L50 30L90 100" fill="none" stroke="#fff6ee" stroke-opacity=".35" stroke-width=".8"/>',
-        '<rect x="20" y="30" width="60" height="80" rx="4" fill="none" stroke="#fff6ee" stroke-opacity=".35" stroke-width=".8"/><path d="M30 50h40M30 65h30M30 80h20" stroke="#fff6ee" stroke-opacity=".35" stroke-width=".8"/>',
-        '<path d="M50 20c0 0-30 30-30 50s30 40 30 40s30-20 30-40S50 20 50 20z" fill="none" stroke="#fff6ee" stroke-opacity=".35" stroke-width=".8"/>',
-    ];
-    return `<svg viewBox="0 0 100 130" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="wg${k}x" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${p[0]}"/><stop offset="1" stop-color="${p[1]}"/></linearGradient></defs><rect width="100" height="130" fill="url(#wg${k}x)"/>${motifs[(k - 1) % motifs.length]}</svg>`;
-}
 
-function Ring3D() {
-    const wrapRef = useRef(null);
-    useEffect(() => {
-        if (!wrapRef.current) return;
-        let layers = '';
-        for (let z = -11; z <= 11; z++) {
-            const l = 40 + Math.round((1 - Math.abs(z) / 11) * 22);
-            layers += `<i style="transform:translateZ(${z}px);border-color:hsl(40 ${55 + Math.abs(z)}% ${l}%)"></i>`;
-        }
-        wrapRef.current.innerHTML = `<div class="wd-gem"></div>${layers}`;
-    }, []);
-    return <div className="wd-ring" ref={wrapRef} />;
-}
-
-function ArrowSvg() {
-    return (
-        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.4" className="wd-pill-arrow" aria-hidden="true">
-            <path d="M2 10 10 2M4 2h6v6" />
-        </svg>
-    );
+function Arrow() {
+  return <span className="wdx-arrow" aria-hidden="true">↗</span>;
 }
 
 export default function WeddingPage() {
-    const railRef = useRef(null);
+  const root = useRef(null);
 
-    useEffect(() => {
-        gsap.registerPlugin(ScrollTrigger);
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    const ctx = gsap.context(() => {
+      gsap.fromTo('.wdx-hero-copy > *',
+        { y: 70, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, stagger: .1, ease: 'power3.out' }
+      );
 
-        /* Rail */
-        if (railRef.current) {
-            let u = '';
-            for (let i = 0; i < 14; i++) u += '<span>Bespoke UK Weddings \u25cf</span>';
-            railRef.current.innerHTML = u + u;
+      gsap.to('.wdx-hero-image', {
+        yPercent: 12, ease: 'none',
+        scrollTrigger: { trigger: '.wdx-hero', start: 'top top', end: 'bottom top', scrub: true }
+      });
+
+      gsap.fromTo('.wdx-intro-word',
+        { yPercent: 110 },
+        {
+          yPercent: 0, duration: 1.1, stagger: .12, ease: 'power4.out',
+          scrollTrigger: { trigger: '.wdx-intro', start: 'top 70%' }
         }
+      );
 
-        /* Placeholder art */
-        document.querySelectorAll('[data-artk]').forEach(n => {
-            n.innerHTML = artSVG(+(n.getAttribute('data-artk')) || 1);
+      gsap.utils.toArray('.wdx-reveal').forEach((el) => {
+        gsap.fromTo(el, { y: 45, opacity: 0 }, {
+          y: 0, opacity: 1, duration: .8, ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 82%', once: true }
         });
+      });
 
-        /* Fit text — resize only, never scroll */
-        function fit() {
-            document.querySelectorAll('[data-fit-text]').forEach(el => {
-                const w = el.parentElement.clientWidth;
-                el.style.fontSize = '100px';
-                const sw = el.scrollWidth || el.getBoundingClientRect().width;
-                if (sw > 0) el.style.fontSize = (100 * w / sw) + 'px';
-            });
+      gsap.to('.wdx-marquee-track', {
+        xPercent: -50, ease: 'none', duration: 24, repeat: -1
+      });
+
+      gsap.to('.wdx-ring', {
+        rotation: 360, ease: 'none',
+        scrollTrigger: { trigger: '.wdx-story', start: 'top bottom', end: 'bottom top', scrub: true }
+      });
+
+      gsap.fromTo('.wdx-gallery-card',
+        { y: 60 },
+        {
+          y: -30, stagger: .08, ease: 'none',
+          scrollTrigger: { trigger: '.wdx-gallery', start: 'top bottom', end: 'bottom top', scrub: true }
         }
-        fit();
-        window.addEventListener('resize', fit);
+      );
+    }, root);
 
-        /* ══ Hero: ONE timeline = one scrub tick for both targets ══ */
-        gsap.timeline({
-            scrollTrigger: { trigger: '.wd-hero', start: 'top top', end: 'bottom top', scrub: 1 }
-        })
-            .to('.wd-ring3d', { x: '30vw', y: '40vh', scale: 1.75, ease: 'none' }, 0)
-            .to('.wd-mega', { y: '-12vh', ease: 'none' }, 0);
+    const refreshTimer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 400);
 
-        /* ══ Story: entrance + spin + fade share two triggers ══ */
-        gsap.fromTo('.wd-disk', { y: '60vh', scale: 0.3, opacity: 0 }, {
-            y: '0', scale: 1, opacity: 1, ease: 'none',
-            scrollTrigger: { trigger: '.wd-story-scene', start: 'top 90%', end: 'top 20%', scrub: 1 }
-        });
-        gsap.timeline({
-            scrollTrigger: { trigger: '.wd-story-scene', start: 'top 90%', end: 'bottom top', scrub: 1 }
-        })
-            .to('.wd-disk-textgroup', { rotation: 420, ease: 'none' }, 0)
-            .fromTo(['.wd-story-para', '.wd-story-cta'], { opacity: 0, y: 28 }, { opacity: 1, y: 0, ease: 'none' }, 0.25);
+    return () => {
+      clearTimeout(refreshTimer);
+      ctx.revert();
+    };
+  }, []);
 
-        /* ══ Horizontal scroller ══ */
-        const track = document.querySelector('.wd-track');
-        if (track) {
-            const getMax = () => Math.max(0, track.scrollWidth - window.innerWidth * 0.92);
-            gsap.to('.wd-track', {
-                x: () => -getMax(), ease: 'none',
-                scrollTrigger: {
-                    trigger: '.wd-hs-scene', start: 'top top',
-                    end: () => `+=${getMax()}`,
-                    scrub: 1, pin: true, invalidateOnRefresh: true,
-                }
-            });
-        }
+  return (
+    <div className="wdx-root" ref={root}>
+      <div className="wdx-rail" aria-hidden="true">
+        <span>Weddings · Wassup London · Weddings · Wassup London · </span>
+        <span>Weddings · Wassup London · Weddings · Wassup London · </span>
+      </div>
 
-        /* ══ Promises: ONE trigger, staggered timeline (was 4 triggers) ══ */
-        gsap.timeline({
-            scrollTrigger: { trigger: '.wd-promises-section', start: 'top 75%', toggleActions: 'play none none reverse' }
-        })
-            .fromTo('.wd-promise-head', { y: 80, opacity: 0 }, { y: 0, opacity: 1, ease: 'power3.out', duration: 0.7 })
-            .fromTo('.wd-promise-card', { opacity: 0, y: 60 }, { opacity: 1, y: 0, ease: 'power3.out', duration: 0.7, stagger: 0.12 }, '-=0.3');
-
-        /* ══ Journey: TWO triggers instead of 8 (4 lines + 4 photos) ══ */
-        gsap.timeline({
-            scrollTrigger: { trigger: '.wd-journey-scene', start: 'top 80%', toggleActions: 'play none none reverse' }
-        })
-            .fromTo('.wd-ln-inner', { y: '105%' }, { y: '0%', ease: 'power3.out', duration: 0.8, stagger: 0.12 });
-
-        gsap.timeline({
-            scrollTrigger: { trigger: '.wd-journey-scene', start: 'top 65%', toggleActions: 'play none none reverse' }
-        })
-            .fromTo('.wd-jp', { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, ease: 'power3.out', duration: 0.9, stagger: 0.14 });
-
-        /* ══ Finale: ONE scrub timeline + one fade (was 3 triggers) ══ */
-        gsap.timeline({
-            scrollTrigger: { trigger: '.wd-finale-scene', start: 'top top', end: 'bottom top', scrub: 1 }
-        })
-            .fromTo('.wd-fin-img', { y: '6vh' }, { y: '-60vh', ease: 'none' }, 0)
-            .to('.wd-fin-ring-rot', { rotation: 300, ease: 'none' }, 0);
-
-        gsap.fromTo(['.wd-fin-cta', '.wd-fin-right', '.wd-fin-credit'], { opacity: 0, y: 20 }, {
-            opacity: 1, y: 0, stagger: 0.1, ease: 'power3.out',
-            scrollTrigger: { trigger: '.wd-finale-scene', start: 'top 50%', toggleActions: 'play none none reverse' }
-        });
-
-        /* ══ Navbar colour: ScrollTrigger callbacks — ZERO raw scroll listeners ══ */
-        const navbar = document.querySelector('.navbar');
-        if (navbar) {
-            ['.wd-promises-section', '.wd-services-section'].forEach(sel => {
-                const el = document.querySelector(sel);
-                if (!el) return;
-                ScrollTrigger.create({
-                    trigger: el, start: 'top 60px', end: 'bottom 60px',
-                    onEnter: () => { navbar.classList.add('on-light'); navbar.classList.remove('on-dark'); },
-                    onLeave: () => { navbar.classList.add('on-dark'); navbar.classList.remove('on-light'); },
-                    onEnterBack: () => { navbar.classList.add('on-light'); navbar.classList.remove('on-dark'); },
-                    onLeaveBack: () => { navbar.classList.add('on-dark'); navbar.classList.remove('on-light'); },
-                });
-            });
-        }
-
-        return () => {
-            window.removeEventListener('resize', fit);
-            ScrollTrigger.getAll().forEach(t => t.kill());
-        };
-    }, []);
-
-    return (
-        <div className="wd-root">
-            <aside className="wd-rail" aria-hidden="true">
-                <div className="wd-rail-track" ref={railRef} />
-            </aside>
-
-            {/* ══ HERO ══════════════════════════════════════════════════════ */}
-            <section className="wd-hero" id="wd-top">
-                <div className="wd-hero-in">
-                    <div className="wd-ring3d" aria-hidden="true"><Ring3D /></div>
-                    <h1 className="wd-mega wd-disp">
-                        <span className="wd-mega-l1">Your</span>
-                        <span className="wd-mega-l2">Wedding</span>
-                    </h1>
-                </div>
-                <a className="wd-small-link" href="#wd-story">
-                    Bespoke UK Weddings <span aria-hidden="true">&#8599;</span>
-                </a>
-                <p className="wd-hero-sub">
-                    Every tradition, every detail, one team — delivering flawless weddings across London and the UK.
-                </p>
-            </section>
-
-            {/* ══ STORY ═════════════════════════════════════════════════════ */}
-            <section className="wd-scene wd-story-scene" id="wd-story">
-                <div className="wd-stick wd-story-stick">
-                    <div className="wd-disk" aria-hidden="true">
-                        <svg viewBox="0 0 400 400" aria-hidden="true">
-                            <defs><path id="wdCp2" d="M200,200 m-165,0 a165,165 0 1,1 330,0 a165,165 0 1,1 -330,0" /></defs>
-                            <g className="wd-disk-textgroup">
-                                <text><textPath href="#wdCp2" textLength="1026" lengthAdjust="spacing">{"Let's plan your perfect day \u2736 Let's plan your perfect day \u2736"}</textPath></text>
-                            </g>
-                            <circle cx="200" cy="200" r="92" fill="var(--color-orange)" />
-                            <g transform="translate(200 200)" fill="none" stroke="#fbf1e6" strokeOpacity=".7" strokeWidth="1.2">
-                                <circle r="28" /><circle r="18" /><circle r="8" /><path d="M0-36V36M-36 0H36" />
-                            </g>
-                        </svg>
-                    </div>
-                    <p className="wd-story-para">
-                        Wassup London is the UK&apos;s trusted wedding planning and events company. We plan the mehndi, garba,
-                        sangeet, pheras and reception as one seamless story — managing every supplier, cultural detail and
-                        guest so your families can simply enjoy every moment.
-                    </p>
-                    <div className="wd-story-cta">
-                        <a className="wd-pill" href="#wd-services">Explore our services <ArrowSvg /></a>
-                    </div>
-                </div>
-            </section>
-
-            {/* ══ HORIZONTAL LETTER SCROLL ══════════════════════════════════ */}
-            <section className="wd-hs-scene" id="wd-hs">
-                <div className="wd-hs-inner">
-                    <div className="wd-track" id="wd-track">
-                        {['W', 'E', 'D', 'D', 'I', 'N', 'G'].map((l, i) => <span key={i} className="wd-let">{l}</span>)}
-                        {[1, 2, 3, 4].map(k => (
-                            <div key={k} className="wd-shot">
-                                <div data-artk={k} className="wd-shot-art" />
-                                <div className="wd-shot-lab">Wassup London</div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* ══ PROMISES ══════════════════════════════════════════════════ */}
-            <section className="wd-promises-section" id="wd-promises">
-                <div className="wd-promise-inner">
-                    <h2 className="wd-promise-head wd-disp"><span>Every detail,</span><br /><em>handled</em></h2>
-                    <div className="wd-promise-grid">
-                        {PROMISES.map(p => (
-                            <article key={p.num} className="wd-promise-card">
-                                <span className="wd-promise-num">{p.num}</span>
-                                <h3 className="wd-promise-heading">{p.heading}</h3>
-                                <p className="wd-promise-body">{p.body}</p>
-                            </article>
-                        ))}
-                    </div>
-                    <div className="wd-promise-photos">
-                        {[5, 6, 3].map((k, i) => (
-                            <div key={i} className={`wd-pphoto wd-pphoto--${i + 1}`}>
-                                <div data-artk={k} className="wd-pphoto-art" />
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* ══ JOURNEY LINES ═════════════════════════════════════════════ */}
-            <section className="wd-scene wd-journey-scene" id="wd-journey">
-                <div className="wd-stick">
-                    <div className="wd-lines wd-disp">
-                        {['Your', 'Vision', 'Our', 'Expertise'].map((word, i) => (
-                            <span key={i} className="wd-ln"><span className="wd-ln-inner">{word}</span></span>
-                        ))}
-                    </div>
-                    <div className="wd-jp wd-jp1"><div data-artk={4} className="wd-jp-art" /></div>
-                    <div className="wd-jp wd-jp2"><div data-artk={1} className="wd-jp-art" /></div>
-                    <div className="wd-jp wd-jp3"><div data-artk={5} className="wd-jp-art" /></div>
-                    <div className="wd-jp wd-jp4"><div data-artk={6} className="wd-jp-art" /></div>
-                    <div className="wd-journey-cta">
-                        <a className="wd-pill wd-pill--dark" href="#wd-services">See all services <ArrowSvg /></a>
-                    </div>
-                </div>
-            </section>
-
-            {/* ══ SERVICES ══════════════════════════════════════════════════ */}
-            <section className="wd-services-section" id="wd-services">
-                <span className="wd-eyebrow">What we plan</span>
-                {WEDDING_SERVICES.map(svc => (
-                    <a key={svc.id} className="wd-row" href="#wd-contact">
-                        <h3 className="wd-row-title">{svc.title}</h3>
-                        <p className="wd-row-desc">{svc.desc}</p>
-                        <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1.4" className="wd-row-arrow" aria-hidden="true">
-                            <path d="M3 19 19 3M7 3h12v12" />
-                        </svg>
-                    </a>
-                ))}
-            </section>
-
-            {/* ══ FINALE ════════════════════════════════════════════════════ */}
-            <section className="wd-scene wd-finale-scene" id="wd-finale">
-                <div className="wd-stick wd-finale-stick">
-                    <div className="wd-fin-img">
-                        <div data-artk={2} className="wd-fin-art" />
-                        <div className="wd-fin-ring-wrap" aria-hidden="true">
-                            <svg viewBox="0 0 400 400">
-                                <defs><path id="wdFp2" d="M200,200 m-185,0 a185,185 0 1,1 370,0 a185,185 0 1,1 -370,0" /></defs>
-                                <g className="wd-fin-ring-rot">
-                                    <text><textPath href="#wdFp2" textLength="1150" lengthAdjust="spacing">WE HAVE THE PLAN &middot; YOU HAVE THE DAY &middot; WE HAVE THE PLAN &middot; YOU HAVE THE DAY &middot;</textPath></text>
-                                </g>
-                                <g transform="translate(200 200)" fill="none" stroke="#fbf1e6" strokeOpacity=".6" strokeWidth=".9">
-                                    <circle r="18" /><circle r="8" /><path d="M0-26V26M-26 0H26" />
-                                </g>
-                            </svg>
-                        </div>
-                    </div>
-                    <div className="wd-fin-lines" aria-hidden="true">
-                        <div data-fit-text className="wd-fin-word">Say I do</div>
-                        <div data-fit-text className="wd-fin-word">Say I do</div>
-                        <div data-fit-text className="wd-fin-word">Say I do</div>
-                        <div data-fit-text className="wd-fin-word wd-fin-word--accent">With us</div>
-                    </div>
-                    <div className="wd-fin-cta" id="wd-contact">
-                        <a className="wd-pill" href="https://wa.me/447454904611" target="_blank" rel="noopener noreferrer">
-                            Book a free consultation <ArrowSvg />
-                        </a>
-                    </div>
-                    <div className="wd-fin-right">
-                        Now planning 2026 &amp; 2027
-                        <small>London &middot; Birmingham &middot; Manchester &middot; Destination</small>
-                    </div>
-                    <Link className="wd-fin-credit" href="/">&larr; Back to Wassup London</Link>
-                </div>
-            </section>
+      <section className="wdx-hero">
+        <img className="wdx-hero-image" src={IMAGES.hero} alt="" />
+        <div className="wdx-hero-overlay" />
+        <div className="wdx-hero-copy">
+          <p className="wdx-kicker">Wassup London / Bespoke Weddings</p>
+          <h1>
+            <span>Made</span>
+            <span>for <i>you.</i></span>
+          </h1>
+          <p className="wdx-hero-desc">
+            Weddings with personality, precision and a little bit of chaos — planned beautifully from the first idea to the final dance.
+          </p>
+          <a href="#wdx-contact" className="wdx-button">Plan your wedding <Arrow /></a>
         </div>
-    );
+        <div className="wdx-hero-meta">
+          <span>London · UK · Worldwide</span>
+          <span>Scroll to explore ↓</span>
+        </div>
+      </section>
+
+      <div className="wdx-marquee" aria-hidden="true">
+        <div className="wdx-marquee-track">
+          <span>LOVE LOUDER</span><b>✳</b><span>PLAN BOLDER</span><b>✳</b>
+          <span>CELEBRATE EVERYTHING</span><b>✳</b><span>LOVE LOUDER</span><b>✳</b>
+          <span>PLAN BOLDER</span><b>✳</b><span>CELEBRATE EVERYTHING</span><b>✳</b>
+        </div>
+      </div>
+
+      <section className="wdx-intro">
+        <div className="wdx-intro-left">
+          <p className="wdx-eyebrow">01 / The idea</p>
+          <div className="wdx-ring">✳</div>
+        </div>
+        <div className="wdx-intro-copy">
+          <h2>
+            <span className="wdx-intro-word">Not</span>
+            <span className="wdx-intro-word">just</span>
+            <span className="wdx-intro-word wdx-accent">a wedding.</span>
+          </h2>
+          <p className="wdx-lede">
+            Your people. Your rituals. Your music. Your weird little details.
+            We turn all of it into one unforgettable experience.
+          </p>
+        </div>
+      </section>
+
+      <section className="wdx-story">
+        <div className="wdx-story-image wdx-reveal">
+          <img src={IMAGES.couple} alt="Couple celebrating together" />
+        </div>
+        <div className="wdx-story-copy wdx-reveal">
+          <p className="wdx-eyebrow">02 / Our approach</p>
+          <h2>Big feeling.<br /><em>Small details.</em></h2>
+          <p>
+            We build weddings like creative productions. There is a big picture,
+            but the magic lives in the details: the entrance music, the lighting
+            shift, the handwritten place card, the food your grandparents love.
+          </p>
+          <a href="#wdx-services" className="wdx-text-link">See what we do <Arrow /></a>
+        </div>
+      </section>
+
+      <section className="wdx-events">
+        <div className="wdx-section-head wdx-reveal">
+          <p className="wdx-eyebrow">03 / The celebrations</p>
+          <h2>Every function.<br /><i>One story.</i></h2>
+        </div>
+        <div className="wdx-event-grid">
+          {EVENTS.map(([n, title, desc]) => (
+            <article className="wdx-event-card wdx-reveal" key={n}>
+              <span>{n}</span>
+              <h3>{title}</h3>
+              <p>{desc}</p>
+              <Arrow />
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="wdx-gallery">
+        <div className="wdx-gallery-card wdx-g1"><img src={IMAGES.details} alt="Wedding details" /></div>
+        <div className="wdx-gallery-card wdx-g2"><img src={IMAGES.ceremony} alt="Wedding ceremony" /></div>
+        <div className="wdx-gallery-card wdx-g3"><img src={IMAGES.dance} alt="Wedding celebration" /></div>
+        <div className="wdx-gallery-card wdx-g4"><img src={IMAGES.table} alt="Wedding table styling" /></div>
+        <div className="wdx-gallery-title">
+          <span>THE</span><strong>GOOD</strong><span>STUFF</span>
+        </div>
+      </section>
+
+      <section className="wdx-services" id="wdx-services">
+        <div className="wdx-services-head">
+          <p className="wdx-eyebrow">04 / What we do</p>
+          <h2>From “yes”<br />to <i>let's dance.</i></h2>
+        </div>
+        <div className="wdx-service-list">
+          {SERVICES.map(([n, title, desc]) => (
+            <a href="#wdx-contact" className="wdx-service" key={n}>
+              <span className="wdx-service-num">{n}</span>
+              <h3>{title}</h3>
+              <p>{desc}</p>
+              <Arrow />
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section className="wdx-quote wdx-reveal">
+        <p>“The best weddings don't feel produced.<br /><i>They feel completely you.</i>”</p>
+      </section>
+
+      <section className="wdx-cta" id="wdx-contact">
+        <img src={IMAGES.hero} alt="" />
+        <div className="wdx-cta-overlay" />
+        <div className="wdx-cta-content">
+          <p className="wdx-eyebrow">05 / Let's make it happen</p>
+          <h2>Ready to make<br /><i>some memories?</i></h2>
+          <a className="wdx-button wdx-button-light" href="https://wa.me/447454904611" target="_blank" rel="noreferrer">
+            Start the conversation <Arrow />
+          </a>
+          <p className="wdx-small">London · Birmingham · Manchester · Destination</p>
+        </div>
+      </section>
+
+      <div className="wdx-back">
+        <Link href="/">← Back to Wassup London</Link>
+      </div>
+    </div>
+  );
 }

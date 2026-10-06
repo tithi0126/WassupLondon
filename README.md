@@ -1,260 +1,1033 @@
-# Wassup London — Awwward-Winning Web Design Clone
+# Wassup London — Wedding Event Page UI
 
-A highly interactive, visually stunning recreation of the **Wassup London** website, rebuilt as a **Next.js + React** application. This project captures the bold aesthetics, playful interactivity, and smooth motion design characteristic of Awwward-winning websites — with every pixel and every frame of animation faithfully recreated.
+A premium, editorial-style wedding event page designed for the **Wassup London** website.
 
-<table>
-  <tr>
-    <td align="center"><b>Header Section</b><br/><img width="100%" alt="Header Section" src="https://github.com/user-attachments/assets/195d1543-3e28-4678-8545-567ca9b08767" /></td>
-    <td align="center"><b>HorizontalWords Section</b><br/><img width="100%" alt="HorizontalWords Section placeholder" src="https://github.com/user-attachments/assets/fd76c800-fe37-48a3-a5bc-728aa5cdf5ef" /></td>
-
-  </tr>
-  <tr>
-    <td align="center"><b>MotionCard Section</b><br/><img width="100%" alt="MotionCard Section placeholder" src="https://github.com/user-attachments/assets/14d46fcf-f5d4-4b32-ac8e-e99eef1e964f" /></td>
-    <td align="center"><b>Service Card Section</b><br/><img width="100%" alt="Service Card Section" src="https://github.com/user-attachments/assets/cb80f406-998e-4853-9ea5-7dec87952117" /></td>
-  </tr>
-  <tr>
-    <td align="center"><b>Double Marquee Section</b><br/><img width="100%" alt="Double marquee section" src="https://github.com/user-attachments/assets/9ca5af12-5e0b-4b81-954c-1dcb484c671a" /></td>
-    <td align="center"><b>Footer Section</b><br/><img width="100%" alt="Footer section" src="https://github.com/user-attachments/assets/1f0c8b9c-50c7-452e-af4c-23cadcdb58c0" /></td>
-  </tr>
-</table>
-
+The wedding page extends the existing Wassup London visual identity with immersive wedding photography, oversized typography, GSAP animations, editorial layouts, wedding services, event functions, and a strong WhatsApp enquiry CTA.
 
 ---
 
-## 🚀 Overview
+## ✨ Overview
 
-This project is a high-fidelity clone of the Wassup London advertising agency website. The codebase was originally built in vanilla HTML/CSS/JS and has been **fully transformed to Next.js 15 + React 19**, with all animations, interactions, and assets ported 1:1.
+The wedding page is designed to feel like a premium creative-event production website rather than a traditional wedding template.
 
-### ⚠️ Note on the Hero Video
-The original Wassup London website uses a privately-hosted Vimeo video. Due to **Vimeo's Domain-Level Privacy Settings**, the video is restricted to the `wassuplondon.co.uk` domain. The hero component uses a standard HTML5 `<video>` element with the `src` commented out, rendering a solid dark background. Place your `.mp4` in `public/` and update the source in `VimeoHero.jsx`.
+The design combines:
 
----
+* Large editorial typography
+* Black, cream and orange colour palette
+* Full-screen photography
+* Asymmetrical layouts
+* Scroll-based animations
+* GSAP and ScrollTrigger
+* Interactive service rows
+* Wedding function cards
+* WhatsApp lead generation
+* Responsive layouts for desktop, tablet and mobile
 
-## ✨ Key Features
-
-### 🎭 Animations & Effects
-
-- **GSAP InertiaPlugin Fling** — Motion cards and floating labels track mouse velocity; on `mouseleave` they fling with physics-based inertia and snap back to position.
-- **Page Transition Scribble** — Full-screen GSAP-powered scribble mask that draws/undraws on logo click, with random color selection, logo wiggle, and auto-scroll to top.
-- **Elastic Card Interactions** — Service cards spread apart horizontally on hover with elastic bounce physics; hovered card scales up. On mobile, cards stack and reveal via scroll.
-- **Scroll-Triggered SVG Draws** — Hand-drawn underlines and paths animate in via `stroke-dasharray` as the user scrolls past.
-- **Footer Sticker Proximity Push** — Stickers react to fast cursor swipes nearby with strength proportional to speed, then spring back elastically.
-- **Wiggle System** — Configurable per-element rotation wiggle on hover, controlled from a single `WIGGLE_CONFIG` object.
-- **Custom Cursor Bubble** — GSAP-tracked blob that follows the cursor, pops in elastically over clickable elements with context-aware text.
-- **Mute Bubble** — Separate cursor-following blob on the video hero with mute/unmute states.
-- **Double Marquee** — Infinite scrolling brand logos with smart randomization (no adjacent duplicates for logos or colors, even at the loop seam).
-- **Credits Pop-out** — Footer credits box physically grows/shrinks with staggered text slide animations.
-- **Lenis Smooth Scroll** — Buttery-smooth page scrolling synced with GSAP's ticker.
-- **Horizontal Scroll & Letter Bounce** — Pinned section that scrolls letters horizontally across the screen with random elastic bounces for letters and stickers as they enter the viewport.
-- **Tab Title Change** — Title becomes `"Hey, over here! 👋"` when the tab loses focus.
-
-### 🏗️ Architecture
-
-- **React Component Architecture** — Every section is a clean, isolated component.
-- **Modular CSS** — 11 partial stylesheets imported via a single `globals.css` entry point.
-- **External SVG Assets** — Decorative SVGs extracted to organized folders for clean, readable components.
-- **Centralized Data** — All static data (brands, cards, icons, configs) exported from `lib/data.js`.
-- **Self-Hosted Assets** — All fonts, brand logos, stickers, and SVGs stored locally — zero CDN dependency.
-
----
-
-## 🛠️ Tech Stack
-
-| Technology | Purpose |
-|---|---|
-| **Next.js 15** | React framework, App Router, file-based routing |
-| **React 19** | Component-based UI architecture |
-| **Vanilla CSS** | Full design system via CSS Variables — zero Tailwind |
-| **GSAP + ScrollTrigger + InertiaPlugin** | All animations, scroll-driven effects, physics-based fling |
-| **Lenis** | Ultra-smooth inertia scrolling |
-
----
-
-## 📦 Project Structure
+The primary route is:
 
 ```text
-wassup-london/
+/weddings
+```
+
+---
+
+# 🛠 Technology Stack
+
+This package is designed for the existing Wassup London application.
+
+| Technology         | Usage                            |
+| ------------------ | -------------------------------- |
+| Next.js            | Application framework            |
+| React              | UI components                    |
+| JavaScript         | Component logic                  |
+| CSS                | Styling and responsive layouts   |
+| GSAP               | Animations                       |
+| GSAP ScrollTrigger | Scroll-based animations          |
+| Lenis              | Existing smooth scrolling system |
+
+No additional dependency is required specifically for this wedding page if GSAP is already installed in the existing project.
+
+---
+
+# 📁 File Structure
+
+The wedding page package contains:
+
+```text
+WassupLondon/
+│
 ├── app/
-│   ├── styles/                  # Modular CSS partials
-│   │   ├── base.css             # Fonts, CSS variables, reset, body/html
-│   │   ├── navbar.css           # Navbar, logos, header hero
-│   │   ├── hero.css             # Content section title + underline SVG
-│   │   ├── vimeo-hero.css       # Vimeo hero video player + headline
-│   │   ├── motion-cards.css     # MotionCard section (heading + cards + labels)
-│   │   ├── showreel.css         # Showreel section placeholder
-│   │   ├── cards.css            # Service cards, stickers
-│   │   ├── marquee.css          # Double marquee section + animations
-│   │   ├── footer.css           # Footer layout, credits, stickers
-│   │   ├── cursor.css           # Custom cursor bubble + scribble overlay
-│   │   ├── horizontal-words.css # Horizontal scrolling section styles
-│   │   └── responsive.css       # All media queries (tablet + mobile)
-│   ├── globals.css              # Entry point — imports all partials
-│   ├── layout.jsx               # Root layout — <html>, metadata, favicon
-│   └── page.jsx                 # Main page — assembles all components
+│   ├── weddings/
+│   │   └── page.jsx
+│   │
+│   └── styles/
+│       └── wedding.css
 │
 ├── components/
-│   ├── CursorBubble.jsx         # Custom "click" cursor bubble with GSAP tracking
-│   ├── DoubleMarquee.jsx        # Randomised logo marquee + scroll-triggered SVGs
-│   ├── Footer.jsx               # Footer — credits, stickers, socials, wiggles
-│   ├── HorizontalWords.jsx      # Pinned section with elastic letter bounce
-│   ├── MotionCards.jsx          # Motion cards + floating labels + InertiaPlugin fling
-│   ├── Navbar.jsx               # Fixed navbar + scroll color logic + logo wiggle
-│   ├── ServiceCards.jsx         # "Call us if you need" + 5 service cards
-│   ├── Showreel.jsx             # Showreel section placeholder (coming soon)
-│   ├── SmoothScroll.jsx         # Lenis init + GSAP ticker sync (renders null)
-│   ├── SvgSymbols.jsx           # Hidden SVG <symbol> defs (bullet, card divider)
-│   ├── TransitionScribble.jsx   # Full-screen scribble mask on logo click
-│   └── VimeoHero.jsx            # Video hero — controls, mute bubble, headline
-│
-├── lib/
-│   └── data.js                  # All static data as ES module exports
+│   └── WeddingPage.jsx
 │
 ├── public/
-│   ├── assets/
-│   │   ├── Brand Logos SVG/     # 8 self-hosted marquee brand logos
-│   │   ├── Card-Sticker SVG/    # Stickers overlaying service cards
-│   │   ├── Cursor SVG/          # Custom cursor SVG states
-│   │   ├── Footer-Sticker SVG/  # 6 decorative footer stickers
-│   │   ├── Marquee-blob SVG/    # Blob + hand in marquee section
-│   │   ├── MotionCard SVG/      # Motion card blob + underline
-│   │   ├── Navbar SVG/          # Navbar blob + work icon
-│   │   └── VimeoHero SVG/       # Smiley, star, oval underline, mute blob
-│   └── fonts/
-│       ├── DMSans-VariableFont_opsz,wght.ttf
-│       └── Epilogue-VariableFont_wght.ttf
+│   └── images/
+│       └── weddings/
+│           ├── hero.jpg
+│           ├── couple.jpg
+│           ├── ceremony.jpg
+│           ├── mehndi.jpg
+│           ├── sangeet.jpg
+│           ├── reception.jpg
+│           └── details.jpg
 │
-├── .gitignore
-├── jsconfig.json                # @/ import alias configuration
-├── next.config.mjs              # Next.js config with webpack @/ alias
+├── app/
+│   └── globals.css
+│
 ├── package.json
+└── README.md
+```
+
+### Main files
+
+#### `components/WeddingPage.jsx`
+
+Contains the complete wedding page structure, content, image configuration and GSAP animation setup.
+
+#### `app/styles/wedding.css`
+
+Contains all wedding-specific styling, responsive breakpoints, layout rules, typography and hover effects.
+
+#### `app/weddings/page.jsx`
+
+The Next.js route that renders the wedding page.
+
+---
+
+# 🚀 Installation
+
+## 1. Clone the repository
+
+```bash
+git clone https://github.com/tithi0126/WassupLondon.git
+```
+
+Move into the project:
+
+```bash
+cd WassupLondon
+```
+
+---
+
+## 2. Install dependencies
+
+```bash
+npm install
+```
+
+---
+
+## 3. Run the development server
+
+```bash
+npm run dev
+```
+
+The application should start on:
+
+```text
+http://localhost:3000
+```
+
+Open the wedding page:
+
+```text
+http://localhost:3000/weddings
+```
+
+---
+
+# 🧩 Integrating the Wedding Page
+
+Replace the existing wedding component with:
+
+```text
+components/WeddingPage.jsx
+```
+
+Replace the wedding stylesheet with:
+
+```text
+app/styles/wedding.css
+```
+
+The existing route should remain:
+
+```text
+app/weddings/page.jsx
+```
+
+If the project already contains:
+
+```jsx
+import WeddingPage from "@/components/WeddingPage";
+```
+
+no route modification should be necessary.
+
+---
+
+# 🎨 Wedding Page Sections
+
+The page is divided into the following major sections.
+
+## 1. Hero
+
+The hero is a full-screen photographic introduction.
+
+Content includes:
+
+```text
+Made
+for you.
+```
+
+Supporting copy introduces Wassup London's wedding planning and production services.
+
+The hero contains:
+
+* Background image
+* Dark gradient overlay
+* Large typography
+* CTA
+* Location information
+* Scroll indicator
+* Image parallax
+
+---
+
+## 2. Marquee
+
+The orange marquee contains rotating brand messaging:
+
+```text
+LOVE LOUDER
+PLAN BOLDER
+CELEBRATE EVERYTHING
+```
+
+The marquee loops continuously using GSAP.
+
+---
+
+## 3. Introduction
+
+The introduction establishes the positioning:
+
+```text
+Not
+just
+a wedding.
+```
+
+The section uses oversized animated typography and a decorative rotating element.
+
+---
+
+## 4. Wedding Story
+
+The story section uses a two-column editorial layout.
+
+Content:
+
+```text
+Big feeling.
+Small details.
+```
+
+It communicates the philosophy behind the wedding production experience.
+
+---
+
+## 5. Wedding Functions
+
+The page currently includes:
+
+```text
+01  Mehndi
+02  Sangeet
+03  Ceremony
+04  Reception
+```
+
+Each function has:
+
+* Number
+* Heading
+* Description
+* Arrow
+* Hover interaction
+
+---
+
+## 6. Wedding Gallery
+
+The gallery uses an asymmetrical editorial composition.
+
+It includes:
+
+* Couple photography
+* Ceremony photography
+* Dance/celebration photography
+* Table/decor photography
+
+Images overlap and move at different speeds while scrolling.
+
+---
+
+## 7. Services
+
+The wedding service section includes:
+
+```text
+01  Full Planning
+02  Décor & Design
+03  Food & Hospitality
+04  Entertainment
+05  Day-of Production
+06  Destination Weddings
+```
+
+Each service is an interactive row.
+
+On hover:
+
+* Background changes to orange
+* Row expands horizontally
+* Arrow moves
+* Typography remains highly visible
+
+---
+
+## 8. Quote
+
+The page contains a large editorial statement:
+
+```text
+The best weddings don't feel produced.
+They feel completely you.
+```
+
+---
+
+## 9. Final CTA
+
+The final section uses full-screen wedding photography and encourages visitors to start a conversation.
+
+CTA:
+
+```text
+Ready to make
+some memories?
+```
+
+The button opens WhatsApp.
+
+---
+
+# 🖼 Image Replacement
+
+The supplied UI may use temporary remote photography.
+
+For production, replace the temporary images with licensed Wassup London wedding photography.
+
+Recommended structure:
+
+```text
+public/
+└── images/
+    └── weddings/
+        ├── hero.jpg
+        ├── couple.jpg
+        ├── ceremony.jpg
+        ├── mehndi.jpg
+        ├── sangeet.jpg
+        ├── reception.jpg
+        └── details.jpg
+```
+
+---
+
+## Updating Image Paths
+
+Inside:
+
+```text
+components/WeddingPage.jsx
+```
+
+the images are configured through:
+
+```jsx
+const IMAGES = {
+  hero: '/images/weddings/hero.jpg',
+  couple: '/images/weddings/couple.jpg',
+  details: '/images/weddings/details.jpg',
+  ceremony: '/images/weddings/ceremony.jpg',
+  dance: '/images/weddings/sangeet.jpg',
+  table: '/images/weddings/reception.jpg',
+};
+```
+
+Use local files instead of remote URLs for the final production website.
+
+---
+
+# 📸 Image Recommendations
+
+For the best visual result:
+
+### Hero
+
+Recommended:
+
+```text
+2000px+ width
+Landscape
+High-resolution
+Strong couple composition
+```
+
+### Gallery
+
+Recommended:
+
+```text
+1200px–1800px width
+High-quality JPG/WebP
+Mix of portrait and landscape photography
+```
+
+### Image optimisation
+
+Prefer:
+
+```text
+WebP
+AVIF
+```
+
+where supported.
+
+Avoid unnecessarily large original camera files.
+
+---
+
+# 🎞 Animation Behaviour
+
+The wedding page uses GSAP and ScrollTrigger.
+
+## Hero Animation
+
+When the page loads:
+
+* Hero text fades in
+* Text moves upward
+* Elements appear sequentially
+
+---
+
+## Hero Parallax
+
+The hero background moves vertically while scrolling.
+
+This creates a cinematic effect.
+
+---
+
+## Intro Text Reveal
+
+Large words are clipped and revealed from below:
+
+```text
+Not
+just
+a wedding.
+```
+
+---
+
+## Marquee
+
+The orange marquee continuously moves horizontally.
+
+It loops indefinitely.
+
+---
+
+## Rotating Element
+
+The decorative circular element rotates according to scroll position.
+
+---
+
+## Section Reveal
+
+Sections fade and move upward when entering the viewport.
+
+---
+
+## Gallery Parallax
+
+Gallery images move at slightly different speeds to create depth.
+
+---
+
+## Hover Animations
+
+Interactive cards use:
+
+* Translation
+* Background transitions
+* Arrow movement
+* Padding changes
+
+---
+
+# ⚙️ GSAP Configuration
+
+The component registers:
+
+```javascript
+gsap.registerPlugin(ScrollTrigger);
+```
+
+Animations are scoped using:
+
+```javascript
+gsap.context()
+```
+
+This ensures that animations are properly cleaned up when the component unmounts.
+
+The cleanup is handled with:
+
+```javascript
+return () => ctx.revert();
+```
+
+This is particularly important in Next.js development mode.
+
+---
+
+# 📱 Responsive Design
+
+The wedding page supports:
+
+```text
+Desktop
+Tablet
+Mobile
+```
+
+---
+
+## Desktop
+
+Desktop uses:
+
+* Large hero typography
+* Multi-column layouts
+* Four-column function cards
+* Large gallery composition
+* Two-column services layout
+* Vertical decorative rail
+
+---
+
+## Tablet
+
+Tablet layouts:
+
+* Reduce typography sizes
+* Reduce gallery dimensions
+* Convert some layouts to two columns
+* Reduce spacing
+* Simplify navigation/decorative elements
+
+---
+
+## Mobile
+
+Mobile layout changes include:
+
+* Single-column content
+* Smaller hero typography
+* Stacked wedding functions
+* Stacked services
+* Compact gallery composition
+* Hidden decorative side rail
+* Reduced animation complexity
+* Full-width CTA
+
+The page should be tested on:
+
+```text
+iPhone
+Android
+iPad
+Tablet
+Desktop
+```
+
+---
+
+# 📲 WhatsApp Configuration
+
+The final CTA currently uses a WhatsApp link.
+
+Example:
+
+```text
+https://wa.me/447454904611
+```
+
+Replace the number with the official Wassup London business number.
+
+---
+
+## WhatsApp Number Format
+
+Use international format.
+
+Do not include:
+
+```text
++
+spaces
+-
+()
+```
+
+For example:
+
+```text
+https://wa.me/919876543210
+```
+
+instead of:
+
+```text
+https://wa.me/+91 98765 43210
+```
+
+---
+
+## Updating the CTA
+
+Inside:
+
+```text
+components/WeddingPage.jsx
+```
+
+find the WhatsApp anchor:
+
+```jsx
+<a
+  href="https://wa.me/447454904611"
+  target="_blank"
+  rel="noreferrer"
+>
+```
+
+Replace the number.
+
+---
+
+# 💬 Suggested WhatsApp Message
+
+For a better lead-generation experience, the WhatsApp URL can include a predefined message.
+
+Example:
+
+```text
+https://wa.me/919876543210?text=Hi%20Wassup%20London%2C%20I%27d%20like%20to%20plan%20my%20wedding.
+```
+
+This automatically opens WhatsApp with:
+
+```text
+Hi Wassup London, I'd like to plan my wedding.
+```
+
+---
+
+# 📝 Customising Wedding Content
+
+## Wedding Functions
+
+Edit the `EVENTS` array:
+
+```javascript
+const EVENTS = [
+  ['01', 'Mehndi', 'Colour, music, movement.'],
+  ['02', 'Sangeet', 'Big energy, perfectly timed.'],
+  ['03', 'Ceremony', 'Tradition, intimacy, meaning.'],
+  ['04', 'Reception', 'The night everyone remembers.'],
+];
+```
+
+You can add or remove events.
+
+---
+
+## Services
+
+Edit:
+
+```javascript
+const SERVICES = [
+  ...
+];
+```
+
+Example:
+
+```javascript
+[
+  '07',
+  'Wedding Photography',
+  'Beautifully documented moments from beginning to end.'
+]
+```
+
+---
+
+# 🔍 SEO
+
+For production, add wedding-specific metadata to:
+
+```text
+app/weddings/page.jsx
+```
+
+Recommended title:
+
+```text
+Weddings | Wassup London
+```
+
+Recommended description:
+
+```text
+Wassup London creates unforgettable weddings with bold design,
+beautiful production and carefully planned experiences.
+```
+
+Recommended keywords:
+
+```text
+wedding planner
+wedding events
+Indian wedding planner
+London wedding planner
+destination wedding
+wedding production
+wedding decor
+wedding entertainment
+```
+
+---
+
+# 🧪 Testing Checklist
+
+Before deployment:
+
+* [ ] `/weddings` loads successfully
+* [ ] Hero image loads
+* [ ] All gallery images load
+* [ ] CTA opens WhatsApp
+* [ ] WhatsApp number is correct
+* [ ] All animations work
+* [ ] No console errors
+* [ ] Desktop layout tested
+* [ ] Tablet layout tested
+* [ ] Mobile layout tested
+* [ ] Images are optimized
+* [ ] Alt text is correct
+* [ ] SEO metadata is configured
+* [ ] Production build succeeds
+
+---
+
+# 🏗 Production Build
+
+Create a production build:
+
+```bash
+npm run build
+```
+
+Start the production server:
+
+```bash
+npm start
+```
+
+If the repository has custom scripts, use the commands specified in:
+
+```text
+package.json
+```
+
+---
+
+# 🌐 Deployment
+
+The wedding page is compatible with a normal Next.js deployment.
+
+## Vercel
+
+Typical deployment:
+
+```bash
+npm install
+npm run build
+```
+
+Then deploy the project through Vercel.
+
+---
+
+## VPS
+
+For a VPS:
+
+```bash
+git pull
+npm install
+npm run build
+npm start
+```
+
+A process manager such as PM2 can be used:
+
+```bash
+pm2 start npm --name "wassup-london" -- start
+```
+
+Then configure Nginx or another reverse proxy to forward the domain to the Next.js application.
+
+---
+
+# 🔐 Production Environment
+
+If the project later introduces:
+
+* CRM
+* Email
+* Database
+* WhatsApp API
+* Contact forms
+* Analytics
+
+keep credentials inside environment variables.
+
+Example:
+
+```text
+.env.local
+```
+
+Never commit:
+
+```text
+.env
+.env.local
+```
+
+to Git.
+
+---
+
+# 🚀 Future Improvements
+
+The current page is primarily a presentation/lead-generation page.
+
+Recommended future functionality:
+
+## Wedding Enquiry Form
+
+Fields:
+
+```text
+Couple Name
+Email
+Phone
+Wedding Date
+Venue
+City
+Guest Count
+Functions
+Budget
+Message
+```
+
+---
+
+## CMS Integration
+
+Move the following into a CMS:
+
+```text
+Wedding Gallery
+Wedding Stories
+Services
+Packages
+Testimonials
+Venues
+FAQs
+```
+
+This would allow the team to update the website without modifying code.
+
+---
+
+## Wedding Portfolio
+
+Create individual wedding case studies:
+
+```text
+/weddings
+/weddings/rahul-and-priya
+/weddings/aisha-and-aryan
+/weddings/london-destination-wedding
+```
+
+Each case study could include:
+
+* Couple
+* Venue
+* Guest count
+* Functions
+* Gallery
+* Video
+* Services
+* Testimonial
+
+---
+
+## Gallery Lightbox
+
+Add a full-screen image viewer allowing users to browse wedding photographs.
+
+---
+
+## Video
+
+Potential additions:
+
+* Wedding highlight videos
+* Sangeet videos
+* Behind-the-scenes footage
+* Client testimonials
+* Venue walkthroughs
+
+---
+
+## Lead Management
+
+Future enquiries can be connected to:
+
+```text
+Email
+WhatsApp
+CRM
+Database
+Google Sheets
+```
+
+---
+
+# 📌 Important Notes
+
+This package changes only the wedding page UI.
+
+It does not intentionally modify:
+
+* Authentication
+* Database
+* Existing API
+* Other website routes
+* Admin functionality
+* Existing business logic
+
+The wedding content is currently static.
+
+It can later be connected to an API or CMS.
+
+---
+
+# ⚠️ Third-Party Assets
+
+The UI may contain temporary third-party photography for demonstration purposes.
+
+Before commercial deployment:
+
+* Replace temporary images
+* Confirm photography licensing
+* Use owned/licensed Wassup London assets
+* Optimize final images
+
+Do not use third-party photography commercially without the appropriate license.
+
+---
+
+# 📦 Package Contents
+
+The wedding UI package contains:
+
+```text
+WassupLondon-Wedding-UI/
+│
+├── components/
+│   └── WeddingPage.jsx
+│
+├── app/
+│   └── styles/
+│       └── wedding.css
+│
 └── README.md
 ```
 
 ---
 
-## 🎬 Animation Catalog
+# 🔗 Repository
 
-| Animation | Component | Type |
-|---|---|---|
-| **Inertia fling (cards)** | MotionCards | GSAP InertiaPlugin |
-| **Inertia fling (labels)** | MotionCards | GSAP InertiaPlugin |
-| **Page transition scribble** | TransitionScribble | GSAP Timeline |
-| **Card fan-out on hover** | ServiceCards | GSAP Elastic |
-| **Mobile card scroll stack** | ServiceCards | GSAP ScrollTrigger |
-| **SVG underline draw** | ServiceCards | GSAP stroke animation |
-| **Marquee infinite scroll** | DoubleMarquee | CSS Keyframes |
-| **Marquee SVG reveal** | DoubleMarquee | GSAP ScrollTrigger |
-| **Sticker scroll pop-up** | Footer | GSAP ScrollTrigger + back.out |
-| **Sticker proximity push** | Footer | GSAP Elastic |
-| **Credits pop-out/collapse** | Footer | GSAP Timeline |
-| **Map link draw** | Footer | GSAP stroke animation |
-| **Cursor bubble follow** | CursorBubble | GSAP quickTo |
-| **Mute bubble follow** | VimeoHero | GSAP quickTo |
-| **Wiggle on hover** | Navbar, Footer | GSAP steps(1) yoyo |
-| **Horizontal scroll & pin**| HorizontalWords | GSAP ScrollTrigger |
-| **Letter & sticker bounce**| HorizontalWords | GSAP Elastic (Scroll) |
-| **SVG arrow draw** | HorizontalWords | GSAP stroke animation |
-| **Lenis smooth scroll** | SmoothScroll | Lenis + GSAP ticker |
-| **Tab title change** | SmoothScroll | Visibility API |
+GitHub:
 
----
-
-## 📊 `lib/data.js` — Centralized Data
-
-All static data lives in `lib/data.js` as named ES module exports:
-
-| Export | Purpose |
-|---|---|
-| `brands[]` | 8 brand objects `{ name, src }` pointing to `/public/assets/` |
-| `colors[]` | Background colour pool for the marquee |
-| `SOCIAL_ICONS[]` | LinkedIn, Instagram, TikTok — href + SVG markup |
-| `CARDS_DATA[]` | 5 service card definitions with color, sticker, title, services |
-| `WIGGLE_CONFIG` | Single source of truth for all hover-wiggle intensities |
-| `ANIMATION_CONFIG` | Scribble transition timing and stroke width settings |
-
-### `WIGGLE_CONFIG` — Tune all wiggles from one place
-
-```js
-export const WIGGLE_CONFIG = {
-    logoWassup:  4,  // The navbar Wassup logo
-    socials:    5,  // LinkedIn / Instagram / TikTok icons
-    jobHeading: 1,  // "not hiring right now" heading
-    googleMap:  1,  // Google Maps link text
-    email:      1,  // hello@wassuplondon.co.uk
-    whatsapp:   1,  // send us a whatsapp
-};
+```text
+https://github.com/tithi0126/WassupLondon
 ```
 
-Higher number = more rotation (degrees). Set to `0` to disable for any element.
+Wedding page:
+
+```text
+/weddings
+```
 
 ---
 
-## 🎲 Marquee Randomisation Logic
+# 👩‍💻 Project
 
-The marquee uses two constraint-aware helpers in `components/DoubleMarquee.jsx`:
+**Wassup London**
 
-- **`shuffleNoAdjacentSrc(brands)`** — Fisher-Yates shuffle + post-processing to ensure no two cards with the same logo appear next to each other, **including at the loop seam**.
-- **`assignColorsNoAdjacent(count, colors)`** — Assigns background colours one-by-one, always excluding the previous colour (and the first colour on the last item, to fix the seam).
+Wedding Event Page UI
 
----
-
-## 🎨 SVG Architecture
-
-All SVGs are handled using one of three strategies:
-
-| Strategy | Used For | Why |
-|---|---|---|
-| External `.svg` + `<img>` | Brand logos, stickers, blobs, decorative shapes | Clean components; best for large, non-reused shapes |
-| Inline `<symbol>` + `<use>` | Repeated icons (`bullet-icon`, `card-divider`) | Defined once in `SvgSymbols.jsx`, rendered many times; supports `currentColor` |
-| Inline `<svg>` | Animated paths (map link draw, control icons) | Required for `stroke-dasharray` animations and React state-driven rendering |
-
-### SVG Asset Folders
-
-| Folder | Contents |
-|---|---|
-| `Brand Logos SVG/` | 8 marquee brand logos |
-| `Card-Sticker SVG/` | 5 stickers for service cards |
-| `Cursor SVG/` | Custom cursor states |
-| `Footer-Sticker SVG/` | 6 decorative footer stickers |
-| `Marquee-blob SVG/` | Blob + pointing hand |
-| `MotionCard SVG/` | Blue blob + wavy underline |
-| `Navbar SVG/` | Navbar blob + work icon |
-| `VimeoHero SVG/` | Smiley face, pink star, oval underline, mute blob |
+Built to integrate with the existing Wassup London Next.js application.
 
 ---
 
-## ⚙️ Setup & Installation
+## License
 
-This project uses Next.js, so you need Node.js installed.
+Follow the license and ownership terms of the original Wassup London project and all third-party assets.
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/Thakuma07/wassup-london-clone.git
-   cd wassup-london
-   ```
-
-2. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-
-3. **Start the development server**:
-   ```bash
-   npm run dev
-   ```
-
-4. **Open in your browser**:
-   ```
-   http://localhost:3000
-   ```
-
----
-
-## 👨‍💻 Developed By
-
-Made with ❤️ by **Arkyadeep Pal**, **Soumyakanta Mitra** and **Anshu Ram**, powered by **Antigravity AI**.
-
-## 📄 License
-
-This project is for educational and portfolio purposes. All original brand assets belong to Wassup London.
-# WassupLondon
+All photography, fonts, logos and external assets should be used according to their respective licenses.
