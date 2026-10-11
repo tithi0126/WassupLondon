@@ -108,7 +108,7 @@ export default function ServiceCards() {
             </ul>
             {card.link && (
               <Link href={card.link} className="card-cta-link">
-                Explore Weddings &rarr;
+                Explore {card.title} &rarr;
               </Link>
             )}
           </div>

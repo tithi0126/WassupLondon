@@ -5,7 +5,7 @@ export const metadata = {
     title: 'Wassup London — Your Event. Your Vision. Our Expertise.',
     description: 'Wassup London is a full-service event company delivering weddings, DJ & entertainment, catering, corporate and private events across London and the UK.',
     icons: {
-        icon: '/assets/Navbar SVG/wassup-london-logo.svg',
+        icon: '/assets/logo.svg',
     },
     openGraph: {
         title: 'Wassup London — Your Event. Your Vision. Our Expertise.',

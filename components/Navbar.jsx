@@ -305,7 +305,7 @@ export default function Navbar() {
                         {/* Pop-out Box for Left Side (Events) */}
                         <div className="nav-popout nav-work-box">
                             <div className="nav-popout-inner">
-                                <a href="#showreel-section" className="nav-work-item">
+                                <a href="/dj-entertainment" className="nav-work-item">
                                     <div className="nav-work-item__img-wrap">
                                         <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=500&q=80" loading="eager" alt="DJ & Club Nights" className="nav-work-item__img" />
                                     </div>
@@ -323,16 +323,16 @@ export default function Navbar() {
                                         <h4 className="nav-work-title">luxury bespoke decor</h4>
                                     </div>
                                 </a>
-                                <a href="#showreel-section" className="nav-work-item">
+                                <a href="/catering" className="nav-work-item">
                                     <div className="nav-work-item__img-wrap">
-                                        <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=500&q=80" loading="eager" alt="Rooftop Raves" className="nav-work-item__img" />
+                                        <img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=500&q=80" loading="eager" alt="Catering & Dining" className="nav-work-item__img" />
                                     </div>
                                     <div className="nav-work-item__text">
-                                        <span className="nav-work-badge badge-pink">parties</span>
-                                        <h4 className="nav-work-title">skylight rooftop raves</h4>
+                                        <span className="nav-work-badge badge-pink">catering</span>
+                                        <h4 className="nav-work-title">artisanal live dining</h4>
                                     </div>
                                 </a>
-                                <a href="#showreel-section" className="nav-work-btn"><span className="nav-work-btn__text">Explore All Events</span></a>
+                                <a href="/packages" className="nav-work-btn"><span className="nav-work-btn__text">Explore Packages & Services</span></a>
                             </div>
                         </div>
                     </div>

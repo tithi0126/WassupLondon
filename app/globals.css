@@ -27,3 +27,11 @@
 /* All media queries (tablet + mobile)      */
 @import './styles/wedding.css';
 /* Wedding planning page                    */
+@import './styles/dj-entertainment.css';
+/* DJ & Club nights production              */
+@import './styles/catering.css';
+/* Artisanal catering & live food stations  */
+@import './styles/corporate.css';
+/* Corporate galas, summits & brand reveals */
+@import './styles/packages.css';
+/* Curated service packages & tiers         */

@@ -203,7 +203,7 @@ export default function Footer() {
             <div className="footer-bottom">
                 <div className="footer-big-text">
                     <img
-                        src="/assets/Navbar SVG/wassup-london-logo.svg"
+                        src="/assets/logo.svg"
                         alt="Wassup London"
                         className="footer-logo__svg"
                         style={{ width: '100%', height: 'auto', filter: 'invert(1)' }}
@@ -211,7 +211,7 @@ export default function Footer() {
                 </div>
 
                 {/* Stickers */}
-                <div className="footer-stickers">
+                {/* <div className="footer-stickers">
                     <div className="footer-sticker sticker-smiley">
                         <img src="/assets/Footer-Sticker SVG/footer-sticker-smiley.svg" width="100%" alt="" data-scroll-animation-target="" aria-hidden="true" />
                     </div>
@@ -230,7 +230,7 @@ export default function Footer() {
                     <div className="footer-sticker sticker-boom">
                         <img src="/assets/Footer-Sticker SVG/footer-sticker-boom.svg" width="100%" alt="" data-scroll-animation-target="" aria-hidden="true" />
                     </div>
-                </div>
+                </div> */}
 
                 {/* Bottom row: credits */}
                 <div className="footer-bottom-row">
