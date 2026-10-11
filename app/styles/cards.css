@@ -53,6 +53,8 @@
 }
 
 /* ─── Card Color Variants ────────────────────────────────────────────────── */
+/* Each card's background uses the token matching its class name, so the
+   palette stays in sync with lib/data.js (CARDS_DATA) and base.css tokens. */
 .card-green {
   background-color: var(--color-green);
   left: calc(
@@ -64,8 +66,8 @@
 }
 
 .card-darkblue {
-  background-color: var(--color-lightblue);
-  color: var(--color-dark);
+  background-color: var(--color-darkblue);
+  color: var(--color-white);
   left: calc(50% - 430px);
   top: 100px;
   transform: rotate(-5deg);
@@ -112,8 +114,7 @@
 
 /* Light card divider overrides */
 .card-pink .card-divider-svg,
-.card-orange .card-divider-svg,
-.card-darkblue .card-divider-svg {
+.card-orange .card-divider-svg {
   color: rgba(0, 0, 0, 0.8);
 }
 
