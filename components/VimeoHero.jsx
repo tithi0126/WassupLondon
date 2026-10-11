@@ -195,7 +195,7 @@ export default function VimeoHero() {
                 <div className="vimeo-hero__fade" />
 
                 {/* ① Upcoming Events — bottom left */}
-                <div className="home-header__title" ref={titleRef} onClick={(e) => e.stopPropagation()} style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
+                <div className="home-header__title" id="upcoming-events" ref={titleRef} onClick={(e) => e.stopPropagation()} style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
 
                     {/* Label */}
                     <span style={{ color: '#F0BEFA', fontSize: 'clamp(13px, 1.2vw, 16px)', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 700, textShadow: '0 2px 8px rgba(0,0,0,0.6)' }}>

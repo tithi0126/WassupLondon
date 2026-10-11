@@ -39,60 +39,6 @@ export default function DiscoIntro({ children }) {
     };
   }, []);
 
-  // Auto scroll through 3D scene after loading completes
-  useEffect(() => {
-    if (loading) return;
-
-    let animId = null;
-    let userInterrupted = false;
-
-    const stopAutoScroll = () => {
-      userInterrupted = true;
-      if (animId) cancelAnimationFrame(animId);
-    };
-
-    const handleUserInteraction = () => {
-      stopAutoScroll();
-    };
-
-    // Delay binding user interrupt listeners so residual wheel/touch events don't immediately cancel
-    const listenerTimer = setTimeout(() => {
-      window.addEventListener('wheel', handleUserInteraction, { passive: true });
-      window.addEventListener('touchstart', handleUserInteraction, { passive: true });
-      window.addEventListener('keydown', handleUserInteraction, { passive: true });
-    }, 500);
-
-    const startY = window.scrollY;
-    const targetY = sceneElRef.current ? sceneElRef.current.offsetHeight : window.innerHeight * 5;
-    const duration = 3500;
-    const startTime = performance.now();
-
-    const easeInOutCubic = (t) =>
-      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-
-    function step(currentTime) {
-      if (userInterrupted) return;
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const easedProgress = easeInOutCubic(progress);
-
-      window.scrollTo(0, startY + (targetY - startY) * easedProgress);
-
-      if (progress < 1) {
-        animId = requestAnimationFrame(step);
-      }
-    }
-
-    animId = requestAnimationFrame(step);
-
-    return () => {
-      clearTimeout(listenerTimer);
-      if (animId) cancelAnimationFrame(animId);
-      window.removeEventListener('wheel', handleUserInteraction);
-      window.removeEventListener('touchstart', handleUserInteraction);
-      window.removeEventListener('keydown', handleUserInteraction);
-    };
-  }, [loading]);
 
   // Three.js logic
   useEffect(() => {
