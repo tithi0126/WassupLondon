@@ -195,14 +195,14 @@
 
 /* Card 1 label — pink, center-left area */
 .motion-card__floating-label--pink {
-    background-color: #efbbd8;
+    background-color: var(--color-pink);
     top: 31%;
     left: 30%;
 }
 
 /* Card 3 label — orange, bottom area */
 .motion-card__floating-label--orange {
-    background-color: #f4825c;
+    background-color: var(--color-orange);
     top: 69%;
     left: 48%;
 }
@@ -210,7 +210,7 @@
 
 /* Card 4 label — green, top-right area */
 .motion-card__floating-label--red {
-    background-color: #dcec9d;
+    background-color: var(--color-lightgreen);
     top: 46%;
     left: 89%;
 }

@@ -202,14 +202,14 @@
 }
 
 .badge-maroon {
-    background-color: #B1536E;
-    /* Deep maroon/pink */
-    color: var(--color-dark);
+    background-color: var(--color-maroon);
+    /* Brand maroon */
+    color: var(--color-white);
 }
 
 .badge-pink {
-    background-color: #EBB6F4;
-    /* Light pink */
+    background-color: var(--color-pink);
+    /* Brand pink */
     color: var(--color-dark);
 }
 

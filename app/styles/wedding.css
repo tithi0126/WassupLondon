@@ -1,8 +1,10 @@
 /* Wedding page stylesheet — fully aligned with Wassup London design system */
 .wdx-root {
+  /* Brand palette — single source of truth: app/styles/base.css design tokens */
   --wdx-orange: var(--color-orange, #f5693c);
   --wdx-maroon: var(--color-maroon, #a0325a);
   --wdx-darkblue: var(--color-darkblue, #4b69f0);
+  --wdx-lightblue: var(--color-lightblue, #82a0ff);
   --wdx-green: var(--color-green, #29725f);
   --wdx-pink: var(--color-pink, #f0befa);
   --wdx-lightgreen: var(--color-lightgreen, #e6fab9);
@@ -43,7 +45,7 @@
 .wdx-hero h1 { font-size:clamp(76px,15vw,220px); margin:0 0 34px; color: var(--wdx-white); }
 .wdx-hero h1 span { display:block; }
 .wdx-hero h1 span:nth-child(2) { margin-left:9vw; }
-.wdx-hero h1 i,.wdx-accent { color:var(--wdx-orange); font-style:normal; }
+.wdx-hero h1 i,.wdx-accent { color:var(--wdx-pink); font-style:normal; }
 .wdx-hero-desc { max-width:420px; font:400 17px/1.45 'DM Sans',sans-serif; margin:0 0 28px; color: rgba(255,255,255,.88); }
 .wdx-button {
   display:inline-flex; align-items:center; gap:14px; padding:15px 24px; border-radius:999px;
@@ -64,6 +66,8 @@
 .wdx-intro-left { position:relative; }
 .wdx-ring { width:min(180px,20vw); aspect-ratio:1; border:1px solid rgba(255,255,255,.25); border-radius:50%; display:grid; place-items:center; color:var(--wdx-pink); font-size:50px; }
 .wdx-intro-copy { align-self:center; }
+/* "a wedding." accent — brand green ties into the weddings service-card colour */
+.wdx-intro-word.wdx-accent { color:var(--wdx-green); }
 .wdx-intro h2 { font-size:clamp(65px,12vw,180px); margin:0 0 55px; }
 .wdx-intro h2 span { display:block; overflow:hidden; }
 .wdx-lede { max-width:540px; margin-left:10vw; font:400 clamp(18px,2vw,27px)/1.35 Georgia,serif; color:rgba(255,255,255,.82); }
@@ -87,8 +91,8 @@
 .wdx-event-card:nth-child(2):hover { background:var(--wdx-pink); color:var(--wdx-black); transform:translateY(-8px); box-shadow: 0 12px 30px rgba(240, 190, 250, 0.3); }
 .wdx-event-card:nth-child(3):hover { background:var(--wdx-maroon); color:var(--wdx-white); transform:translateY(-8px); box-shadow: 0 12px 30px rgba(160, 50, 90, 0.3); }
 .wdx-event-card:nth-child(3):hover span { color:rgba(255,255,255,.8); }
-.wdx-event-card:nth-child(4):hover { background:var(--wdx-darkblue); color:var(--wdx-white); transform:translateY(-8px); box-shadow: 0 12px 30px rgba(75, 105, 240, 0.3); }
-.wdx-event-card:nth-child(4):hover span { color:rgba(255,255,255,.8); }
+.wdx-event-card:nth-child(4):hover { background:var(--wdx-lightblue); color:var(--color-dark, #1a1a1a); transform:translateY(-8px); box-shadow: 0 12px 30px rgba(130, 160, 255, 0.35); }
+.wdx-event-card:nth-child(4):hover span { color:rgba(26,26,26,.75); }
 .wdx-event-card span { font:700 12px/1 'DM Sans', sans-serif; opacity:.75; letter-spacing: 0.05em; }
 .wdx-event-card h3 { margin:50px 0 12px; font:800 clamp(24px,2.5vw,42px)/.9 'Epilogue', sans-serif; text-transform:uppercase; letter-spacing:-.04em; }
 .wdx-event-card p { font:400 15px/1.45 'DM Sans', Georgia, serif; opacity: 0.88; }
@@ -102,7 +106,7 @@
 .wdx-g4 { width:25vw; height:42vh; right:17%; bottom:5%; }
 .wdx-gallery-title { position:absolute; z-index:10; left:50%; top:50%; transform:translate(-50%,-50%); text-align:center; font:800 clamp(55px,10vw,150px)/.76 'Epilogue', sans-serif; text-transform:uppercase; letter-spacing:-.06em; pointer-events:none; }
 .wdx-gallery-title span { display:block; color:#ffffff; text-shadow:0 10px 30px rgba(0,0,0,0.9); }
-.wdx-gallery-title strong { display:block; color:var(--wdx-orange, #f5693c); text-shadow:0 0 40px rgba(245,105,60,0.65), 0 10px 30px rgba(0,0,0,0.9); }
+.wdx-gallery-title strong { display:block; color:var(--wdx-orange); text-shadow:0 0 40px rgba(245,105,60,0.65), 0 10px 30px rgba(0,0,0,0.9); }
 
 .wdx-services { background:var(--wdx-cream); color:var(--color-dark, #1a1a1a); padding:14vh 6vw; display:grid; grid-template-columns:.8fr 1.6fr; gap:8vw; }
 .wdx-services-head h2 { font-size:clamp(60px,8vw,120px); margin:0; color: var(--color-dark, #1a1a1a); }
@@ -110,8 +114,8 @@
 .wdx-service { display:grid; grid-template-columns:55px 1fr 1.1fr 35px; gap:20px; align-items:center; padding:25px 10px; border-top:1px solid var(--wdx-line); color:var(--color-dark, #1a1a1a); text-decoration:none; transition:.35s ease; border-radius:6px; }
 .wdx-service:last-child { border-bottom:1px solid var(--wdx-line); }
 .wdx-service:nth-child(odd):hover { padding-inline:28px; background:var(--wdx-orange); color:var(--wdx-black); }
-.wdx-service:nth-child(even):hover { padding-inline:28px; background:var(--wdx-darkblue); color:var(--wdx-white); }
-.wdx-service:nth-child(even):hover .wdx-service-num { color:rgba(255,255,255,.8); opacity:1; }
+.wdx-service:nth-child(even):hover { padding-inline:28px; background:var(--wdx-lightblue); color:var(--color-dark, #1a1a1a); }
+.wdx-service:nth-child(even):hover .wdx-service-num { color:rgba(26,26,26,.75); opacity:1; }
 .wdx-service-num { font:700 11px/1 'DM Sans'; opacity:.55; }
 .wdx-service h3 { margin:0; font:800 clamp(25px,3vw,46px)/.9 'Epilogue'; text-transform:uppercase; letter-spacing:-.04em; }
 .wdx-service p { margin:0; max-width:330px; font:400 14px/1.45 Georgia,serif; }
@@ -126,7 +130,7 @@
 .wdx-cta-overlay { position:absolute; inset:0; background:rgba(10,10,10,.72); }
 .wdx-cta-content { position:relative; z-index:2; }
 .wdx-cta h2 { font-size:clamp(70px,11vw,170px); margin:0 0 40px; color: var(--wdx-white); }
-.wdx-cta h2 i { color:var(--wdx-orange); }
+.wdx-cta h2 i { color:var(--wdx-pink); }
 .wdx-button-light { background:var(--wdx-white); color:var(--wdx-black); }
 .wdx-small { margin-top:28px; font:700 10px/1 'DM Sans'; text-transform:uppercase; letter-spacing:.12em; opacity:.75; }
 .wdx-back { background:var(--wdx-black); padding:30px 6vw; text-align:right; border-top:1px solid rgba(255,255,255,.1); }
