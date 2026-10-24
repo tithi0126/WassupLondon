@@ -1,5 +1,6 @@
+
 /* ─── Fonts ─────────────────────────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Epilogue:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Epilogue:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
 @font-face {
     font-family: 'DM Sans';
@@ -13,21 +14,53 @@
     font-weight: 100 900;
 }
 
-/* ─── Design Tokens ─────────────────────────────────────────────────────────── */
+/* ─── Clean Editorial Minimalist Design Tokens ───────────────────────────────── */
 :root {
-    --color-green: #29725f;
-    --color-lightblue: #82a0ff;
-    --color-darkblue: #4b69f0;
-    --color-lightgreen: #e6fab9;
-    --color-orange: #f5693c;
-    --color-maroon: #a0325a;
-    --color-pink: #f0befa;
-    --bg-color: #f0ebe6;
+    /* Primary Canvas & Surfaces (Warm Ivory / Alabaster) */
+    --bg-color: #fbfaf7;
+    --bg-warm: #f6f4ee;
+    --surface-white: #ffffff;
+    --surface-card: #f9f8f4;
+    --surface-subtle: #f0eee8;
+
+    /* Charcoal & Typography Scale */
+    --color-dark: #121214;
+    --color-dark-soft: #27272a;
+    --color-muted: #6b6964;
+    --color-subtle: #99968f;
+
+    /* Hairline Architectural Borders */
+    --border-color: rgba(18, 18, 20, 0.08);
+    --border-color-medium: rgba(18, 18, 20, 0.14);
+    --border-color-strong: rgba(18, 18, 20, 0.24);
+
+    /* Editorial Accent: Warm Champagne / Sand */
+    --color-accent: #9a805c;
+    --color-accent-soft: #f4ede2;
+    --color-accent-gold: #c5a880;
+
+    /* High-Contrast Dark Canvas (Showreel, Night Galas, Footer) */
+    --color-black: #0c0c0e;
+    --color-black-soft: #141417;
+    --color-black-deep: #08080a;
     --color-white: #ffffff;
-    --color-black: #000000;
-    --color-dark: #1a1a1a;
-    --color-black-soft: #111111;
-    --color-black-deep: #0a0a0a;
+    --color-white-muted: rgba(255, 255, 255, 0.72);
+    --border-dark: rgba(255, 255, 255, 0.1);
+
+    /* Minimalist Tonal Accents for Service Categories */
+    --color-green: #29725f;
+    --color-lightblue: #7188a8;
+    --color-darkblue: #1c2738;
+    --color-lightgreen: #e9ece4;
+    --color-orange: #9b5a38;
+    --color-maroon: #5a2838;
+    --color-pink: #dfd5d1;
+
+    /* Modern Typography & Motion Tokens */
+    --font-heading: 'Epilogue', sans-serif;
+    --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ─── Reset ─────────────────────────────────────────────────────────────────── */
@@ -38,8 +71,8 @@
 }
 
 ::selection {
-    background-color: var(--color-pink);
-    color: var(--color-black);
+    background-color: var(--color-dark);
+    color: var(--bg-color);
 }
 
 /* Prevent selection on non-text elements */
@@ -58,15 +91,25 @@ object {
 /* ─── Base Elements ──────────────────────────────────────────────────────────── */
 body {
     background-color: var(--bg-color);
-    font-family: 'Epilogue', sans-serif;
+    font-family: var(--font-body);
     color: var(--color-dark);
-    overflow-x: hidden;
+    overflow-x: clip;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    cursor: url("/assets/Cursor SVG/cursor-default.svg") 2 0, auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    cursor: default;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.02em;
+    font-weight: 500;
 }
 
 html {
+    overflow-x: clip;
+    max-width: 100%;
     scrollbar-width: none;
     -ms-overflow-style: none;
 }

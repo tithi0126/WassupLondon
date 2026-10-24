@@ -1,60 +1,76 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 
 export default function CursorBubble() {
+    const cursorRef = useRef(null);
+    const dotRef = useRef(null);
+
     useEffect(() => {
-        const cursorBubble = document.querySelector('.cursor-bubble');
-        if (!cursorBubble) return;
+        // Only run on non-touch devices
+        if (window.matchMedia('(pointer: coarse)').matches) return;
 
-        const xTo = gsap.quickTo(cursorBubble, 'x', { duration: 0.5, ease: 'power3' });
-        const yTo = gsap.quickTo(cursorBubble, 'y', { duration: 0.5, ease: 'power3' });
+        const cursor = cursorRef.current;
+        const dot = dotRef.current;
+        if (!cursor || !dot) return;
 
-        let isHoveringClickable = false;
-        gsap.set(cursorBubble, { rotation: -30 });
+        const xToCursor = gsap.quickTo(cursor, 'x', { duration: 0.35, ease: 'power2.out' });
+        const yToCursor = gsap.quickTo(cursor, 'y', { duration: 0.35, ease: 'power2.out' });
+        const xToDot = gsap.quickTo(dot, 'x', { duration: 0.1, ease: 'power2.out' });
+        const yToDot = gsap.quickTo(dot, 'y', { duration: 0.1, ease: 'power2.out' });
 
         const onMouseMove = (e) => {
-            xTo(e.clientX + 13);
-            yTo(e.clientY - 43);
+            xToCursor(e.clientX);
+            yToCursor(e.clientY);
+            xToDot(e.clientX);
+            yToDot(e.clientY);
         };
 
         const onMouseOver = (e) => {
-            const targetSelector = '.footer-column h3, .footer-map-link span, .footer-email, .footer-whatsapp, .single-social, .logo-wassup, .nav-work-btn';
-            const found = e.target.closest(targetSelector);
-
-            if (found && !isHoveringClickable) {
-                isHoveringClickable = true;
-                if (found.matches('.logo-wassup')) cursorBubble.textContent = 'to home';
-                else if (found.matches('.nav-work-btn')) cursorBubble.textContent = 'click';
-                else cursorBubble.textContent = 'click';
-                gsap.killTweensOf(cursorBubble, 'opacity,scale,rotation');
-                gsap.to(cursorBubble, { opacity: 1, scale: 1, rotation: 0, duration: 1.7, delay: 0.1, ease: 'elastic.out(1, 0.4)' });
-            } else if (!found && isHoveringClickable) {
-                isHoveringClickable = false;
-                gsap.killTweensOf(cursorBubble, 'opacity,scale,rotation');
-                gsap.to(cursorBubble, { opacity: 1, scale: 0, rotation: -30, duration: 0.3, ease: 'sine.inOut' });
+            const link = e.target.closest('a, button, [role="button"], input, .card, .motion-card__card, .showreel-card, .vimeo-player-area');
+            if (link) {
+                cursor.classList.add('cursor--active');
+                if (link.closest('.vimeo-player-area')) {
+                    cursor.setAttribute('data-text', 'SOUND');
+                } else if (link.closest('.showreel-card')) {
+                    cursor.setAttribute('data-text', 'PLAY');
+                } else if (link.closest('.card, .motion-card__card')) {
+                    cursor.setAttribute('data-text', 'VIEW');
+                } else {
+                    cursor.removeAttribute('data-text');
+                }
+            } else {
+                cursor.classList.remove('cursor--active');
+                cursor.removeAttribute('data-text');
             }
         };
 
-        const onMouseLeave = () => {
-            if (isHoveringClickable) {
-                isHoveringClickable = false;
-                gsap.killTweensOf(cursorBubble, 'opacity,scale,rotation');
-                gsap.to(cursorBubble, { opacity: 1, scale: 0, rotation: -30, duration: 0.3, ease: 'sine.inOut' });
-            }
+        const onMouseLeaveDoc = () => {
+            gsap.to([cursor, dot], { opacity: 0, duration: 0.25 });
+        };
+
+        const onMouseEnterDoc = () => {
+            gsap.to([cursor, dot], { opacity: 1, duration: 0.25 });
         };
 
         window.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseover', onMouseOver);
-        document.addEventListener('mouseleave', onMouseLeave);
+        document.addEventListener('mouseleave', onMouseLeaveDoc);
+        document.addEventListener('mouseenter', onMouseEnterDoc);
 
         return () => {
             window.removeEventListener('mousemove', onMouseMove);
             document.removeEventListener('mouseover', onMouseOver);
-            document.removeEventListener('mouseleave', onMouseLeave);
+            document.removeEventListener('mouseleave', onMouseLeaveDoc);
+            document.removeEventListener('mouseenter', onMouseEnterDoc);
         };
     }, []);
 
-    return <div className="cursor-bubble">click</div>;
+    return (
+        <>
+            <div ref={cursorRef} className="cursor-follower" aria-hidden="true" />
+            <div ref={dotRef} className="cursor-dot" aria-hidden="true" />
+        </>
+    );
 }

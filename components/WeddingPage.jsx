@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
+import '@/app/styles/wedding.css';
 
 const SERVICES = [
   ['01', 'Full Planning', 'From first moodboard to the last guest leaving — suppliers, schedules, budgets and every moving part.'],
@@ -15,10 +16,10 @@ const SERVICES = [
 ];
 
 const EVENTS = [
-  ['01', 'Mehndi', 'Colour, music, movement.'],
-  ['02', 'Sangeet', 'Big energy, perfectly timed.'],
-  ['03', 'Ceremony', 'Tradition, intimacy, meaning.'],
-  ['04', 'Reception', 'The night everyone remembers.'],
+  { n: '01', title: 'Mehndi', desc: 'Colour, music, movement.' },
+  { n: '02', title: 'Sangeet', desc: 'Big energy, perfectly timed.' },
+  { n: '03', title: 'Ceremony', desc: 'Tradition, intimacy, meaning.' },
+  { n: '04', title: 'Reception', desc: 'The night everyone remembers.' },
 ];
 
 const IMAGES = {
@@ -30,200 +31,178 @@ const IMAGES = {
   table: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1600&q=90',
 };
 
-function Arrow() {
-  return <span className="wdx-arrow" aria-hidden="true">↗</span>;
-}
-
 export default function WeddingPage() {
   const root = useRef(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     const ctx = gsap.context(() => {
-      gsap.fromTo('.wdx-hero-copy > *',
-        { y: 70, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, stagger: .1, ease: 'power3.out' }
+      gsap.fromTo('.wd2-hero-eyebrow, .wd2-hero-title, .wd2-hero-desc, .wd2-hero-cta',
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1.1, stagger: 0.1, ease: 'power3.out', delay: 0.2 }
       );
 
-      gsap.to('.wdx-hero-image', {
-        yPercent: 12, ease: 'none',
-        scrollTrigger: { trigger: '.wdx-hero', start: 'top top', end: 'bottom top', scrub: true }
+      gsap.to('.wd2-hero-img', {
+        yPercent: 14, ease: 'none',
+        scrollTrigger: { trigger: '.wd2-hero', start: 'top top', end: 'bottom top', scrub: true }
       });
 
-      gsap.fromTo('.wdx-intro-word',
-        { yPercent: 110 },
-        {
-          yPercent: 0, duration: 1.1, stagger: .12, ease: 'power4.out',
-          scrollTrigger: { trigger: '.wdx-intro', start: 'top 70%' }
-        }
-      );
-
-      gsap.utils.toArray('.wdx-reveal').forEach((el) => {
-        gsap.fromTo(el, { y: 45, opacity: 0 }, {
-          y: 0, opacity: 1, duration: .8, ease: 'power3.out',
-          scrollTrigger: { trigger: el, start: 'top 82%', once: true }
+      gsap.utils.toArray('.wd2-reveal').forEach(el => {
+        gsap.fromTo(el, { y: 36, opacity: 0 }, {
+          y: 0, opacity: 1, duration: 0.9, ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 84%', once: true }
         });
       });
 
-      gsap.to('.wdx-marquee-track', {
-        xPercent: -50, ease: 'none', duration: 24, repeat: -1
-      });
-
-      gsap.to('.wdx-ring', {
-        rotation: 360, ease: 'none',
-        scrollTrigger: { trigger: '.wdx-story', start: 'top bottom', end: 'bottom top', scrub: true }
-      });
-
-      gsap.fromTo('.wdx-gallery-card',
-        { y: 60 },
-        {
-          y: -30, stagger: .08, ease: 'none',
-          scrollTrigger: { trigger: '.wdx-gallery', start: 'top bottom', end: 'bottom top', scrub: true }
-        }
-      );
+      gsap.to('.wd2-ticker-inner', { xPercent: -50, ease: 'none', duration: 28, repeat: -1 });
     }, root);
 
-    const refreshTimer = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 400);
-
-    return () => {
-      clearTimeout(refreshTimer);
-      ctx.revert();
-    };
+    setTimeout(() => ScrollTrigger.refresh(), 400);
+    return () => ctx.revert();
   }, []);
 
   return (
-    <div className="wdx-root" ref={root}>
-      <div className="wdx-rail" aria-hidden="true">
-        <span>Weddings · Wassup London · Weddings · Wassup London · </span>
-        <span>Weddings · Wassup London · Weddings · Wassup London · </span>
-      </div>
+    <div className="wd2-root" ref={root}>
 
-      <section className="wdx-hero">
-        <img className="wdx-hero-image" src={IMAGES.hero} alt="" />
-        <div className="wdx-hero-overlay" />
-        <div className="wdx-hero-copy">
-          <p className="wdx-kicker">Wassup London / Bespoke Weddings</p>
-          <h1>
-            <span>Made</span>
-            <span>for <i>you.</i></span>
-          </h1>
-          <p className="wdx-hero-desc">
-            Weddings with personality, precision and a little bit of chaos — planned beautifully from the first idea to the final dance.
-          </p>
-          <a href="#wdx-contact" className="wdx-button">Plan your wedding <Arrow /></a>
+      {/* ── Hero ───────────────────────────────────── */}
+      <section className="wd2-hero">
+        <div className="wd2-hero-img-wrap">
+          <img className="wd2-hero-img" src={IMAGES.hero} alt="" />
+          <div className="wd2-hero-veil" />
         </div>
-        <div className="wdx-hero-meta">
+        <div className="wd2-hero-body">
+          <p className="wd2-hero-eyebrow">Wassup London · Bespoke Weddings</p>
+          <h1 className="wd2-hero-title">
+            Made for<br /><em>you.</em>
+          </h1>
+          <p className="wd2-hero-desc">
+            Weddings with personality, precision and a little bit of chaos —<br />
+            planned beautifully from the first idea to the final dance.
+          </p>
+          <a href="#wd2-contact" className="wd2-hero-cta">
+            Plan your wedding <span>↗</span>
+          </a>
+        </div>
+        <div className="wd2-hero-scroll">
           <span>London · UK · Worldwide</span>
-          <span>Scroll to explore ↓</span>
+          <span>Scroll ↓</span>
         </div>
       </section>
 
-      <div className="wdx-marquee" aria-hidden="true">
-        <div className="wdx-marquee-track">
-          <span>LOVE LOUDER</span><b>✳</b><span>PLAN BOLDER</span><b>✳</b>
-          <span>CELEBRATE EVERYTHING</span><b>✳</b><span>LOVE LOUDER</span><b>✳</b>
-          <span>PLAN BOLDER</span><b>✳</b><span>CELEBRATE EVERYTHING</span><b>✳</b>
+      {/* ── Ticker ─────────────────────────────────── */}
+      <div className="wd2-ticker" aria-hidden="true">
+        <div className="wd2-ticker-inner">
+          {['LOVE LOUDER', 'PLAN BOLDER', 'CELEBRATE EVERYTHING', 'LOVE LOUDER', 'PLAN BOLDER', 'CELEBRATE EVERYTHING'].map((t, i) => (
+            <span key={i}>{t} <b>·</b></span>
+          ))}
         </div>
       </div>
 
-      <section className="wdx-intro">
-        <div className="wdx-intro-left">
-          <p className="wdx-eyebrow">01 / The idea</p>
-          <div className="wdx-ring">✳</div>
+      {/* ── Intro ──────────────────────────────────── */}
+      <section className="wd2-intro wd2-reveal">
+        <div className="wd2-intro-index">
+          <span>01</span>
+          <div className="wd2-intro-line" />
         </div>
-        <div className="wdx-intro-copy">
-          <h2>
-            <span className="wdx-intro-word">Not</span>
-            <span className="wdx-intro-word">just</span>
-            <span className="wdx-intro-word wdx-accent">a wedding.</span>
-          </h2>
-          <p className="wdx-lede">
+        <div className="wd2-intro-copy">
+          <p className="wd2-eyebrow">The idea</p>
+          <h2>Not just<br /><em>a wedding.</em></h2>
+          <p className="wd2-intro-body">
             Your people. Your rituals. Your music. Your weird little details.
             We turn all of it into one unforgettable experience.
           </p>
         </div>
       </section>
 
-      <section className="wdx-story">
-        <div className="wdx-story-image wdx-reveal">
+      {/* ── Story split ────────────────────────────── */}
+      <section className="wd2-story">
+        <div className="wd2-story-img wd2-reveal">
           <img src={IMAGES.couple} alt="Couple celebrating together" />
         </div>
-        <div className="wdx-story-copy wdx-reveal">
-          <p className="wdx-eyebrow">02 / Our approach</p>
+        <div className="wd2-story-copy wd2-reveal">
+          <span className="wd2-index-badge">02</span>
+          <p className="wd2-eyebrow">Our approach</p>
           <h2>Big feeling.<br /><em>Small details.</em></h2>
           <p>
             We build weddings like creative productions. There is a big picture,
             but the magic lives in the details: the entrance music, the lighting
             shift, the handwritten place card, the food your grandparents love.
           </p>
-          <a href="#wdx-services" className="wdx-text-link">See what we do <Arrow /></a>
+          <a href="#wd2-services" className="wd2-text-link">See what we do →</a>
         </div>
       </section>
 
-      <section className="wdx-events">
-        <div className="wdx-section-head wdx-reveal">
-          <p className="wdx-eyebrow">03 / The celebrations</p>
-          <h2>Every function.<br /><i>One story.</i></h2>
+      {/* ── Event types ────────────────────────────── */}
+      <section className="wd2-events">
+        <div className="wd2-events-head wd2-reveal">
+          <p className="wd2-eyebrow">03 · The celebrations</p>
+          <h2>Every function.<br /><em>One story.</em></h2>
         </div>
-        <div className="wdx-event-grid">
-          {EVENTS.map(([n, title, desc]) => (
-            <article className="wdx-event-card wdx-reveal" key={n}>
-              <span>{n}</span>
+        <div className="wd2-event-grid">
+          {EVENTS.map(({ n, title, desc }) => (
+            <article className="wd2-event-card wd2-reveal" key={n}>
+              <span className="wd2-card-num">{n}</span>
               <h3>{title}</h3>
               <p>{desc}</p>
-              <Arrow />
+              <span className="wd2-card-arrow">↗</span>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="wdx-gallery">
-        <div className="wdx-gallery-card wdx-g1"><img src={IMAGES.details} alt="Wedding details" /></div>
-        <div className="wdx-gallery-card wdx-g2"><img src={IMAGES.ceremony} alt="Wedding ceremony" /></div>
-        <div className="wdx-gallery-card wdx-g3"><img src={IMAGES.dance} alt="Wedding celebration" /></div>
-        <div className="wdx-gallery-card wdx-g4"><img src={IMAGES.table} alt="Wedding table styling" /></div>
-        <div className="wdx-gallery-title">
-          <span>THE</span><strong>GOOD</strong><span>STUFF</span>
+      {/* ── Gallery ────────────────────────────────── */}
+      <section className="wd2-gallery">
+        <div className="wd2-gallery-grid">
+          <div className="wd2-g wd2-g1"><img src={IMAGES.details} alt="" /></div>
+          <div className="wd2-g wd2-g2"><img src={IMAGES.ceremony} alt="" /></div>
+          <div className="wd2-g wd2-g3"><img src={IMAGES.dance} alt="" /></div>
+          <div className="wd2-g wd2-g4"><img src={IMAGES.table} alt="" /></div>
         </div>
+        <p className="wd2-gallery-label">The Good Stuff</p>
       </section>
 
-      <section className="wdx-services" id="wdx-services">
-        <div className="wdx-services-head">
-          <p className="wdx-eyebrow">04 / What we do</p>
-          <h2>From “yes”<br />to <i>let's dance.</i></h2>
+      {/* ── Services ───────────────────────────────── */}
+      <section className="wd2-services" id="wd2-services">
+        <div className="wd2-services-head wd2-reveal">
+          <p className="wd2-eyebrow">04 · What we do</p>
+          <h2>From "yes"<br /><em>to let's dance.</em></h2>
         </div>
-        <div className="wdx-service-list">
+        <div className="wd2-service-list">
           {SERVICES.map(([n, title, desc]) => (
-            <a href="#wdx-contact" className="wdx-service" key={n}>
-              <span className="wdx-service-num">{n}</span>
-              <h3>{title}</h3>
-              <p>{desc}</p>
-              <Arrow />
+            <a href="#wd2-contact" className="wd2-service wd2-reveal" key={n}>
+              <span className="wd2-service-num">{n}</span>
+              <div className="wd2-service-body">
+                <h3>{title}</h3>
+                <p>{desc}</p>
+              </div>
+              <span className="wd2-service-arrow">↗</span>
             </a>
           ))}
         </div>
       </section>
 
-      <section className="wdx-quote wdx-reveal">
-        <p>“The best weddings don't feel produced.<br /><i>They feel completely you.</i>”</p>
+      {/* ── Pull quote ─────────────────────────────── */}
+      <section className="wd2-quote wd2-reveal">
+        <p>"The best weddings don't feel produced.<br /><em>They feel completely you.</em>"</p>
       </section>
 
-      <section className="wdx-cta" id="wdx-contact">
-        <img src={IMAGES.hero} alt="" />
-        <div className="wdx-cta-overlay" />
-        <div className="wdx-cta-content">
-          <p className="wdx-eyebrow">05 / Let's make it happen</p>
-          <h2>Ready to make<br /><i>some memories?</i></h2>
-          <a className="wdx-button wdx-button-light" href="https://wa.me/447454904611" target="_blank" rel="noreferrer">
-            Start the conversation <Arrow />
+      {/* ── CTA ────────────────────────────────────── */}
+      <section className="wd2-cta" id="wd2-contact">
+        <div className="wd2-cta-img-wrap">
+          <img src={IMAGES.hero} alt="" />
+          <div className="wd2-cta-veil" />
+        </div>
+        <div className="wd2-cta-body">
+          <p className="wd2-eyebrow" style={{ color: 'rgba(255,255,255,0.6)' }}>05 · Let's make it happen</p>
+          <h2>Ready to make<br /><em>some memories?</em></h2>
+          <a className="wd2-cta-btn" href="https://wa.me/447471557773" target="_blank" rel="noreferrer">
+            Start the conversation ↗
           </a>
-          <p className="wdx-small">London · Birmingham · Manchester · Destination</p>
+          <p className="wd2-cta-locs">London · Birmingham · Manchester · Destination</p>
         </div>
       </section>
 
-      <div className="wdx-back">
+      <div className="wd2-back">
         <Link href="/">← Back to Wassup London</Link>
       </div>
     </div>

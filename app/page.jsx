@@ -6,7 +6,8 @@ import VimeoHero from '@/components/VimeoHero';
 import ServiceCards from '@/components/ServiceCards';
 import MotionCards from '@/components/MotionCards';
 import Showreel from '@/components/Showreel';
-import DoubleMarquee from '@/components/DoubleMarquee';
+// Rolling partner logos removed per client request:
+// import DoubleMarquee from '@/components/DoubleMarquee';
 import Footer from '@/components/Footer';
 import TransitionScribble from '@/components/TransitionScribble';
 import CursorBubble from '@/components/CursorBubble';
@@ -35,9 +36,6 @@ export default function Home() {
                     <ServiceCards />
                 </div>
             </main>
-            <section className="Double-marquee">
-                <DoubleMarquee />
-            </section>
             <footer className="main-footer">
                 <Footer />
             </footer>

@@ -586,7 +586,7 @@ The final CTA currently uses a WhatsApp link.
 Example:
 
 ```text
-https://wa.me/447454904611
+https://wa.me/447471557773
 ```
 
 Replace the number with the official Wassup London business number.
@@ -632,7 +632,7 @@ find the WhatsApp anchor:
 
 ```jsx
 <a
-  href="https://wa.me/447454904611"
+  href="https://wa.me/447471557773"
   target="_blank"
   rel="noreferrer"
 >

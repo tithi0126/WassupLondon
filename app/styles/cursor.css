@@ -1,41 +1,97 @@
-/* ─── Custom Cursor Bubble ───────────────────────────────────────────────── */
-.cursor-bubble {
+/* ─── Minimalist Editorial Custom Cursor ──────────────────────────────────── */
+
+.cursor-dot {
     position: fixed;
-    top: 0;
-    left: 0;
+    top: -3px;
+    left: -3px;
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-dark);
+    border-radius: 50%;
     pointer-events: none;
-    background-color: var(--color-pink);
-    color: var(--color-black);
-    padding: 5px 7px 3px 7px;
-    border-radius: 50px 50px 50px 0px;
-    font-size: 18px;
-    font-family: 'Epilogue', sans-serif;
-    opacity: 0;
-    transform: scale(0);
-    transform-origin: left center;
-    z-index: 10000;
-    white-space: nowrap;
+    z-index: 99999;
+    transition: opacity 0.2s ease;
+    mix-blend-mode: difference;
+    background-color: #ffffff;
 }
 
-/* ─── Page Transition Scribble ───────────────────────────────────────────── */
+.cursor-follower {
+    position: fixed;
+    top: -18px;
+    left: -18px;
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(18, 18, 20, 0.35);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: width 0.3s var(--ease-editorial),
+                height 0.3s var(--ease-editorial),
+                top 0.3s var(--ease-editorial),
+                left 0.3s var(--ease-editorial),
+                background-color 0.3s ease,
+                border-color 0.3s ease,
+                border-radius 0.3s ease;
+}
+
+.cursor-follower.cursor--active {
+    width: 64px;
+    height: 64px;
+    top: -32px;
+    left: -32px;
+    background-color: rgba(18, 18, 20, 0.05);
+    border-color: rgba(18, 18, 20, 0.6);
+    backdrop-filter: blur(2px);
+}
+
+.cursor-follower[data-text]::after {
+    content: attr(data-text);
+    font-family: var(--font-body);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-dark);
+}
+
+/* On dark background sections */
+.on-dark ~ * .cursor-follower,
+#showreel-section:hover ~ * .cursor-follower {
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Hide cursor on touch devices */
+@media (pointer: coarse) {
+    .cursor-dot,
+    .cursor-follower {
+        display: none !important;
+    }
+}
+
+/* ─── Page Transition Minimal Curtain ───────────────────────────────────── */
 .transition-scribble {
     position: fixed;
-    top: -50vh;
-    left: -50vw;
-    width: 200vw;
-    height: 200vh;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
     z-index: 9999;
     pointer-events: none;
-    color: var(--color-darkblue);
+    background-color: #0c0c0e;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: transform 0.6s var(--ease-editorial), opacity 0.3s ease;
+}
+
+.transition-scribble.is-active {
+    opacity: 1;
+    transform: translateY(0%);
+    pointer-events: all;
 }
 
 /* ─── Transition States ──────────────────────────────────────────────────── */
 body.is-transitioning {
     pointer-events: none !important;
-}
-
-body.is-transitioning .cursor-bubble {
-    opacity: 0 !important;
-    transform: scale(0) !important;
-    display: none !important;
 }

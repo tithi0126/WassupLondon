@@ -1,240 +1,568 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap';
-import { EVENTS } from '@/lib/data';
+import Link from 'next/link';
+import * as THREE from 'three';
 
 export default function VimeoHero() {
+    const heroRef = useRef(null);
+    const canvasBgRef = useRef(null);
+    const canvas3dRef = useRef(null);
     const videoRef = useRef(null);
-    const playerRef = useRef(null);
-    const bubbleRef = useRef(null);
-    const titleRef = useRef(null);
-    const controlsRef = useRef(null);
+    const flashRef = useRef(null);
+    const coverRef = useRef(null);
+    const contentRef = useRef(null);
 
-    const [isPlaying, setIsPlaying] = useState(true);
     const [isMuted, setIsMuted] = useState(true);
-    const [isFullscreen, setIsFullscreen] = useState(false);
-    const [isLoaded, setIsLoaded] = useState(false);
+    const [scrollP, setScrollP] = useState(0);
 
+    // Audio toggle
     useEffect(() => {
         if (videoRef.current) {
             videoRef.current.muted = isMuted;
+            if (!isMuted) {
+                videoRef.current.play().catch(() => {});
+            }
         }
     }, [isMuted]);
 
+    const toggleAudio = (e) => {
+        e.stopPropagation();
+        setIsMuted((prev) => !prev);
+    };
+
+    // ─── Three.js 3D Disco Ball & Radiant Atmosphere ──────────────────────────
     useEffect(() => {
-        if (videoRef.current) {
-            if (isPlaying) {
-                videoRef.current.play().catch(() => {});
-            } else {
-                videoRef.current.pause();
+        const bgCanvas = canvasBgRef.current;
+        const c3d = canvas3dRef.current;
+        const heroEl = heroRef.current;
+        if (!bgCanvas || !c3d || !heroEl) return;
+
+        let animId;
+        const bx = bgCanvas.getContext('2d');
+
+        // Logo-themed Palette: Deep Obsidian, Royal Indigo, Luminous Purple, Neon Violet, Champagne Gold
+        const LOGO_PAL = [
+            '#9d4edd', // Vivid Purple
+            '#4361ee', // Electric Royal Blue
+            '#d4af37', // Champagne Gold
+            '#c77dff', // Soft Neon Lavender
+            '#f72585', // Radiant Magenta
+            '#ffd166', // Warm Gold
+            '#ffffff', // Pure Diamond Specular
+        ];
+        const LOGO_PAL_HEX = [0x9d4edd, 0x4361ee, 0xd4af37, 0xc77dff, 0xf72585, 0xffd166, 0xffffff];
+
+        // 1. Renderer Setup
+        const renderer = new THREE.WebGLRenderer({
+            canvas: c3d,
+            antialias: true,
+            alpha: true,
+            powerPreference: 'high-performance',
+        });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+        renderer.outputColorSpace = THREE.SRGBColorSpace;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.35;
+
+        // 2. Procedural Logo-Themed Equirectangular Environment Map
+        function makeEnv() {
+            const c = document.createElement('canvas');
+            c.width = 1024;
+            c.height = 512;
+            const g = c.getContext('2d');
+
+            // Deep obsidian velvet base with rich royal purple & indigo glow
+            const bgr = g.createLinearGradient(0, 0, 0, 512);
+            bgr.addColorStop(0, '#060410');
+            bgr.addColorStop(0.35, '#1e0c3a');
+            bgr.addColorStop(0.55, '#3b125e');
+            bgr.addColorStop(0.85, '#0e0826');
+            bgr.addColorStop(1, '#05030d');
+            g.fillStyle = bgr;
+            g.fillRect(0, 0, 1024, 512);
+
+            // Shimmering colored light spots in the environment reflection
+            for (let i = 0; i < 28; i++) {
+                const x = Math.random() * 1024;
+                const y = Math.random() * 512;
+                const r = 40 + Math.random() * 140;
+                const col = LOGO_PAL[i % LOGO_PAL.length];
+                const rg = g.createRadialGradient(x, y, 0, x, y, r);
+                rg.addColorStop(0, col);
+                rg.addColorStop(1, col + '00');
+                g.globalAlpha = 0.85;
+                g.fillStyle = rg;
+                g.fillRect(x - r, y - r, r * 2, r * 2);
+            }
+
+            // Glistening starry speckles
+            g.globalAlpha = 1;
+            g.fillStyle = '#ffffff';
+            for (let i = 0; i < 200; i++) {
+                g.beginPath();
+                g.arc(Math.random() * 1024, Math.random() * 512, 1 + Math.random() * 3.5, 0, Math.PI * 2);
+                g.fill();
+            }
+
+            const tex = new THREE.CanvasTexture(c);
+            tex.mapping = THREE.EquirectangularReflectionMapping;
+            if (THREE.SRGBColorSpace) tex.colorSpace = THREE.SRGBColorSpace;
+
+            const pm = new THREE.PMREMGenerator(renderer);
+            const env = pm.fromEquirectangular(tex).texture;
+            tex.dispose();
+            pm.dispose();
+            return env;
+        }
+
+        const scene = new THREE.Scene();
+        const envTexture = makeEnv();
+        scene.environment = envTexture;
+
+        const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 50);
+        camera.position.set(0, 0, 6.4);
+
+        // 3. Disco Ball Construction
+        const R = 1.62;
+        const ball = new THREE.Group();
+        scene.add(ball);
+
+        // Gold suspension chain from above
+        const strGeo = new THREE.CylinderGeometry(0.012, 0.012, 10, 6);
+        const strMat = new THREE.MeshBasicMaterial({ color: 0xd4af37 });
+        const str = new THREE.Mesh(strGeo, strMat);
+        str.position.y = R + 5;
+        scene.add(str);
+
+        // Faceted mirror tiles with slight natural variance
+        const rings = 35;
+        const tiles = [];
+        for (let i = 0; i < rings; i++) {
+            const lat = -Math.PI / 2 + ((i + 0.5) * Math.PI) / rings;
+            const cnt = Math.max(4, Math.round(rings * 2 * Math.cos(lat)));
+            for (let j = 0; j < cnt; j++) {
+                tiles.push([lat, (j / cnt) * Math.PI * 2]);
             }
         }
-    }, [isPlaying]);
 
-    // Native video loads immediately enough that we don't need a heavy ready listener.
-    // We already handle `setIsLoaded(true)` directly on the <video onLoadedData={...}> element.
+        const size = ((Math.PI * R) / rings) * 0.92;
+        const tileMat = new THREE.MeshStandardMaterial({
+            color: 0xffffff,
+            metalness: 0.98,
+            roughness: 0.03,
+            envMapIntensity: 2.3,
+        });
 
-    /* ────────────────────────────────────────────────────
-       ④ Hover mute bubble — same GSAP elastic spring as CursorBubble
-    ──────────────────────────────────────────────────── */
-    useEffect(() => {
-        const bubble = bubbleRef.current;
-        const hero = playerRef.current;
-        const title = titleRef.current;
-        const controls = controlsRef.current;
-        if (!bubble || !hero) return;
+        const inst = new THREE.InstancedMesh(
+            new THREE.BoxGeometry(size, size, size * 0.22),
+            tileMat,
+            tiles.length
+        );
 
-        const xTo = gsap.quickTo(bubble, 'x', { duration: 0.5, ease: 'power3' });
-        const yTo = gsap.quickTo(bubble, 'y', { duration: 0.5, ease: 'power3' });
+        const dummy = new THREE.Object3D();
+        const col = new THREE.Color();
 
-        const onMove = (e) => {
-            xTo(e.clientX + 13);
-            yTo(e.clientY - 43);
-        };
+        tiles.forEach(([lat, lon], k) => {
+            dummy.position
+                .set(Math.cos(lat) * Math.cos(lon), Math.sin(lat), Math.cos(lat) * Math.sin(lon))
+                .multiplyScalar(R);
+            dummy.lookAt(dummy.position.clone().multiplyScalar(2));
+            // Subtle authentic random tilt so light glints individually
+            dummy.rotateX((Math.random() - 0.5) * 0.28);
+            dummy.rotateY((Math.random() - 0.5) * 0.28);
+            dummy.updateMatrix();
+            inst.setMatrixAt(k, dummy.matrix);
 
-        const onEnter = () => {
-            gsap.killTweensOf(bubble, 'opacity,scale,rotation');
-            gsap.to(bubble, { opacity: 1, scale: 1, rotation: 0, duration: 1.7, delay: 0.05, ease: 'elastic.out(1, 0.4)' });
-        };
+            const brightness = 0.8 + Math.random() * 0.2;
+            col.setRGB(brightness, brightness, brightness * 0.98);
+            if (Math.random() < 0.15) {
+                col.set(LOGO_PAL_HEX[Math.floor(Math.random() * LOGO_PAL_HEX.length)]);
+            }
+            inst.setColorAt(k, col);
+        });
+        inst.instanceMatrix.needsUpdate = true;
+        if (inst.instanceColor) inst.instanceColor.needsUpdate = true;
+        ball.add(inst);
 
-        const onLeave = () => {
-            gsap.killTweensOf(bubble, 'opacity,scale,rotation');
-            gsap.to(bubble, { opacity: 0, scale: 0, rotation: -30, duration: 0.3, ease: 'sine.inOut' });
-        };
+        // Dark obsidian core
+        const coreGeo = new THREE.SphereGeometry(R * 0.975, 26, 26);
+        const coreMat = new THREE.MeshBasicMaterial({ color: 0x070412 });
+        const core = new THREE.Mesh(coreGeo, coreMat);
+        ball.add(core);
 
-        const hideBubbleForElement = () => {
-            gsap.killTweensOf(bubble, 'opacity,scale,rotation');
-            gsap.to(bubble, { opacity: 0, scale: 0, rotation: -30, duration: 0.3, ease: 'sine.inOut' });
-        };
-
-        const showBubbleForElement = () => {
-            gsap.killTweensOf(bubble, 'opacity,scale,rotation');
-            gsap.to(bubble, { opacity: 1, scale: 1, rotation: 0, duration: 0.3, ease: 'sine.inOut' });
-        };
-
-        const onTitleEnter = () => {
-            hideBubbleForElement();
-            if (controls) gsap.to(controls, { opacity: 0, duration: 0.3, pointerEvents: 'none' });
-        };
-
-        const onTitleLeave = () => {
-            showBubbleForElement();
-            if (controls) gsap.to(controls, { opacity: 1, duration: 0.3, pointerEvents: 'auto' });
-        };
-
-        window.addEventListener('mousemove', onMove);
-        hero.addEventListener('mouseenter', onEnter);
-        hero.addEventListener('mouseleave', onLeave);
-
-        if (title) {
-            title.addEventListener('mouseenter', onTitleEnter);
-            title.addEventListener('mouseleave', onTitleLeave);
-        }
-        if (controls) {
-            controls.addEventListener('mouseenter', hideBubbleForElement);
-            controls.addEventListener('mouseleave', showBubbleForElement);
+        // Sparkle stars on ball surface
+        const st = document.createElement('canvas');
+        st.width = st.height = 64;
+        {
+            const g = st.getContext('2d');
+            const r = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+            r.addColorStop(0, '#ffffff');
+            r.addColorStop(0.2, 'rgba(212, 175, 55, 0.7)');
+            r.addColorStop(0.4, 'rgba(168, 85, 247, 0.35)');
+            r.addColorStop(1, 'rgba(0, 0, 0, 0)');
+            g.fillStyle = r;
+            g.fillRect(0, 0, 64, 64);
+            g.fillStyle = 'rgba(255, 255, 255, 0.9)';
+            g.fillRect(31, 3, 2, 58);
+            g.fillRect(3, 31, 58, 2);
         }
 
+        const sp = [];
+        for (let i = 0; i < 110; i++) {
+            const u = Math.random() * 2 - 1;
+            const a = Math.random() * Math.PI * 2;
+            const q = Math.sqrt(1 - u * u);
+            sp.push(q * Math.cos(a) * R * 1.025, u * R * 1.025, q * Math.sin(a) * R * 1.025);
+        }
+        const spG = new THREE.BufferGeometry();
+        spG.setAttribute('position', new THREE.Float32BufferAttribute(sp, 3));
+        const spTex = new THREE.CanvasTexture(st);
+        const spM = new THREE.PointsMaterial({
+            size: 0.35,
+            map: spTex,
+            transparent: true,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false,
+            color: 0xffffff,
+        });
+        const sparkles = new THREE.Points(spG, spM);
+        ball.add(sparkles);
+
+        // Orbiting Colored Point Lights (Purple, Royal Blue, Gold, Lavender, White)
+        scene.add(new THREE.AmbientLight(0x2d174d, 0.8));
+        const lightColors = [0x9d4edd, 0x4361ee, 0xd4af37, 0xc77dff, 0xf72585, 0xffffff];
+        const lights = lightColors.map((c) => {
+            const l = new THREE.PointLight(c, 3.8, 24);
+            scene.add(l);
+            return l;
+        });
+
+        // 4. Background 2D Radiant Beams & Atmosphere
+        const spots = Array.from({ length: 220 }, (_, i) => ({
+            a: Math.random() * Math.PI * 2,
+            r: Math.random(),
+            s: 0.4 + Math.random() * 1.6,
+            c: LOGO_PAL[i % LOGO_PAL.length],
+            t: Math.random() * 9,
+        }));
+        const beams = Array.from({ length: 18 }, (_, i) => ({
+            a: (i / 18) * Math.PI * 2,
+            c: LOGO_PAL[i % LOGO_PAL.length],
+            w: 0.03 + Math.random() * 0.05,
+        }));
+
+        function drawBg(t, p) {
+            const W = bgCanvas.width;
+            const H = bgCanvas.height;
+            const cx = W / 2;
+            const cy = H * 0.46;
+            const M = Math.hypot(W, H) / 2;
+            const u = W / 1000;
+
+            bx.globalCompositeOperation = 'source-over';
+            bx.clearRect(0, 0, W, H);
+
+            // Midnight velvet base
+            bx.fillStyle = '#080512';
+            bx.fillRect(0, 0, W, H);
+
+            bx.globalCompositeOperation = 'lighter';
+
+            const rot = t * 0.00018 + p * 5.2;
+            const zoom = 1 + p * 2.4;
+
+            // Central radiant purple & gold aura
+            const gl = bx.createRadialGradient(cx, cy, 0, cx, cy, M * 0.62 * zoom);
+            gl.addColorStop(0, `rgba(157, 78, 221, ${0.4 + 0.08 * Math.sin(t * 0.003)})`);
+            gl.addColorStop(0.35, 'rgba(67, 97, 238, 0.22)');
+            gl.addColorStop(0.65, 'rgba(212, 175, 55, 0.12)');
+            gl.addColorStop(1, 'rgba(7, 5, 18, 0)');
+            bx.fillStyle = gl;
+            bx.fillRect(0, 0, W, H);
+
+            // Sweeping volumetric light beams
+            beams.forEach((b, i) => {
+                const a = b.a + rot * (i % 2 ? 1 : -0.75);
+                const L = M * 1.35;
+                const g = bx.createLinearGradient(cx, cy, cx + Math.cos(a) * L, cy + Math.sin(a) * L);
+                g.addColorStop(0, b.c + '55');
+                g.addColorStop(0.7, b.c + '18');
+                g.addColorStop(1, b.c + '00');
+                bx.fillStyle = g;
+                bx.beginPath();
+                bx.moveTo(cx, cy);
+                bx.lineTo(cx + Math.cos(a - b.w) * L, cy + Math.sin(a - b.w) * L);
+                bx.lineTo(cx + Math.cos(a + b.w) * L, cy + Math.sin(a + b.w) * L);
+                bx.fill();
+            });
+
+            // Drifting luminous light spots
+            spots.forEach((s) => {
+                const a = s.a + rot * s.s;
+                const r = (((s.r + t * 0.00003 * s.s) % 1) * M * 1.15) * zoom;
+                const x = cx + Math.cos(a) * r;
+                const y = cy + Math.sin(a) * r * 0.85;
+                const tw = 0.45 + 0.55 * Math.abs(Math.sin(t * 0.003 * s.s + s.t));
+                const sz = (8 + s.r * 26) * u * Math.sqrt(zoom);
+                const g = bx.createRadialGradient(x, y, 0, x, y, sz);
+                g.addColorStop(0, '#ffffff');
+                g.addColorStop(0.25, s.c);
+                g.addColorStop(1, s.c + '00');
+                bx.globalAlpha = tw * Math.min(1, r / (M * 0.12));
+                bx.fillStyle = g;
+                bx.beginPath();
+                bx.arc(x, y, sz, 0, Math.PI * 2);
+                bx.fill();
+            });
+            bx.globalAlpha = 1;
+        }
+
+        // 5. Responsive Resize
+        function resize() {
+            const w = heroEl.clientWidth || window.innerWidth;
+            const h = window.innerHeight;
+            const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+
+            bgCanvas.width = w * dpr;
+            bgCanvas.height = h * dpr;
+
+            renderer.setSize(w, h, false);
+            camera.aspect = w / h;
+            camera.updateProjectionMatrix();
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // 6. Scroll Tracking & Smooth Inertia
+        let targetP = 0;
+        let smoothP = 0;
+        let mouseX = 0;
+        let mouseY = 0;
+
+        const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+        const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
+        function readScroll() {
+            const rect = heroEl.getBoundingClientRect();
+            const totalScrollable = heroEl.offsetHeight - window.innerHeight;
+            if (totalScrollable > 0) {
+                targetP = clamp(-rect.top / totalScrollable);
+            }
+        }
+        window.addEventListener('scroll', readScroll, { passive: true });
+        if (typeof window !== 'undefined' && window.__lenis) {
+            window.__lenis.on('scroll', readScroll);
+        }
+        readScroll();
+
+        const handleMouseMove = (e) => {
+            mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+        };
+        window.addEventListener('mousemove', handleMouseMove, { passive: true });
+
+        // 7. Render Loop with onscroll Acceleration & Camera Zoom
+        let lastTime = 0;
+        function tick(t) {
+            const dt = (t - lastTime) * 0.001 || 0.016;
+            lastTime = t;
+
+            // Direct check on each RAF keeps targetP in immediate sync with Lenis/wheel
+            const rect = heroEl.getBoundingClientRect();
+            const totalScrollable = heroEl.offsetHeight - window.innerHeight;
+            if (totalScrollable > 0) {
+                targetP = clamp(-rect.top / totalScrollable);
+            }
+
+            smoothP += (targetP - smoothP) * 0.09;
+            setScrollP(smoothP);
+
+            const z = ease(clamp(smoothP / 0.85));
+
+            // Onscroll spin acceleration & tilt
+            ball.rotation.y = smoothP * Math.PI * 9.0 + t * 0.00035;
+            ball.rotation.x = Math.sin(smoothP * 3.2) * 0.32 + mouseY * 0.12;
+            ball.rotation.z = Math.sin(t * 0.0008) * 0.03 + mouseX * 0.08;
+
+            // Camera smoothly pushes into the ball as you scroll
+            camera.position.set(0, 0, 6.4 - z * 5.15);
+            camera.lookAt(0, 0, 0);
+
+            // Suspension chain disappears as camera pushes forward
+            str.visible = z < 0.22;
+
+            // Shimmering stars bloom with scroll acceleration
+            spM.size = 0.32 + Math.sin(t * 0.006) * 0.12 + smoothP * 0.45;
+
+            // Orbiting lights swirl dynamically
+            lights.forEach((l, i) => {
+                const a = t * 0.0006 * (1 + i * 0.3) + i * 1.6 + smoothP * 4;
+                l.position.set(Math.cos(a) * 4.2, Math.sin(a * 1.3) * 3.2, Math.sin(a) * 4.2 + 1);
+            });
+
+            // Draw radiant background
+            drawBg(t, smoothP);
+            if (bgCanvas) {
+                bgCanvas.style.opacity = 1 - clamp((smoothP - 0.82) / 0.12);
+            }
+
+            // Full Animation Climax: Radiant Flash / Starburst Flare
+            if (flashRef.current) {
+                const flashVal = clamp((smoothP - 0.65) / 0.20) * (1 - clamp((smoothP - 0.88) / 0.08));
+                flashRef.current.style.opacity = flashVal;
+            }
+
+            // Climax Seamless Cover: Obsidian velvet blend
+            if (coverRef.current) {
+                const coverVal = clamp((smoothP - 0.88) / 0.10);
+                coverRef.current.style.opacity = coverVal;
+            }
+
+            // Headline elements fade and float up gracefully as user scrolls into the ball
+            if (contentRef.current) {
+                const textOpacity = clamp(1 - smoothP * 3.6);
+                const textY = -smoothP * 110;
+                contentRef.current.style.opacity = textOpacity;
+                contentRef.current.style.transform = `translateY(${textY}px)`;
+                contentRef.current.style.pointerEvents = textOpacity > 0.05 ? 'auto' : 'none';
+            }
+
+            renderer.render(scene, camera);
+            animId = requestAnimationFrame(tick);
+        }
+        animId = requestAnimationFrame(tick);
+
+        // Cleanup
         return () => {
-            window.removeEventListener('mousemove', onMove);
-            hero.removeEventListener('mouseenter', onEnter);
-            hero.removeEventListener('mouseleave', onLeave);
+            cancelAnimationFrame(animId);
+            window.removeEventListener('resize', resize);
+            window.removeEventListener('scroll', readScroll);
+            if (typeof window !== 'undefined' && window.__lenis) {
+                window.__lenis.off('scroll', readScroll);
+            }
+            window.removeEventListener('mousemove', handleMouseMove);
 
-            if (title) {
-                title.removeEventListener('mouseenter', onTitleEnter);
-                title.removeEventListener('mouseleave', onTitleLeave);
-            }
-            if (controls) {
-                controls.removeEventListener('mouseenter', hideBubbleForElement);
-                controls.removeEventListener('mouseleave', showBubbleForElement);
-            }
+            inst.geometry.dispose();
+            tileMat.dispose();
+            coreGeo.dispose();
+            coreMat.dispose();
+            strGeo.dispose();
+            strMat.dispose();
+            spG.dispose();
+            spM.dispose();
+            spTex.dispose();
+            envTexture.dispose();
+            renderer.dispose();
         };
     }, []);
 
-    /* ── Controls ── */
-    const togglePlay = (e) => {
-        if (e) e.stopPropagation();
-        setIsPlaying(p => !p);
-    };
-
-    const toggleMute = (e) => {
-        if (e) e.stopPropagation();
-        setIsMuted(m => !m);
-    };
-
-    const toggleFullscreen = (e) => {
-        if (e) e.stopPropagation();
-        if (!document.fullscreenElement) {
-            playerRef.current?.requestFullscreen();
-            setIsFullscreen(true);
-        } else {
-            document.exitFullscreen();
-            setIsFullscreen(false);
-        }
-    };
-
     return (
-        <>
-            {/* ④ Hover mute bubble — follows cursor over the video */}
-            <div
-                ref={bubbleRef}
-                className={`vimeo-mute-bubble ${isMuted ? 'is--muted' : 'is--unmuted'}`}
-                style={{ pointerEvents: 'none' }}
-            >
-                <div className="vimeo-mute-bubble__blob">
-                    {/* Blob shape */}
-                    <img
-                        src="/assets/VimeoHero SVG/mute-bubble-blob.svg"
-                        alt=""
-                        className="vimeo-mute-bubble__blob-svg"
-                    />
-                    {/* Mute icon (shown when sound is ON → click to mute) */}
-                    <div className="vimeo-mute-bubble__icon vimeo-mute-bubble__mute">
-                        <svg viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12.3818 8.50039C12.8934 7.92803 13.7447 7.84041 14.3584 8.26992C14.3696 8.28308 14.3799 8.29711 14.3916 8.30996L14.501 8.41738L52.001 41.9174L52.1201 42.0141C52.6204 42.5885 52.6243 43.4317 52.1182 43.9984C51.6007 44.5775 50.7353 44.6609 50.1201 44.2143L50.001 44.1176L44.999 39.6488C44.2681 40.687 43.4506 41.6601 42.5557 42.5551C41.9699 43.1407 41.0203 43.1408 40.4346 42.5551C39.8493 41.9693 39.8492 41.0197 40.4346 40.434C41.2902 39.5783 42.0647 38.6412 42.7451 37.6361L37.8271 33.2416C37.2776 34.1931 36.6101 35.068 35.8389 35.8393C35.2532 36.4247 34.3035 36.4246 33.7178 35.8393C33.1321 35.2534 33.132 34.3029 33.7178 33.7172C34.452 32.9828 35.0644 32.1286 35.5273 31.1879L29 25.3559V43.4994C28.9999 44.0475 28.7004 44.5517 28.2197 44.8148C27.7389 45.0778 27.1531 45.0583 26.6914 44.7631L14.6846 37.0785C14.6042 37.0272 14.5104 36.9995 14.415 36.9994H8.5C6.56706 36.9994 5.0001 35.4323 5 33.4994V20.4994C5.00017 18.5666 6.56711 16.9994 8.5 16.9994H14.415C14.5105 16.9994 14.6042 16.9718 14.6846 16.9203L17.5225 15.1029L12.501 10.6176L12.3916 10.5102C11.8788 9.94899 11.8646 9.07956 12.3818 8.50039Z" fill="currentColor" />
-                            <path d="M40.4346 11.4428C41.0203 10.8572 41.9699 10.8573 42.5557 11.4428C46.5351 15.4222 48.9998 20.924 49 26.9984C49 29.5023 48.5806 31.909 47.8096 34.1518L45.3447 31.9506C45.7703 30.3718 46 28.712 46 26.9984C45.9998 21.7516 43.8744 17.0037 40.4346 13.5639C39.8492 12.9782 39.8492 12.0285 40.4346 11.4428Z" fill="currentColor" />
-                            <path d="M33.7178 18.1615C34.3035 17.576 35.2531 17.576 35.8389 18.1615C38.0388 20.3616 39.4237 23.3831 39.4961 26.725L35.8018 23.4242C35.3201 22.2398 34.6083 21.1732 33.7178 20.2826C33.1321 19.6968 33.132 18.7472 33.7178 18.1615Z" fill="currentColor" />
-                            <path d="M26.6914 9.23574C27.153 8.94049 27.7389 8.92026 28.2197 9.18301C28.7004 9.44611 28.9999 9.95137 29 10.4994V17.348L22.7451 11.7602L26.6914 9.23574Z" fill="currentColor" />
-                        </svg>
-                    </div>
-                    {/* Unmute icon (shown when muted → click to unmute) */}
-                    <div className="vimeo-mute-bubble__icon vimeo-mute-bubble__unmute">
-                        <svg viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M29 10.5C29 9.95184 28.701 9.44732 28.2202 9.18416C27.7392 8.921 27.1532 8.9411 26.6914 9.2366L14.6843 16.9211C14.6039 16.9726 14.5103 17 14.4148 17H8.5C6.567 17 5 18.567 5 20.5V33.5C5 35.433 6.567 37 8.5 37H14.4148C14.5103 37 14.6039 37.0274 14.6843 37.0788L26.6914 44.7634C27.1532 45.0588 27.7392 45.079 28.2202 44.8158C28.701 44.5526 29 44.0482 29 43.5V10.5Z" fill="currentColor" />
-                            <path d="M40.435 11.4432C41.0208 10.8575 41.9704 10.8575 42.5562 11.4432C46.5358 15.4228 49 20.9249 49 26.9996C49 33.0744 46.5358 38.5764 42.5562 42.556C41.9704 43.1418 41.0208 43.1418 40.435 42.556C39.8492 41.9702 39.8492 41.0204 40.435 40.4346C43.875 36.9946 46 32.2468 46 26.9996C46 21.7525 43.875 17.0045 40.435 13.5646C39.8492 12.9788 39.8492 12.029 40.435 11.4432Z" fill="currentColor" />
-                            <path d="M35.8388 18.162C35.253 17.5762 34.3032 17.5762 33.7174 18.162C33.1316 18.7478 33.1316 19.6975 33.7174 20.2833C35.4382 22.0041 36.5 24.377 36.5 27.0008C36.5 29.6246 35.4382 31.9976 33.7174 33.7184C33.1316 34.3042 33.1316 35.2538 33.7174 35.8396C34.3032 36.4254 35.253 36.4254 35.8388 35.8396C38.0992 33.5792 39.5 30.4522 39.5 27.0008C39.5 23.5494 38.0992 20.4224 35.8388 18.162Z" fill="currentColor" />
-                        </svg>
-                    </div>
-                </div>
-            </div>
+        <section
+            ref={heroRef}
+            className="editorial-hero"
+            aria-label="Wassup London Hero Showcase"
+        >
+            <div className="editorial-hero__stage">
+                {/* 2D Radiant Beams Canvas */}
+                <canvas ref={canvasBgRef} className="editorial-hero__canvas-bg" />
 
-            {/* ── Main hero container ── */}
-            <div
-                className={`vimeo-hero ${isPlaying ? 'is-playing' : 'is-paused'} ${isMuted ? 'is-muted' : 'is-unmuted'}`}
-                ref={playerRef}
-                onClick={toggleMute}
-            >
-                {/* 
-                  Video Placeholder: 
-                  Currently left blank to display a solid black background while you work on text, SVGs, and the navbar.
-                  Once you have your personal video file in the `public/` folder, uncomment and update the src below!
-                */}
+                {/* Ambient Subtle Club Atmosphere Video */}
                 <video
                     ref={videoRef}
                     src="/assets/Videos/Best Latin party in Amsterdam - Cinematic Club Aftermovie.mp4"
-                    className="vimeo-hero__iframe"
+                    className="editorial-hero__video-ambient"
                     autoPlay
                     muted={isMuted}
                     loop
                     playsInline
-                    style={{ pointerEvents: 'none', backgroundColor: '#111', objectFit: 'cover' }}
+                    preload="auto"
                 />
 
-                {/* Gradient fade */}
-                <div className="vimeo-hero__fade" />
+                {/* 3D Three.js Disco Ball Canvas */}
+                <canvas ref={canvas3dRef} className="editorial-hero__canvas-3d" />
 
-                {/* ① Upcoming Events — bottom left */}
-                <div className="home-header__title" id="upcoming-events" ref={titleRef} onClick={(e) => e.stopPropagation()} style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
+                {/* Soft Vignette Scrim for Maximum Text Contrast */}
+                <div className="editorial-hero__scrim" />
 
-                    {/* Label */}
-                    <span style={{ color: '#F0BEFA', fontSize: 'clamp(13px, 1.2vw, 16px)', letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 700, textShadow: '0 2px 8px rgba(0,0,0,0.6)' }}>
-                        🎉 Upcoming Events
-                    </span>
+                {/* Full Animation Climax Flash / Flare */}
+                <div ref={flashRef} className="editorial-hero__flash" />
 
-                    {/* Render first 3 events from EVENTS data */}
-                    {EVENTS.slice(0, 3).map((event, i) => (
-                        <div key={event.id} style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
-                            <div style={{
-                                background: 'rgba(255, 255, 255, 0.12)',
-                                backdropFilter: 'blur(12px)',
-                                WebkitBackdropFilter: 'blur(12px)',
-                                border: '1px solid rgba(255, 255, 255, 0.25)',
-                                color: '#ffffff',
-                                borderRadius: '14px',
-                                padding: '10px 16px',
-                                textAlign: 'center',
-                                minWidth: '64px',
-                                boxShadow: '0 4px 15px rgba(0,0,0,0.3)'
-                            }}>
-                                <div style={{ fontSize: '22px', fontWeight: 800, lineHeight: 1, color: '#ffffff' }}>{event.date.split(' ')[0]}</div>
-                                <div style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#F0BEFA', marginTop: '3px' }}>{event.date.split(' ')[1]}</div>
-                            </div>
-                            <div>
-                                <h2 style={{ fontSize: 'clamp(20px, 3vw, 36px)', fontWeight: 800, lineHeight: 1.1, margin: 0, color: '#ffffff', textShadow: '0 2px 10px rgba(0,0,0,0.7)' }}>
-                                    <span style={{ color: '#ffffff' }}>{event.label}</span>
-                                </h2>
-                                <p style={{ fontSize: '14px', color: 'rgba(255, 255, 255, 0.88)', margin: '4px 0 0', letterSpacing: '0.03em', fontWeight: 500, textShadow: '0 1px 6px rgba(0,0,0,0.6)' }}>{event.venue}</p>
+                {/* Full Animation Climax Seamless Obsidian Velvet Cover */}
+                <div ref={coverRef} className="editorial-hero__cover" />
+
+                {/* Foreground Hero Content (Pitted against the 3D ball) */}
+                <div ref={contentRef} className="editorial-hero__container">
+                    {/* Top Status */}
+                    <div className="editorial-hero__top">
+                        <div className="editorial-hero__badge">
+                            <span className="editorial-hero__badge-dot" />
+                            <span>LONDON ATELIER · 2026/2027 CALENDAR OPEN</span>
+                        </div>
+                        <div className="editorial-hero__coords">
+                            <span>MAYFAIR · SHOREDITCH · CANARY WHARF</span>
+                        </div>
+                    </div>
+
+                    {/* Architectural Main Headline */}
+                    <div className="editorial-hero__middle">
+                        <h1 className="editorial-hero__title">
+                            UNCOMPROMISED ARTISTRY. <br />
+                            <span className="editorial-hero__title-italic">IMMERSIVE CELEBRATIONS.</span>
+                        </h1>
+                        <p className="editorial-hero__lead">
+                            A singular collective uniting master event directors, club-tier acoustic engineers, 
+                            and Michelin-level culinary artisans under one calm, meticulous point of contact.
+                        </p>
+                    </div>
+
+                    {/* Bottom Metadata & Controls */}
+                    <div className="editorial-hero__bottom">
+                        {/* Featured Showcase Date */}
+                        <div className="editorial-hero__event-preview">
+                            <span className="editorial-hero__event-label">NEXT FEATURED PRODUCTION</span>
+                            <div className="editorial-hero__event-row">
+                                <span className="editorial-hero__event-date">24 OCT 2026</span>
+                                <span className="editorial-hero__event-sep">/</span>
+                                <span className="editorial-hero__event-name">NIGHT FEVER LONDON</span>
+                                <span className="editorial-hero__event-venue">· EGG LONDON</span>
                             </div>
                         </div>
-                    ))}
 
+                        {/* Interactive Audio Toggle & CTA */}
+                        <div className="editorial-hero__actions">
+                            <button
+                                type="button"
+                                onClick={toggleAudio}
+                                className={`editorial-hero__audio-btn ${!isMuted ? 'is-active' : ''}`}
+                                aria-label={isMuted ? 'Unmute Audio' : 'Mute Audio'}
+                            >
+                                <span className="editorial-hero__eq-bars" aria-hidden="true">
+                                    <span />
+                                    <span />
+                                    <span />
+                                </span>
+                                <span>{isMuted ? 'AUDIO OFF' : 'AUDIO ON'}</span>
+                            </button>
+
+                            <Link href="/packages" className="editorial-hero__cta">
+                                Explore Atelier Services →
+                            </Link>
+                        </div>
+                    </div>
                 </div>
 
-
-
-                {/* Loading spinner removed because native HTML video loads silently in background */}
+                {/* Subtle Scroll Cue at Base */}
+                <div
+                    className="editorial-hero__scroll-cue"
+                    style={{ opacity: Math.max(0, 1 - scrollP * 3.5) }}
+                >
+                    <span className="editorial-hero__scroll-indicator">
+                        <span className="editorial-hero__scroll-wheel" />
+                    </span>
+                    <span className="editorial-hero__scroll-label">SCROLL TO IMMERSE</span>
+                </div>
             </div>
-        </>
+        </section>
     );
 }
