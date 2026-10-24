@@ -84,10 +84,10 @@ export default function Navbar() {
 
 
         // ─── WhatsApp Popout Hover ───
-        const navRight = document.querySelector('.nav-right');
+        const waTrigger = document.querySelector('.nav-hover-trigger');
         const waBox = document.querySelector('.nav-wa-box');
 
-        if (navRight && waBox) {
+        if (waTrigger && waBox) {
             const waInner = waBox.querySelector('.nav-popout-inner');
             gsap.set(waBox, { visibility: 'hidden', scale: 0.96, opacity: 0, transformOrigin: 'top right' });
 
@@ -110,11 +110,11 @@ export default function Navbar() {
                 });
             };
 
-            navRight.addEventListener('mouseenter', onEnterRight);
-            navRight.addEventListener('mouseleave', onLeaveRight);
+            waTrigger.addEventListener('mouseenter', onEnterRight);
+            waTrigger.addEventListener('mouseleave', onLeaveRight);
             cleanups.push(() => {
-                navRight.removeEventListener('mouseenter', onEnterRight);
-                navRight.removeEventListener('mouseleave', onLeaveRight);
+                waTrigger.removeEventListener('mouseenter', onEnterRight);
+                waTrigger.removeEventListener('mouseleave', onLeaveRight);
             });
         }
 

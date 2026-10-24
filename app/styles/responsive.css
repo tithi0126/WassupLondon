@@ -45,10 +45,7 @@
 
 /* ─── Mobile (≤ 768px) ───────────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  /* ── Navbar ─────────────────────── */
-  .navbar {
-    padding: 14px 16px;
-  }
+  /* ── Legacy Navbar rules removed (handled in navbar.css) ── */
 
   .logo-wassup {
     width: 100px;

@@ -54,16 +54,22 @@ export default function VimeoHero() {
         const LOGO_PAL_HEX = [0x9d4edd, 0x4361ee, 0xd4af37, 0xc77dff, 0xf72585, 0xffd166, 0xffffff];
 
         // 1. Renderer Setup
-        const renderer = new THREE.WebGLRenderer({
-            canvas: c3d,
-            antialias: true,
-            alpha: true,
-            powerPreference: 'high-performance',
-        });
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-        renderer.outputColorSpace = THREE.SRGBColorSpace;
-        renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        renderer.toneMappingExposure = 1.35;
+        let renderer;
+        try {
+            renderer = new THREE.WebGLRenderer({
+                canvas: c3d,
+                antialias: true,
+                alpha: true,
+                powerPreference: 'high-performance',
+            });
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+            renderer.outputColorSpace = THREE.SRGBColorSpace;
+            renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            renderer.toneMappingExposure = 1.35;
+        } catch (e) {
+            console.warn("WebGL not supported or failed to initialize:", e);
+            return;
+        }
 
         // 2. Procedural Logo-Themed Equirectangular Environment Map
         function makeEnv() {

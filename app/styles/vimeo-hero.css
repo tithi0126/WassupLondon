@@ -391,7 +391,8 @@
     .editorial-hero__top {
         flex-direction: column;
         align-items: flex-start;
-        gap: 12px;
+        gap: 10px;
+        padding-top: clamp(82px, 14vw, 100px);
     }
 
     .editorial-hero__bottom {
@@ -401,5 +402,12 @@
 
     .editorial-hero__scroll-cue {
         display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .editorial-hero__top {
+        padding-top: 84px;
+        gap: 8px;
     }
 }
