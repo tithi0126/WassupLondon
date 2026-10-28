@@ -108,7 +108,7 @@ export default function DJEntertainmentPage() {
           <video
             className="dj2-hero-video"
             autoPlay loop muted playsInline
-            src="/assets/Videos/ODYSSEY ( nightclub promo video ).mp4"
+            poster="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1800&q=85"
           />
           <div className="dj2-hero-veil" />
         </div>

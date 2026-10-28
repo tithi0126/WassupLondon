@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import * as THREE from 'three';
+import { EVENTS } from '@/lib/data';
 
 export default function VimeoHero() {
     const heroRef = useRef(null);
@@ -473,10 +474,9 @@ export default function VimeoHero() {
                 {/* 2D Radiant Beams Canvas */}
                 <canvas ref={canvasBgRef} className="editorial-hero__canvas-bg" />
 
-                {/* Ambient Subtle Club Atmosphere Video */}
+                {/* Ambient Subtle Atmosphere Video (Optional) */}
                 <video
                     ref={videoRef}
-                    src="/assets/Videos/Best Latin party in Amsterdam - Cinematic Club Aftermovie.mp4"
                     className="editorial-hero__video-ambient"
                     autoPlay
                     muted={isMuted}
@@ -526,12 +526,20 @@ export default function VimeoHero() {
                     <div className="editorial-hero__bottom">
                         {/* Featured Showcase Date */}
                         <div className="editorial-hero__event-preview">
-                            <span className="editorial-hero__event-label">NEXT FEATURED PRODUCTION</span>
+                            <span className="editorial-hero__event-label">
+                                {EVENTS.length > 0 ? 'NEXT FEATURED PRODUCTION' : 'PRIVATE ATELIER RESERVATIONS'}
+                            </span>
                             <div className="editorial-hero__event-row">
-                                <span className="editorial-hero__event-date">24 OCT 2026</span>
+                                <span className="editorial-hero__event-date">
+                                    {EVENTS.length > 0 ? EVENTS[0].date : '2026 / 2027'}
+                                </span>
                                 <span className="editorial-hero__event-sep">/</span>
-                                <span className="editorial-hero__event-name">NIGHT FEVER LONDON</span>
-                                <span className="editorial-hero__event-venue">· EGG LONDON</span>
+                                <span className="editorial-hero__event-name">
+                                    {EVENTS.length > 0 ? EVENTS[0].label : 'BESPOKE COMMISSIONS'}
+                                </span>
+                                <span className="editorial-hero__event-venue">
+                                    {EVENTS.length > 0 ? `· ${EVENTS[0].venue}` : '· LONDON & UK'}
+                                </span>
                             </div>
                         </div>
 

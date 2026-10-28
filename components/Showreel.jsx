@@ -55,11 +55,13 @@ export default function Showreel() {
         return () => ctx.revert();
     }, []);
 
-    const categories = ['ALL', 'EGG LONDON', 'FABRIC', 'PRIVATE VENUES', 'THE SHARD'];
+    const categories = EVENTS.length > 0
+        ? ['ALL', ...Array.from(new Set(EVENTS.map(e => e.tag || e.venue).filter(Boolean)))]
+        : [];
 
     const filteredEvents = selectedCategory === 'ALL'
         ? EVENTS
-        : EVENTS.filter(e => e.tag.toLowerCase().includes(selectedCategory.toLowerCase()) || e.venue.toLowerCase().includes(selectedCategory.toLowerCase()));
+        : EVENTS.filter(e => e.tag?.toLowerCase().includes(selectedCategory.toLowerCase()) || e.venue?.toLowerCase().includes(selectedCategory.toLowerCase()));
 
     return (
         <section ref={sectionRef} className="editorial-showreel" id="showreel-section">
@@ -89,34 +91,32 @@ export default function Showreel() {
                         muted
                         loop
                         playsInline
+                        poster="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1800&q=85"
                         className="editorial-showreel__hero-video"
-                    >
-                        <source
-                            src="/assets/Videos/Best Latin party in Amsterdam - Cinematic Club Aftermovie.mp4"
-                            type="video/mp4"
-                        />
-                    </video>
+                    />
                     <div className="editorial-showreel__hero-scrim" />
                     <div className="editorial-showreel__hero-badge">
-                        <span>CINEMATIC ARCHIVE · LONDON</span>
+                        <span>CINEMATIC ARCHIVE · WASSUP LONDON</span>
                     </div>
                 </div>
             </div>
 
-            {/* ── Category Filter Pills ── */}
+            {/* ── Category Filter Pills (rendered when events exist) ── */}
             <div className="editorial-showreel__controls">
-                <div className="editorial-showreel__filters">
-                    {categories.map((cat) => (
-                        <button
-                            key={cat}
-                            type="button"
-                            onClick={() => setSelectedCategory(cat)}
-                            className={`editorial-showreel__filter-btn ${selectedCategory === cat ? 'is-active' : ''}`}
-                        >
-                            {cat}
-                        </button>
-                    ))}
-                </div>
+                {categories.length > 0 ? (
+                    <div className="editorial-showreel__filters">
+                        {categories.map((cat) => (
+                            <button
+                                key={cat}
+                                type="button"
+                                onClick={() => setSelectedCategory(cat)}
+                                className={`editorial-showreel__filter-btn ${selectedCategory === cat ? 'is-active' : ''}`}
+                            >
+                                {cat}
+                            </button>
+                        ))}
+                    </div>
+                ) : <div />}
                 <Link href="/packages" className="editorial-showreel__inquire-link">
                     Check Date Availability →
                 </Link>
@@ -124,47 +124,61 @@ export default function Showreel() {
 
             {/* ── Event Grid ── */}
             <div ref={gridRef} className="showreel-grid">
-                {filteredEvents.map((event, i) => (
-                    <article
-                        key={event.id}
-                        className={`showreel-card ${i === 0 ? 'showreel-card--wide' : ''}`}
-                    >
-                        <div className="showreel-card__media-wrap">
-                            {event.type === 'localvideo' ? (
-                                <video
-                                    src={event.src}
-                                    autoPlay
-                                    muted
-                                    loop
-                                    playsInline
-                                    className="showreel-card__video"
-                                />
-                            ) : (
-                                <img
-                                    src={event.src}
-                                    alt={event.label}
-                                    loading="lazy"
-                                    className="showreel-card__img"
-                                />
-                            )}
-                            <div className="showreel-card__scrim" />
-                        </div>
-
-                        {/* Card Meta Content */}
-                        <div className="showreel-card__content">
-                            <div className="showreel-card__date-pill">
-                                <span className="showreel-card__day">{event.date.split(' ')[0]}</span>
-                                <span className="showreel-card__month">{event.date.split(' ')[1]}</span>
+                {filteredEvents.length > 0 ? (
+                    filteredEvents.map((event, i) => (
+                        <article
+                            key={event.id}
+                            className={`showreel-card ${i === 0 ? 'showreel-card--wide' : ''}`}
+                        >
+                            <div className="showreel-card__media-wrap">
+                                {event.type === 'localvideo' ? (
+                                    <video
+                                        src={event.src}
+                                        autoPlay
+                                        muted
+                                        loop
+                                        playsInline
+                                        className="showreel-card__video"
+                                    />
+                                ) : (
+                                    <img
+                                        src={event.src}
+                                        alt={event.label}
+                                        loading="lazy"
+                                        className="showreel-card__img"
+                                    />
+                                )}
+                                <div className="showreel-card__scrim" />
                             </div>
 
-                            <div className="showreel-card__info">
-                                <span className="showreel-card__tag">{event.tag}</span>
-                                <h3 className="showreel-card__title">{event.label}</h3>
-                                <p className="showreel-card__venue">{event.venue}</p>
+                            {/* Card Meta Content */}
+                            <div className="showreel-card__content">
+                                <div className="showreel-card__date-pill">
+                                    <span className="showreel-card__day">{event.date.split(' ')[0]}</span>
+                                    <span className="showreel-card__month">{event.date.split(' ')[1]}</span>
+                                </div>
+
+                                <div className="showreel-card__info">
+                                    <span className="showreel-card__tag">{event.tag}</span>
+                                    <h3 className="showreel-card__title">{event.label}</h3>
+                                    <p className="showreel-card__venue">{event.venue}</p>
+                                </div>
                             </div>
-                        </div>
-                    </article>
-                ))}
+                        </article>
+                    ))
+                ) : (
+                    <div className="showreel-empty-state">
+                        <div className="showreel-empty-badge">CALENDAR 2026 / 2027</div>
+                        <h3 className="showreel-empty-title">Upcoming Showcases Announced Soon</h3>
+                        <p className="showreel-empty-desc">
+                            Selected public performances and private client productions are curated across each season.
+                            Connect with our atelier concierge to check availability or request our private lookbook.
+                        </p>
+                        <a href="https://wa.me/447471557773" target="_blank" rel="noreferrer" className="showreel-empty-cta">
+                            Inquire With Atelier Concierge ↗
+                        </a>
+                    </div>
+                )}
             </div>
         </section>
     );

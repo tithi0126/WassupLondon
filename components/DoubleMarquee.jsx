@@ -5,6 +5,8 @@ import { brands } from '@/lib/data';
 import '@/app/styles/marquee.css';
 
 export default function DoubleMarquee() {
+    if (!brands || brands.length === 0) return null;
+
     // Duplicate brands to make seamless infinite loop
     const marqueeBrands = [...brands, ...brands, ...brands];
 
