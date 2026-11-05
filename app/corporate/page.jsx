@@ -11,8 +11,16 @@ export const metadata = {
     openGraph: {
         title: 'Corporate Event Production & Gala Dinners London — Wassup London',
         description: 'High-impact corporate galas, brand activations, keynote AV & turnkey event production across London and Europe.',
-        url: 'https://wassuplondon.co.uk/corporate',
+        url: 'https://www.wassuplondon.co.uk/corporate',
         siteName: 'Wassup London',
+        images: [
+            {
+                url: '/logo.png',
+                width: 1024,
+                height: 1024,
+                alt: 'Wassup London Weddings & Events Crest',
+            },
+        ],
         locale: 'en_GB',
         type: 'website',
     },
@@ -20,6 +28,7 @@ export const metadata = {
         card: 'summary_large_image',
         title: 'Corporate Event Production & Gala Dinners London — Wassup London',
         description: 'Precision corporate event production, awards galas, brand activations & stagecraft in London.',
+        images: ['/logo.png'],
     },
 };
 

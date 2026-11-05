@@ -11,10 +11,14 @@ export default function TransitionScribble() {
         const curtain = curtainRef.current;
         if (!logoClickables.length || !curtain) return;
 
+        let isTransitioning = false;
+
         const onLogoClick = (e) => {
             // If already at top or transitioning, just let normal behavior happen
             if (window.scrollY === 0) return;
             e.preventDefault();
+            if (isTransitioning) return;
+            isTransitioning = true;
 
             gsap.timeline()
                 .set(curtain, { display: 'block', yPercent: 100 })
@@ -37,6 +41,7 @@ export default function TransitionScribble() {
                     delay: 0.1,
                     onComplete: () => {
                         gsap.set(curtain, { display: 'none', yPercent: 100 });
+                        isTransitioning = false;
                     }
                 });
         };

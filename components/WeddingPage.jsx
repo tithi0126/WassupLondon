@@ -195,7 +195,7 @@ export default function WeddingPage() {
         <div className="wd2-cta-body">
           <p className="wd2-eyebrow" style={{ color: 'rgba(255,255,255,0.6)' }}>05 · Let's make it happen</p>
           <h2>Ready to make<br /><em>some memories?</em></h2>
-          <a className="wd2-cta-btn" href="https://wa.me/447471557773" target="_blank" rel="noreferrer">
+          <a className="wd2-cta-btn" href="https://wa.me/447471557773" target="_blank" rel="noopener noreferrer">
             Start the conversation ↗
           </a>
           <p className="wd2-cta-locs">London · Birmingham · Manchester · Destination</p>

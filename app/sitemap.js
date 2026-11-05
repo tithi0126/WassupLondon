@@ -1,5 +1,5 @@
 export default function sitemap() {
-    const baseUrl = 'https://wassuplondon.co.uk';
+    const baseUrl = 'https://www.wassuplondon.co.uk';
     const lastModified = new Date();
 
     return [

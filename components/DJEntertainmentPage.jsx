@@ -125,7 +125,7 @@ export default function DJEntertainmentPage() {
             festival-grade lighting rigs and dance floors that stay packed until the final second.
           </p>
           <div className="dj2-hero-actions">
-            <a href="https://wa.me/447471557773" target="_blank" rel="noreferrer" className="dj2-btn-primary">
+            <a href="https://wa.me/447471557773" target="_blank" rel="noopener noreferrer" className="dj2-btn-primary">
               Book Your Lineup ↗
             </a>
             <a href="#dj2-gear" className="dj2-btn-ghost">
@@ -184,7 +184,7 @@ export default function DJEntertainmentPage() {
             crescendo, or a sophisticated sunset rooftop set at Skylight London — we engineer
             the tempo to elevate every heartbeat.
           </p>
-          <a href="https://wa.me/447471557773" target="_blank" rel="noreferrer" className="dj2-text-link">
+          <a href="https://wa.me/447471557773" target="_blank" rel="noopener noreferrer" className="dj2-text-link">
             Customise your sound profile →
           </a>
         </div>
@@ -258,7 +258,7 @@ export default function DJEntertainmentPage() {
             Tell us about your crowd, your date, and your venue in London or worldwide.
             We'll design a custom AV & DJ production proposal within 24 hours.
           </p>
-          <a className="dj2-cta-btn" href="https://wa.me/447471557773" target="_blank" rel="noreferrer">
+          <a className="dj2-cta-btn" href="https://wa.me/447471557773" target="_blank" rel="noopener noreferrer">
             Chat On WhatsApp ↗
           </a>
         </div>

@@ -11,8 +11,16 @@ export const metadata = {
     openGraph: {
         title: 'Artisanal Event & Wedding Catering London — Wassup London',
         description: 'Heritage Indian, Pan-Asian and contemporary fusion banqueting, live culinary theatre & bespoke mixology across London and the UK.',
-        url: 'https://wassuplondon.co.uk/catering',
+        url: 'https://www.wassuplondon.co.uk/catering',
         siteName: 'Wassup London',
+        images: [
+            {
+                url: '/logo.png',
+                width: 1024,
+                height: 1024,
+                alt: 'Wassup London Weddings & Events Crest',
+            },
+        ],
         locale: 'en_GB',
         type: 'website',
     },
@@ -20,6 +28,7 @@ export const metadata = {
         card: 'summary_large_image',
         title: 'Artisanal Event & Wedding Catering London — Wassup London',
         description: 'Heritage Indian, Gujarati, Punjabi & Pan-Asian live catering and banqueting across London and the UK.',
+        images: ['/logo.png'],
     },
 };
 

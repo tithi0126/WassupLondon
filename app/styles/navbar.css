@@ -585,6 +585,8 @@
     transform: translateY(-100%);
     transition: transform 0.45s var(--ease-editorial);
     pointer-events: auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .nav-mobile-drawer.is-open {
@@ -698,8 +700,22 @@
 
 /* Responsive queries */
 @media (max-width: 1024px) {
-    .nav-links-desktop {
+    .nav-links-desktop,
+    .nav-center {
         display: none;
+    }
+
+    .nav-mobile-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        flex-shrink: 0;
+    }
+
+    .nav-mobile-drawer {
+        display: block;
     }
 }
 

@@ -10,6 +10,31 @@ export default function Navbar() {
     const [waOpen, setWaOpen] = useState(false);
 
     useEffect(() => {
+        if (mobileOpen) {
+            document.body.style.overflow = 'hidden';
+            if (typeof window !== 'undefined' && window.__lenis) {
+                window.__lenis.stop();
+            }
+            const onEsc = (e) => {
+                if (e.key === 'Escape') setMobileOpen(false);
+            };
+            document.addEventListener('keydown', onEsc);
+            return () => {
+                document.body.style.overflow = '';
+                if (typeof window !== 'undefined' && window.__lenis) {
+                    window.__lenis.start();
+                }
+                document.removeEventListener('keydown', onEsc);
+            };
+        } else {
+            document.body.style.overflow = '';
+            if (typeof window !== 'undefined' && window.__lenis) {
+                window.__lenis.start();
+            }
+        }
+    }, [mobileOpen]);
+
+    useEffect(() => {
         const navbar = document.querySelector('.navbar');
         const footerEl = document.querySelector('.main-footer, .editorial-footer');
 

@@ -94,7 +94,7 @@ export default function CateringPage() {
             the sensory anchor and the warmth people talk about on the journey home.
           </p>
           <div className="ct2-hero-actions">
-            <a href="https://wa.me/447471557773" target="_blank" rel="noreferrer" className="ct2-btn-dark">
+            <a href="https://wa.me/447471557773" target="_blank" rel="noopener noreferrer" className="ct2-btn-dark">
               Request A Menu Tasting ↗
             </a>
             <a href="#ct2-menus" className="ct2-btn-outline">
@@ -153,7 +153,7 @@ export default function CateringPage() {
             dishes live in the venue to guarantee piping-hot flavours, crispy textures, and
             Michelin-worthy presentation.
           </p>
-          <a href="https://wa.me/447471557773" target="_blank" rel="noreferrer" className="ct2-text-link">
+          <a href="https://wa.me/447471557773" target="_blank" rel="noopener noreferrer" className="ct2-text-link">
             Book a consultation call →
           </a>
         </div>
@@ -225,7 +225,7 @@ export default function CateringPage() {
             Meet our executive head chef at our London tasting kitchen. Sample your proposed menu,
             refine spice balances, and pair signature drinks.
           </p>
-          <a className="ct2-cta-btn" href="https://wa.me/447471557773" target="_blank" rel="noreferrer">
+          <a className="ct2-cta-btn" href="https://wa.me/447471557773" target="_blank" rel="noopener noreferrer">
             Arrange Your Tasting On WhatsApp ↗
           </a>
         </div>

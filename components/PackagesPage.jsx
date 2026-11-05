@@ -230,7 +230,7 @@ export default function PackagesPage() {
             <a
               href="https://wa.me/447471557773?text=Hello%20Wassup%20London,%20I%20would%20like%20to%20discuss%20a%20package%20quote"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="pk2-btn-outline"
             >
               Request Custom Quote ↗
@@ -304,7 +304,7 @@ export default function PackagesPage() {
               <a
                 href={`https://wa.me/447471557773?text=Hi%20Wassup%20London,%20I'm%20interested%20in%20the%20${tier.title}%20Tier`}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="pk2-tier-btn"
               >
                 Inquire on WhatsApp ↗
@@ -393,7 +393,7 @@ export default function PackagesPage() {
               <a
                 href="https://wa.me/447471557773?text=Hello%20Wassup%20London,%20I'd%20like%20to%20arrange%20a%20bespoke%20production%20consultation"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="pk2-btn-primary"
               >
                 Schedule Production Consultation ↗
@@ -434,7 +434,7 @@ export default function PackagesPage() {
               className="pk2-btn-primary"
               href="https://wa.me/447471557773?text=Hi%20Wassup%20London,%20can%20you%20check%20availability%20for%20my%20event%20date?"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               Check Date On WhatsApp ↗
             </a>

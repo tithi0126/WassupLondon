@@ -16,14 +16,23 @@ export default function SmoothScroll() {
             touchMultiplier: 1.5,
         });
 
+        const onTick = (time) => {
+            lenis.raf(time * 1000);
+        };
+
         lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+        gsap.ticker.add(onTick);
         gsap.ticker.lagSmoothing(0);
 
         // Dynamic Tab Title Change
-        const originalTitle = document.title;
+        let savedTitle = document.title;
         const handleVisibility = () => {
-            document.title = document.hidden ? "Hey, over here!👋 - Wassup London" : originalTitle;
+            if (document.hidden) {
+                savedTitle = document.title;
+                document.title = "Hey, over here!👋 - Wassup London";
+            } else {
+                document.title = savedTitle;
+            }
         };
         document.addEventListener('visibilitychange', handleVisibility);
 
@@ -31,6 +40,7 @@ export default function SmoothScroll() {
         window.__lenis = lenis;
 
         return () => {
+            gsap.ticker.remove(onTick);
             lenis.destroy();
             document.removeEventListener('visibilitychange', handleVisibility);
             delete window.__lenis;

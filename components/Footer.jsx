@@ -120,7 +120,7 @@ export default function Footer() {
                     <div className="editorial-footer__col">
                         <span className="editorial-footer__col-title">CHANNELS</span>
                         <div className="editorial-footer__socials">
-                            {SOCIAL_ICONS.map(({ href, label, svg }) => (
+                            {SOCIAL_ICONS.map(({ href, label, viewBox, paths }) => (
                                 <a
                                     key={label}
                                     href={href}
@@ -128,8 +128,20 @@ export default function Footer() {
                                     rel="noopener noreferrer"
                                     className="editorial-footer__social-link"
                                     aria-label={label}
-                                    dangerouslySetInnerHTML={{ __html: svg }}
-                                />
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="30"
+                                        height="30"
+                                        viewBox={viewBox}
+                                        fill="none"
+                                        aria-hidden="true"
+                                    >
+                                        {paths.map((d, idx) => (
+                                            <path key={idx} d={d} fill="currentColor" />
+                                        ))}
+                                    </svg>
+                                </a>
                             ))}
                         </div>
                         <div className="editorial-footer__newsletter">

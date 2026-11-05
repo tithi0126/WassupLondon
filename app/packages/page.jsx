@@ -11,8 +11,16 @@ export const metadata = {
     openGraph: {
         title: 'Event Production Packages & Tiers — Wassup London',
         description: 'Modular event production tiers combining concert-spec audio, intelligent lighting, live musicians, catering & bespoke staging.',
-        url: 'https://wassuplondon.co.uk/packages',
+        url: 'https://www.wassuplondon.co.uk/packages',
         siteName: 'Wassup London',
+        images: [
+            {
+                url: '/logo.png',
+                width: 1024,
+                height: 1024,
+                alt: 'Wassup London Weddings & Events Crest',
+            },
+        ],
         locale: 'en_GB',
         type: 'website',
     },
@@ -20,6 +28,7 @@ export const metadata = {
         card: 'summary_large_image',
         title: 'Event Production Packages & Tiers — Wassup London',
         description: 'Transparent, modular production tiers for London weddings, private parties & corporate galas.',
+        images: ['/logo.png'],
     },
 };
 

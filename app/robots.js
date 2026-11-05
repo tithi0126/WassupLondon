@@ -4,7 +4,7 @@ export default function robots() {
             userAgent: '*',
             allow: '/',
         },
-        sitemap: 'https://wassuplondon.co.uk/sitemap.xml',
+        sitemap: 'https://www.wassuplondon.co.uk/sitemap.xml',
     };
 }
 

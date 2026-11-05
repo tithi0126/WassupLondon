@@ -173,7 +173,7 @@ export default function Showreel() {
                             Selected public performances and private client productions are curated across each season.
                             Connect with our atelier concierge to check availability or request our private lookbook.
                         </p>
-                        <a href="https://wa.me/447471557773" target="_blank" rel="noreferrer" className="showreel-empty-cta">
+                        <a href="https://wa.me/447471557773" target="_blank" rel="noopener noreferrer" className="showreel-empty-cta">
                             Inquire With Atelier Concierge ↗
                         </a>
                     </div>

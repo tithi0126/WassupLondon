@@ -92,7 +92,7 @@ export default function CorporatePage() {
             celebrations where your brand reputation is front and centre.
           </p>
           <div className="cp2-hero-actions">
-            <a href="https://wa.me/447471557773" target="_blank" rel="noreferrer" className="cp2-btn-primary">
+            <a href="https://wa.me/447471557773" target="_blank" rel="noopener noreferrer" className="cp2-btn-primary">
               Consult With Our Director ↗
             </a>
             <a href="#cp2-solutions" className="cp2-btn-ghost">
@@ -166,7 +166,7 @@ export default function CorporatePage() {
             safety certifications, and unified show calling so your internal team can relax
             and host.
           </p>
-          <a href="https://wa.me/447471557773" target="_blank" rel="noreferrer" className="cp2-text-link">
+          <a href="https://wa.me/447471557773" target="_blank" rel="noopener noreferrer" className="cp2-text-link">
             Request a production proposal →
           </a>
         </div>
@@ -192,7 +192,7 @@ export default function CorporatePage() {
             Contact our corporate production division to review venue availability,
             stage designs, and turnkey budgets.
           </p>
-          <a className="cp2-cta-btn" href="https://wa.me/447471557773" target="_blank" rel="noreferrer">
+          <a className="cp2-cta-btn" href="https://wa.me/447471557773" target="_blank" rel="noopener noreferrer">
             Connect On WhatsApp ↗
           </a>
         </div>
