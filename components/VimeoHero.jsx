@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
-import * as THREE from 'three';
 import { EVENTS } from '@/lib/data';
 
 export default function VimeoHero() {
@@ -20,6 +19,12 @@ export default function VimeoHero() {
         const c3d = canvas3dRef.current;
         const heroEl = heroRef.current;
         if (!bgCanvas || !c3d || !heroEl) return;
+
+        let disposed = false;
+        let cleanupScene = null;
+
+        import('three').then((THREE) => {
+            if (disposed) return;
 
         let animId;
         const bx = bgCanvas.getContext('2d');
@@ -45,7 +50,7 @@ export default function VimeoHero() {
                 alpha: true,
                 powerPreference: 'high-performance',
             });
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
             renderer.outputColorSpace = THREE.SRGBColorSpace;
             renderer.toneMapping = THREE.ACESFilmicToneMapping;
             renderer.toneMappingExposure = 1.35;
@@ -54,28 +59,28 @@ export default function VimeoHero() {
             return;
         }
 
-        // 2. Procedural Logo-Themed Equirectangular Environment Map
+        // 2. Procedural Logo-Themed Equirectangular Environment Map (512x256 for fast boot)
         function makeEnv() {
             const c = document.createElement('canvas');
-            c.width = 1024;
-            c.height = 512;
+            c.width = 512;
+            c.height = 256;
             const g = c.getContext('2d');
 
             // Deep obsidian velvet base with rich royal purple & indigo glow
-            const bgr = g.createLinearGradient(0, 0, 0, 512);
+            const bgr = g.createLinearGradient(0, 0, 0, 256);
             bgr.addColorStop(0, '#060410');
             bgr.addColorStop(0.35, '#1e0c3a');
             bgr.addColorStop(0.55, '#3b125e');
             bgr.addColorStop(0.85, '#0e0826');
             bgr.addColorStop(1, '#05030d');
             g.fillStyle = bgr;
-            g.fillRect(0, 0, 1024, 512);
+            g.fillRect(0, 0, 512, 256);
 
             // Shimmering colored light spots in the environment reflection
             for (let i = 0; i < 28; i++) {
-                const x = Math.random() * 1024;
-                const y = Math.random() * 512;
-                const r = 40 + Math.random() * 140;
+                const x = Math.random() * 512;
+                const y = Math.random() * 256;
+                const r = 20 + Math.random() * 70;
                 const col = LOGO_PAL[i % LOGO_PAL.length];
                 const rg = g.createRadialGradient(x, y, 0, x, y, r);
                 rg.addColorStop(0, col);
@@ -88,9 +93,9 @@ export default function VimeoHero() {
             // Glistening starry speckles
             g.globalAlpha = 1;
             g.fillStyle = '#ffffff';
-            for (let i = 0; i < 200; i++) {
+            for (let i = 0; i < 140; i++) {
                 g.beginPath();
-                g.arc(Math.random() * 1024, Math.random() * 512, 1 + Math.random() * 3.5, 0, Math.PI * 2);
+                g.arc(Math.random() * 512, Math.random() * 256, 0.8 + Math.random() * 2, 0, Math.PI * 2);
                 g.fill();
             }
 
@@ -440,7 +445,7 @@ export default function VimeoHero() {
         observer.observe(heroEl);
 
         // Cleanup
-        return () => {
+        cleanupScene = () => {
             if (animId) cancelAnimationFrame(animId);
             observer.disconnect();
             window.removeEventListener('resize', resize);
@@ -461,6 +466,12 @@ export default function VimeoHero() {
             spTex.dispose();
             envTexture.dispose();
             renderer.dispose();
+        };
+        });
+
+        return () => {
+            disposed = true;
+            if (cleanupScene) cleanupScene();
         };
     }, []);
 

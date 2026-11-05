@@ -66,6 +66,8 @@ export default function Footer() {
                                 src="/logo.png"
                                 alt="Wassup London Crest"
                                 className="editorial-footer__crest"
+                                loading="lazy"
+                                decoding="async"
                             />
                             <div className="editorial-footer__brand-info">
                                 <span className="editorial-footer__col-title">ATELIER</span>
@@ -184,6 +186,8 @@ export default function Footer() {
                             src="/logo.png"
                             alt="Wassup London Crest"
                             className="editorial-footer__wordmark-crest"
+                            loading="lazy"
+                            decoding="async"
                         />
                     </div>
                     <span>WASSUP LONDON</span>

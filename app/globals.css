@@ -24,18 +24,4 @@
 @import './styles/cursor.css';
 /* Custom cursor bubble + scribble overlay  */
 @import './styles/responsive.css';
-/* All media queries (tablet + mobile)      */
-@import './styles/wedding.css';
-/* Wedding planning page                    */
-@import './styles/dj-entertainment.css';
-/* DJ & Club nights production              */
-@import './styles/catering.css';
-/* Artisanal catering & live food stations  */
-@import './styles/corporate.css';
-/* Corporate galas, summits & brand reveals */
-@import './styles/packages.css';
-/* Curated service packages & tiers         */
-@import './styles/not-found.css';
-/* 404 Not Found editorial styling          */
-@import './styles/legal.css';
-/* Legal pages (Privacy & Terms)            */
+/* Global responsive media queries          */

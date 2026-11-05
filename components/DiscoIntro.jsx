@@ -29,7 +29,7 @@ export default function EditorialIntro({ children }) {
 
     let current = 0;
     const interval = setInterval(() => {
-      current += Math.floor(Math.random() * 8) + 4;
+      current += Math.floor(Math.random() * 14) + 12;
       if (current >= 100) {
         current = 100;
         clearInterval(interval);
@@ -48,12 +48,12 @@ export default function EditorialIntro({ children }) {
           }
           setTimeout(() => {
             setRemoved(true);
-          }, 950);
-        }, 320);
+          }, 550);
+        }, 100);
       } else {
         setCount(current);
       }
-    }, 40);
+    }, 25);
 
     return () => {
       clearInterval(interval);

@@ -321,6 +321,8 @@ export default function Navbar() {
                                             src="/assets/wa_qr_code.png"
                                             className="nav-wa-qr"
                                             alt="WhatsApp QR Code"
+                                            loading="lazy"
+                                            decoding="async"
                                         />
                                     </div>
                                     <a
@@ -361,7 +363,7 @@ export default function Navbar() {
                 <div className={`nav-mobile-drawer ${mobileOpen ? 'is-open' : ''}`}>
                     <div className="nav-mobile-drawer-inner">
                         <div className="nav-mobile-brand">
-                            <img src="/logo.png" alt="Wassup London" className="nav-mobile-crest" />
+                            <img src="/logo.png" alt="Wassup London" className="nav-mobile-crest" loading="lazy" decoding="async" />
                             <div>
                                 <span className="nav-mobile-brand-title">WASSUP LONDON</span>
                                 <span className="nav-mobile-kicker">WEDDINGS &amp; EVENTS ATELIER</span>
