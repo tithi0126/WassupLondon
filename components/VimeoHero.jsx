@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import * as THREE from 'three';
 import { EVENTS } from '@/lib/data';
@@ -9,28 +9,10 @@ export default function VimeoHero() {
     const heroRef = useRef(null);
     const canvasBgRef = useRef(null);
     const canvas3dRef = useRef(null);
-    const videoRef = useRef(null);
     const flashRef = useRef(null);
     const coverRef = useRef(null);
     const contentRef = useRef(null);
-
-    const [isMuted, setIsMuted] = useState(true);
-    const [scrollP, setScrollP] = useState(0);
-
-    // Audio toggle
-    useEffect(() => {
-        if (videoRef.current) {
-            videoRef.current.muted = isMuted;
-            if (!isMuted) {
-                videoRef.current.play().catch(() => {});
-            }
-        }
-    }, [isMuted]);
-
-    const toggleAudio = (e) => {
-        e.stopPropagation();
-        setIsMuted((prev) => !prev);
-    };
+    const scrollCueRef = useRef(null);
 
     // ─── Three.js 3D Disco Ball & Radiant Atmosphere ──────────────────────────
     useEffect(() => {
@@ -369,11 +351,13 @@ export default function VimeoHero() {
         };
         window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
-        // 7. Render Loop with onscroll Acceleration & Camera Zoom
-        let lastTime = 0;
+        // 7. Render Loop with onscroll Acceleration & Camera Zoom (pauses when off-screen)
+        let isVisible = true;
         function tick(t) {
-            const dt = (t - lastTime) * 0.001 || 0.016;
-            lastTime = t;
+            if (!isVisible) {
+                animId = null;
+                return;
+            }
 
             // Direct check on each RAF keeps targetP in immediate sync with Lenis/wheel
             const rect = heroEl.getBoundingClientRect();
@@ -383,7 +367,6 @@ export default function VimeoHero() {
             }
 
             smoothP += (targetP - smoothP) * 0.09;
-            setScrollP(smoothP);
 
             const z = ease(clamp(smoothP / 0.85));
 
@@ -435,14 +418,31 @@ export default function VimeoHero() {
                 contentRef.current.style.pointerEvents = textOpacity > 0.05 ? 'auto' : 'none';
             }
 
+            // Scroll cue opacity updated directly via ref (no React re-render)
+            if (scrollCueRef.current) {
+                scrollCueRef.current.style.opacity = Math.max(0, 1 - smoothP * 3.5);
+            }
+
             renderer.render(scene, camera);
             animId = requestAnimationFrame(tick);
         }
         animId = requestAnimationFrame(tick);
 
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                isVisible = entry.isIntersecting;
+                if (isVisible && !animId) {
+                    animId = requestAnimationFrame(tick);
+                }
+            },
+            { threshold: 0 }
+        );
+        observer.observe(heroEl);
+
         // Cleanup
         return () => {
-            cancelAnimationFrame(animId);
+            if (animId) cancelAnimationFrame(animId);
+            observer.disconnect();
             window.removeEventListener('resize', resize);
             window.removeEventListener('scroll', readScroll);
             if (typeof window !== 'undefined' && window.__lenis) {
@@ -473,17 +473,6 @@ export default function VimeoHero() {
             <div className="editorial-hero__stage">
                 {/* 2D Radiant Beams Canvas */}
                 <canvas ref={canvasBgRef} className="editorial-hero__canvas-bg" />
-
-                {/* Ambient Subtle Atmosphere Video (Optional) */}
-                <video
-                    ref={videoRef}
-                    className="editorial-hero__video-ambient"
-                    autoPlay
-                    muted={isMuted}
-                    loop
-                    playsInline
-                    preload="auto"
-                />
 
                 {/* 3D Three.js Disco Ball Canvas */}
                 <canvas ref={canvas3dRef} className="editorial-hero__canvas-3d" />
@@ -543,22 +532,8 @@ export default function VimeoHero() {
                             </div>
                         </div>
 
-                        {/* Interactive Audio Toggle & CTA */}
+                        {/* CTA */}
                         <div className="editorial-hero__actions">
-                            <button
-                                type="button"
-                                onClick={toggleAudio}
-                                className={`editorial-hero__audio-btn ${!isMuted ? 'is-active' : ''}`}
-                                aria-label={isMuted ? 'Unmute Audio' : 'Mute Audio'}
-                            >
-                                <span className="editorial-hero__eq-bars" aria-hidden="true">
-                                    <span />
-                                    <span />
-                                    <span />
-                                </span>
-                                <span>{isMuted ? 'AUDIO OFF' : 'AUDIO ON'}</span>
-                            </button>
-
                             <Link href="/packages" className="editorial-hero__cta">
                                 Explore Atelier Services →
                             </Link>
@@ -568,8 +543,8 @@ export default function VimeoHero() {
 
                 {/* Subtle Scroll Cue at Base */}
                 <div
+                    ref={scrollCueRef}
                     className="editorial-hero__scroll-cue"
-                    style={{ opacity: Math.max(0, 1 - scrollP * 3.5) }}
                 >
                     <span className="editorial-hero__scroll-indicator">
                         <span className="editorial-hero__scroll-wheel" />

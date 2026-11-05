@@ -6,13 +6,12 @@
     left: -3px;
     width: 6px;
     height: 6px;
-    background-color: var(--color-dark);
+    background-color: #ffffff;
     border-radius: 50%;
     pointer-events: none;
     z-index: 99999;
     transition: opacity 0.2s ease;
     mix-blend-mode: difference;
-    background-color: #ffffff;
 }
 
 .cursor-follower {
@@ -58,9 +57,17 @@
 }
 
 /* On dark background sections */
-.on-dark ~ * .cursor-follower,
-#showreel-section:hover ~ * .cursor-follower {
-    border-color: rgba(255, 255, 255, 0.4);
+.cursor-follower.cursor--on-dark {
+    border-color: rgba(255, 255, 255, 0.45);
+}
+
+.cursor-follower.cursor--on-dark.cursor--active {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(212, 175, 55, 0.75);
+}
+
+.cursor-follower.cursor--on-dark[data-text]::after {
+    color: #ffffff;
 }
 
 /* Hide cursor on touch devices */

@@ -34,22 +34,24 @@ export default function Showreel() {
                 }
             );
 
-            // Stagger in cards
-            gsap.fromTo(
-                '.showreel-card',
-                { opacity: 0, y: 40 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.7,
-                    ease: 'power3.out',
-                    stagger: 0.08,
-                    scrollTrigger: {
-                        trigger: gridRef.current,
-                        start: 'top 85%',
-                    },
-                }
-            );
+            // Stagger in cards if events are present
+            if (EVENTS.length > 0) {
+                gsap.fromTo(
+                    '.showreel-card',
+                    { opacity: 0, y: 40 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.7,
+                        ease: 'power3.out',
+                        stagger: 0.08,
+                        scrollTrigger: {
+                            trigger: gridRef.current,
+                            start: 'top 85%',
+                        },
+                    }
+                );
+            }
         }, sectionRef);
 
         return () => ctx.revert();
@@ -83,15 +85,12 @@ export default function Showreel() {
                 </div>
             </div>
 
-            {/* ── Hero Expanding Video Feature ── */}
+            {/* ── Hero Expanding Visual Feature ── */}
             <div className="editorial-showreel__hero-wrap">
                 <div ref={heroVideoRef} className="editorial-showreel__hero-frame">
-                    <video
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        poster="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1800&q=85"
+                    <img
+                        src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1800&q=85"
+                        alt="Wassup London live production showcase"
                         className="editorial-showreel__hero-video"
                     />
                     <div className="editorial-showreel__hero-scrim" />

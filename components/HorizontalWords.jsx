@@ -8,7 +8,6 @@ import '../app/styles/horizontal-words.css';
 gsap.registerPlugin(ScrollTrigger);
 
 const STATS = [
-    { number: '12+', label: 'Years of Atelier Curation' },
     { number: '500+', label: 'Distinguished Productions' },
     { number: '100%', label: 'Turnkey Calm & Delivery' },
 ];
@@ -69,9 +68,9 @@ export default function HorizontalWords() {
 
                 <div className="editorial-manifesto__right">
                     <p className="editorial-manifesto__description">
-                        From private estate weddings to club-scale sound installations at iconic London venues, 
-                        we orchestrate every layer in-house. Mandaps and bespoke floral architecture, multi-course 
-                        live culinary theatre, and acoustic rigs that move rooms — handled by one dedicated team 
+                        From private estate weddings to club-scale sound installations at iconic London venues,
+                        we orchestrate every layer in-house. Mandaps and bespoke floral architecture, multi-course
+                        live culinary theatre, and acoustic rigs that move rooms — handled by one dedicated team
                         from concept to close.
                     </p>
 

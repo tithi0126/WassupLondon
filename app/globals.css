@@ -35,3 +35,7 @@
 /* Corporate galas, summits & brand reveals */
 @import './styles/packages.css';
 /* Curated service packages & tiers         */
+@import './styles/not-found.css';
+/* 404 Not Found editorial styling          */
+@import './styles/legal.css';
+/* Legal pages (Privacy & Terms)            */

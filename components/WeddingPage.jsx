@@ -67,7 +67,7 @@ export default function WeddingPage() {
       {/* ── Hero ───────────────────────────────────── */}
       <section className="wd2-hero">
         <div className="wd2-hero-img-wrap">
-          <img className="wd2-hero-img" src={IMAGES.hero} alt="" />
+          <img className="wd2-hero-img" src={IMAGES.hero} alt="Bespoke luxury wedding celebration by Wassup London" />
           <div className="wd2-hero-veil" />
         </div>
         <div className="wd2-hero-body">
@@ -140,12 +140,12 @@ export default function WeddingPage() {
         </div>
         <div className="wd2-event-grid">
           {EVENTS.map(({ n, title, desc }) => (
-            <article className="wd2-event-card wd2-reveal" key={n}>
+            <a href="#wd2-contact" className="wd2-event-card wd2-reveal" key={n}>
               <span className="wd2-card-num">{n}</span>
               <h3>{title}</h3>
               <p>{desc}</p>
               <span className="wd2-card-arrow">↗</span>
-            </article>
+            </a>
           ))}
         </div>
       </section>
@@ -153,10 +153,10 @@ export default function WeddingPage() {
       {/* ── Gallery ────────────────────────────────── */}
       <section className="wd2-gallery">
         <div className="wd2-gallery-grid">
-          <div className="wd2-g wd2-g1"><img src={IMAGES.details} alt="" /></div>
-          <div className="wd2-g wd2-g2"><img src={IMAGES.ceremony} alt="" /></div>
-          <div className="wd2-g wd2-g3"><img src={IMAGES.dance} alt="" /></div>
-          <div className="wd2-g wd2-g4"><img src={IMAGES.table} alt="" /></div>
+          <div className="wd2-g wd2-g1"><img src={IMAGES.details} alt="Bespoke wedding floral and stage details" loading="lazy" /></div>
+          <div className="wd2-g wd2-g2"><img src={IMAGES.ceremony} alt="Sacred mandap and wedding ceremony" loading="lazy" /></div>
+          <div className="wd2-g wd2-g3"><img src={IMAGES.dance} alt="Evening wedding reception and first dance" loading="lazy" /></div>
+          <div className="wd2-g wd2-g4"><img src={IMAGES.table} alt="Luxury wedding banquet tablescape" loading="lazy" /></div>
         </div>
         <p className="wd2-gallery-label">The Good Stuff</p>
       </section>
@@ -189,7 +189,7 @@ export default function WeddingPage() {
       {/* ── CTA ────────────────────────────────────── */}
       <section className="wd2-cta" id="wd2-contact">
         <div className="wd2-cta-img-wrap">
-          <img src={IMAGES.hero} alt="" />
+          <img src={IMAGES.hero} alt="Wassup London wedding consultation" loading="lazy" />
           <div className="wd2-cta-veil" />
         </div>
         <div className="wd2-cta-body">

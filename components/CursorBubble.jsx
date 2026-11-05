@@ -27,15 +27,37 @@ export default function CursorBubble() {
             yToDot(e.clientY);
         };
 
+        const DARK_SECTION_SELECTOR = [
+            '.editorial-hero',
+            '.editorial-showreel',
+            '.editorial-footer',
+            '.navbar',
+            '.nav-mobile-drawer',
+            '.dj2-root',
+            '.cp2-root',
+            '.pk2-root',
+            '.not-found-main',
+            '.wd2-hero',
+            '.wd2-services',
+            '.wd2-cta',
+            '.ct2-stations',
+            '.ct2-cta',
+        ].join(', ');
+
         const onMouseOver = (e) => {
-            const link = e.target.closest('a, button, [role="button"], input, .card, .motion-card__card, .showreel-card, .vimeo-player-area');
-            if (link) {
+            if (!e.target || typeof e.target.closest !== 'function') return;
+
+            const isOnDark = Boolean(e.target.closest(DARK_SECTION_SELECTOR));
+            cursor.classList.toggle('cursor--on-dark', isOnDark);
+
+            const interactive = e.target.closest(
+                'a, button, [role="button"], input, .editorial-card-item, .editorial-service-card, .showreel-card'
+            );
+            if (interactive) {
                 cursor.classList.add('cursor--active');
-                if (link.closest('.vimeo-player-area')) {
-                    cursor.setAttribute('data-text', 'SOUND');
-                } else if (link.closest('.showreel-card')) {
+                if (interactive.closest('.showreel-card')) {
                     cursor.setAttribute('data-text', 'PLAY');
-                } else if (link.closest('.card, .motion-card__card')) {
+                } else if (interactive.closest('.editorial-card-item, .editorial-service-card')) {
                     cursor.setAttribute('data-text', 'VIEW');
                 } else {
                     cursor.removeAttribute('data-text');

@@ -110,7 +110,7 @@
 
 .editorial-manifesto__stats {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 24px;
     padding-top: 32px;
     border-top: 1px solid var(--border-color);

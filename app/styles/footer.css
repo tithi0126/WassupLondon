@@ -302,6 +302,14 @@
     color: var(--color-accent-gold);
 }
 
+.editorial-footer__news-confirm {
+    font-family: var(--font-body);
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--color-accent-gold);
+    margin: 4px 0 0;
+}
+
 /* ─── Massive Brand Wordmark ─────────────────────────────────────────────────── */
 .editorial-footer__wordmark {
     width: 100%;
@@ -371,6 +379,8 @@
 
 .editorial-footer__legal-item {
     cursor: pointer;
+    color: inherit;
+    text-decoration: none;
     transition: color 0.2s ease;
 }
 

@@ -1,13 +1,32 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { CONTACT_INFO, SOCIAL_ICONS } from '@/lib/data';
 import '@/app/styles/footer.css';
 
 export default function Footer() {
+    const [dossierEmail, setDossierEmail] = useState('');
+    const [dossierSubmitted, setDossierSubmitted] = useState(false);
+
     const scrollToTop = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (typeof window !== 'undefined' && window.__lenis) {
+            window.__lenis.scrollTo(0);
+        } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    };
+
+    const handleDossierSubmit = (e) => {
+        e.preventDefault();
+        const trimmed = dossierEmail.trim();
+        if (!trimmed) return;
+        setDossierSubmitted(true);
+        setDossierEmail('');
+        const text = encodeURIComponent(
+            `Hello Wassup London, please share the Private Atelier Dossier with my email: ${trimmed}`
+        );
+        window.open(`${CONTACT_INFO.whatsappUrl}?text=${text}`, '_blank', 'noopener,noreferrer');
     };
 
     return (
@@ -115,23 +134,33 @@ export default function Footer() {
                         </div>
                         <div className="editorial-footer__newsletter">
                             <span className="editorial-footer__news-label">PRIVATE DOSSIER</span>
-                            <form
-                                className="editorial-footer__form"
-                                onSubmit={(e) => {
-                                    e.preventDefault();
-                                    alert('Thank you for subscribing to the Wassup London atelier dossier.');
-                                }}
-                            >
-                                <input
-                                    type="email"
-                                    placeholder="Enter your email"
-                                    required
-                                    className="editorial-footer__input"
-                                />
-                                <button type="submit" className="editorial-footer__submit-btn">
-                                    →
-                                </button>
-                            </form>
+                            {dossierSubmitted ? (
+                                <p className="editorial-footer__news-confirm" role="status">
+                                    ✓ Request registered — connecting you with our concierge.
+                                </p>
+                            ) : (
+                                <form
+                                    className="editorial-footer__form"
+                                    onSubmit={handleDossierSubmit}
+                                >
+                                    <input
+                                        type="email"
+                                        value={dossierEmail}
+                                        onChange={(e) => setDossierEmail(e.target.value)}
+                                        placeholder="Enter your email"
+                                        aria-label="Email address for Private Dossier"
+                                        required
+                                        className="editorial-footer__input"
+                                    />
+                                    <button
+                                        type="submit"
+                                        className="editorial-footer__submit-btn"
+                                        aria-label="Request Private Dossier"
+                                    >
+                                        →
+                                    </button>
+                                </form>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -154,8 +183,8 @@ export default function Footer() {
                         © {new Date().getFullYear()} Wassup London Events Ltd. All rights reserved.
                     </div>
                     <div className="editorial-footer__legal">
-                        <span className="editorial-footer__legal-item">Privacy Policy</span>
-                        <span className="editorial-footer__legal-item">Terms of Service</span>
+                        <Link href="/privacy" className="editorial-footer__legal-item">Privacy Policy</Link>
+                        <Link href="/terms" className="editorial-footer__legal-item">Terms of Service</Link>
                         <button
                             type="button"
                             onClick={scrollToTop}

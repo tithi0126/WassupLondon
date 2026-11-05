@@ -23,7 +23,11 @@ export default function TransitionScribble() {
                     duration: 0.5,
                     ease: 'power4.inOut',
                     onComplete: () => {
-                        window.scrollTo({ top: 0, behavior: 'instant' });
+                        if (typeof window !== 'undefined' && window.__lenis) {
+                            window.__lenis.scrollTo(0, { immediate: true });
+                        } else {
+                            window.scrollTo({ top: 0, behavior: 'instant' });
+                        }
                     }
                 })
                 .to(curtain, {

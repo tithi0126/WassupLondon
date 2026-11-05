@@ -9,8 +9,23 @@ export default function EditorialIntro({ children }) {
   const [removed, setRemoved] = useState(false);
 
   useEffect(() => {
+    try {
+      if (sessionStorage.getItem('wassup_intro_seen') === '1') {
+        setCount(100);
+        setLoading(false);
+        setRemoved(true);
+        document.body.classList.remove('lock');
+        return;
+      }
+    } catch {
+      // Ignore storage access errors in private/restricted contexts
+    }
+
     // Lock scroll briefly during intro sequence
     document.body.classList.add('lock');
+    if (typeof window !== 'undefined' && window.__lenis) {
+      window.__lenis.stop();
+    }
 
     let current = 0;
     const interval = setInterval(() => {
@@ -23,6 +38,14 @@ export default function EditorialIntro({ children }) {
         setTimeout(() => {
           setLoading(false);
           document.body.classList.remove('lock');
+          if (typeof window !== 'undefined' && window.__lenis) {
+            window.__lenis.start();
+          }
+          try {
+            sessionStorage.setItem('wassup_intro_seen', '1');
+          } catch {
+            // Ignore storage errors
+          }
           setTimeout(() => {
             setRemoved(true);
           }, 950);
@@ -35,6 +58,9 @@ export default function EditorialIntro({ children }) {
     return () => {
       clearInterval(interval);
       document.body.classList.remove('lock');
+      if (typeof window !== 'undefined' && window.__lenis) {
+        window.__lenis.start();
+      }
     };
   }, []);
 

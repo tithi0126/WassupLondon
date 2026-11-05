@@ -100,7 +100,6 @@ const ADDONS = [
 
 const METRICS = [
   { val: '100%', lbl: 'Transparent Line Items' },
-  { val: '15+', lbl: 'Years Production Mastery' },
   { val: 'd&b / L-Acoustics', lbl: 'Concert-Grade Rigs' },
   { val: '24/7', lbl: 'Direct Director Access' }
 ];
@@ -439,9 +438,6 @@ export default function PackagesPage() {
             >
               Check Date On WhatsApp ↗
             </a>
-            <Link href="/" className="pk2-btn-outline">
-              Back to Overview
-            </Link>
           </div>
         </div>
       </section>

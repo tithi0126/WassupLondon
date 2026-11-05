@@ -7,46 +7,73 @@ import { CONTACT_INFO } from '@/lib/data';
 
 export default function Navbar() {
     const [mobileOpen, setMobileOpen] = useState(false);
+    const [waOpen, setWaOpen] = useState(false);
 
     useEffect(() => {
         const navbar = document.querySelector('.navbar');
-        const contentSection = document.querySelector('.content-section');
-        const footerEl = document.querySelector('.main-footer');
+        const footerEl = document.querySelector('.main-footer, .editorial-footer');
 
-        // Start in dark mode (over video hero)
+        // Start in dark mode (over hero)
         if (navbar) {
             navbar.classList.add('on-dark');
             navbar.classList.remove('on-light');
         }
 
         const updateNavbarColor = () => {
-            if (!navbar || !contentSection || !footerEl) return;
+            if (!navbar) return;
             const scrollPos = window.scrollY + navbar.offsetHeight / 2;
-            const contentTop = contentSection.getBoundingClientRect().top + window.scrollY;
+            const contentSection = document.querySelector('.content-section');
 
-            const showreelSection = document.querySelector('#showreel-section');
-            const showreelTop = showreelSection ? showreelSection.getBoundingClientRect().top + window.scrollY : Infinity;
+            if (contentSection && footerEl) {
+                const contentTop = contentSection.getBoundingClientRect().top + window.scrollY;
 
-            const serviceCardsSection = document.querySelector('.service-cards-wrapper');
-            const serviceCardsTop = serviceCardsSection ? serviceCardsSection.getBoundingClientRect().top + window.scrollY : Infinity;
+                const showreelSection = document.querySelector('#showreel-section');
+                const showreelTop = showreelSection ? showreelSection.getBoundingClientRect().top + window.scrollY : Infinity;
 
-            const doubleMarquee = document.querySelector('.Double-marquee');
-            const doubleMarqueeTop = doubleMarquee ? doubleMarquee.getBoundingClientRect().top + window.scrollY : Infinity;
-            const footerTop = footerEl.getBoundingClientRect().top + window.scrollY;
+                const serviceCardsSection = document.querySelector('.service-cards-wrapper');
+                const serviceCardsTop = serviceCardsSection ? serviceCardsSection.getBoundingClientRect().top + window.scrollY : Infinity;
 
-            if (scrollPos >= footerTop) {
-                navbar.classList.add('on-dark');
-                navbar.classList.remove('on-light');
-            } else if (scrollPos >= doubleMarqueeTop) {
-                navbar.classList.add('on-light');
-                navbar.classList.remove('on-dark');
-            } else if (scrollPos >= serviceCardsTop) {
-                navbar.classList.add('on-light');
-                navbar.classList.remove('on-dark');
-            } else if (scrollPos >= showreelTop) {
-                navbar.classList.add('on-dark');
-                navbar.classList.remove('on-light');
-            } else if (scrollPos >= contentTop) {
+                const partnersSection = document.querySelector('.editorial-partners');
+                const partnersTop = partnersSection ? partnersSection.getBoundingClientRect().top + window.scrollY : Infinity;
+                const footerTop = footerEl.getBoundingClientRect().top + window.scrollY;
+
+                if (scrollPos >= footerTop) {
+                    navbar.classList.add('on-dark');
+                    navbar.classList.remove('on-light');
+                } else if (scrollPos >= partnersTop) {
+                    navbar.classList.add('on-light');
+                    navbar.classList.remove('on-dark');
+                } else if (scrollPos >= serviceCardsTop) {
+                    navbar.classList.add('on-light');
+                    navbar.classList.remove('on-dark');
+                } else if (scrollPos >= showreelTop) {
+                    navbar.classList.add('on-dark');
+                    navbar.classList.remove('on-light');
+                } else if (scrollPos >= contentTop) {
+                    navbar.classList.add('on-light');
+                    navbar.classList.remove('on-dark');
+                } else {
+                    navbar.classList.add('on-dark');
+                    navbar.classList.remove('on-light');
+                }
+                return;
+            }
+
+            // Subpage light/dark detection
+            const lightSections = document.querySelectorAll(
+                '.wd2-intro, .wd2-story, .wd2-events, .wd2-gallery, .wd2-quote, .ct2-hero, .ct2-philosophy, .ct2-menus, .ct2-quote'
+            );
+            let isOverLight = false;
+            lightSections.forEach((sec) => {
+                const rect = sec.getBoundingClientRect();
+                const top = rect.top + window.scrollY;
+                const bottom = top + rect.height;
+                if (scrollPos >= top && scrollPos < bottom) {
+                    isOverLight = true;
+                }
+            });
+
+            if (isOverLight) {
                 navbar.classList.add('on-light');
                 navbar.classList.remove('on-dark');
             } else {
@@ -55,18 +82,18 @@ export default function Navbar() {
             }
         };
 
-        window.addEventListener('scroll', updateNavbarColor);
+        window.addEventListener('scroll', updateNavbarColor, { passive: true });
         updateNavbarColor();
 
         const cleanups = [];
         const overlay = document.querySelector('.nav-overlay');
         if (overlay) {
-            gsap.set(overlay, { opacity: 0, visibility: 'hidden' });
+            gsap.set(overlay, { opacity: 0, visibility: 'hidden', pointerEvents: 'none' });
         }
 
         const showOverlay = () => {
             if (overlay) {
-                gsap.set(overlay, { visibility: 'visible' });
+                gsap.set(overlay, { visibility: 'visible', pointerEvents: 'auto' });
                 gsap.to(overlay, { opacity: 1, duration: 0.3, ease: 'power2.out' });
             }
         };
@@ -77,28 +104,29 @@ export default function Navbar() {
                     opacity: 0,
                     duration: 0.25,
                     ease: 'power2.in',
-                    onComplete: () => gsap.set(overlay, { visibility: 'hidden' }),
+                    onComplete: () => gsap.set(overlay, { visibility: 'hidden', pointerEvents: 'none' }),
                 });
             }
         };
 
-
-        // ─── WhatsApp Popout Hover ───
+        // ─── WhatsApp Popout Hover & Click ───
         const waTrigger = document.querySelector('.nav-hover-trigger');
+        const waBtn = document.querySelector('.nav-wa-trigger');
         const waBox = document.querySelector('.nav-wa-box');
 
         if (waTrigger && waBox) {
-            const waInner = waBox.querySelector('.nav-popout-inner');
             gsap.set(waBox, { visibility: 'hidden', scale: 0.96, opacity: 0, transformOrigin: 'top right' });
 
-            const onEnterRight = () => {
+            const openWa = () => {
+                setWaOpen(true);
                 gsap.killTweensOf(waBox);
                 showOverlay();
                 gsap.set(waBox, { visibility: 'visible' });
                 gsap.to(waBox, { scale: 1, opacity: 1, duration: 0.35, ease: 'power3.out' });
             };
 
-            const onLeaveRight = () => {
+            const closeWa = () => {
+                setWaOpen(false);
                 gsap.killTweensOf(waBox);
                 hideOverlay();
                 gsap.to(waBox, {
@@ -110,11 +138,33 @@ export default function Navbar() {
                 });
             };
 
-            waTrigger.addEventListener('mouseenter', onEnterRight);
-            waTrigger.addEventListener('mouseleave', onLeaveRight);
+            const onToggleClick = (e) => {
+                e.stopPropagation();
+                if (waBox.style.visibility === 'visible') {
+                    closeWa();
+                } else {
+                    openWa();
+                }
+            };
+
+            const onKeyDown = (e) => {
+                if (e.key === 'Escape' && waBox.style.visibility === 'visible') {
+                    closeWa();
+                }
+            };
+
+            waTrigger.addEventListener('mouseenter', openWa);
+            waTrigger.addEventListener('mouseleave', closeWa);
+            if (waBtn) waBtn.addEventListener('click', onToggleClick);
+            if (overlay) overlay.addEventListener('click', closeWa);
+            document.addEventListener('keydown', onKeyDown);
+
             cleanups.push(() => {
-                waTrigger.removeEventListener('mouseenter', onEnterRight);
-                waTrigger.removeEventListener('mouseleave', onLeaveRight);
+                waTrigger.removeEventListener('mouseenter', openWa);
+                waTrigger.removeEventListener('mouseleave', closeWa);
+                if (waBtn) waBtn.removeEventListener('click', onToggleClick);
+                if (overlay) overlay.removeEventListener('click', closeWa);
+                document.removeEventListener('keydown', onKeyDown);
             });
         }
 
@@ -126,7 +176,13 @@ export default function Navbar() {
 
     return (
         <>
-            <div className="nav-overlay" onClick={() => setMobileOpen(false)} />
+            <div
+                className="nav-overlay"
+                onClick={() => {
+                    setMobileOpen(false);
+                    setWaOpen(false);
+                }}
+            />
             <header className={`navbar-container ${mobileOpen ? 'mobile-open' : ''}`}>
                 <nav className="navbar" role="navigation" aria-label="Main Navigation">
                     {/* Left: Brand Crest & Typographic Logo (Far Left) */}
@@ -209,6 +265,7 @@ export default function Navbar() {
                                 type="button"
                                 className="nav-wa-trigger"
                                 aria-label="WhatsApp Concierge"
+                                aria-expanded={waOpen}
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -253,7 +310,12 @@ export default function Navbar() {
                             </div>
                         </div>
 
-                        <a href={`mailto:${CONTACT_INFO.email}`} className="nav-inquire-btn">
+                        <a
+                            href={CONTACT_INFO.whatsappUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="nav-inquire-btn"
+                        >
                             <span>Inquire</span>
                         </a>
 
@@ -262,6 +324,7 @@ export default function Navbar() {
                             type="button"
                             className="nav-mobile-toggle"
                             aria-label="Toggle Navigation"
+                            aria-expanded={mobileOpen}
                             onClick={() => setMobileOpen(!mobileOpen)}
                         >
                             <span className={mobileOpen ? 'nav-burger-open' : ''} />
@@ -305,11 +368,16 @@ export default function Navbar() {
                             </a>
                         </div>
                         <div className="nav-mobile-footer">
-                            <a href={CONTACT_INFO.whatsappUrl} target="_blank" rel="noopener noreferrer" className="nav-mobile-wa">
-                                WhatsApp Concierge: {CONTACT_INFO.whatsappNumber}
+                            <a href={`mailto:${CONTACT_INFO.email}`} className="nav-mobile-wa">
+                                Email: {CONTACT_INFO.email}
                             </a>
-                            <a href={`mailto:${CONTACT_INFO.email}`} className="nav-mobile-inquire">
-                                Request Proposal
+                            <a
+                                href={CONTACT_INFO.whatsappUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="nav-mobile-inquire"
+                            >
+                                Request Proposal on WhatsApp ↗
                             </a>
                         </div>
                     </div>

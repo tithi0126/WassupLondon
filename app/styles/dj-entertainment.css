@@ -528,6 +528,14 @@
   opacity: 1;
 }
 
+@media (hover: none), (max-width: 1024px) {
+  .dj2-act-overlay p {
+    transform: translateY(0);
+    opacity: 1;
+    color: rgba(255, 255, 255, 0.72);
+  }
+}
+
 /* ── Quote ─────────────────────────────────────────────────── */
 .dj2-quote {
   padding: 120px 8vw;

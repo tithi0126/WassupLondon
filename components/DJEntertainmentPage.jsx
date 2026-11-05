@@ -105,10 +105,10 @@ export default function DJEntertainmentPage() {
       {/* ── Hero ─────────────────────────────────────── */}
       <section className="dj2-hero">
         <div className="dj2-hero-video-wrap">
-          <video
+          <img
             className="dj2-hero-video"
-            autoPlay loop muted playsInline
-            poster="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1800&q=85"
+            src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1800&q=85"
+            alt="Wassup London club stage and laser production"
           />
           <div className="dj2-hero-veil" />
         </div>

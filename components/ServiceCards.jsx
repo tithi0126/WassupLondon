@@ -37,7 +37,7 @@ export default function ServiceCards() {
           >
             <div className="editorial-service-card__top">
               <span className="editorial-service-card__num">{SERVICE_NUMS[idx] || `0${idx + 1}`}</span>
-              <span className="editorial-service-card__category">{card.sticker}</span>
+              <span className="editorial-service-card__category">{card.category || card.sticker}</span>
             </div>
 
             <h3 className="editorial-service-card__title">
