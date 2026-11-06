@@ -101,8 +101,8 @@ export default function Showreel() {
             </div>
 
             {/* ── Category Filter Pills (rendered when events exist) ── */}
-            <div className="editorial-showreel__controls">
-                {categories.length > 0 ? (
+            {categories.length > 0 && (
+                <div className="editorial-showreel__controls">
                     <div className="editorial-showreel__filters">
                         {categories.map((cat) => (
                             <button
@@ -115,11 +115,11 @@ export default function Showreel() {
                             </button>
                         ))}
                     </div>
-                ) : <div />}
-                <Link href="/packages" className="editorial-showreel__inquire-link">
-                    Check Date Availability →
-                </Link>
-            </div>
+                    <Link href="/packages" className="editorial-showreel__inquire-link">
+                        Check Date Availability →
+                    </Link>
+                </div>
+            )}
 
             {/* ── Event Grid ── */}
             <div ref={gridRef} className="showreel-grid">
@@ -173,9 +173,14 @@ export default function Showreel() {
                             Selected public performances and private client productions are curated across each season.
                             Connect with our atelier concierge to check availability or request our private lookbook.
                         </p>
-                        <a href="https://wa.me/447471557773" target="_blank" rel="noopener noreferrer" className="showreel-empty-cta">
-                            Inquire With Atelier Concierge ↗
-                        </a>
+                        <div className="showreel-empty-actions">
+                            <a href="https://wa.me/447471557773" target="_blank" rel="noopener noreferrer" className="showreel-empty-cta">
+                                Inquire With Atelier Concierge ↗
+                            </a>
+                            <Link href="/packages" className="showreel-empty-secondary">
+                                Explore Packages &amp; Tiers →
+                            </Link>
+                        </div>
                     </div>
                 )}
             </div>

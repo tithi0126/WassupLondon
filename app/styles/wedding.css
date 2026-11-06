@@ -318,6 +318,8 @@
 .wd2-event-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
   border-left: 1px solid var(--border-color);
 }
 
@@ -601,7 +603,8 @@
   .wd2-story { grid-template-columns: 1fr; }
   .wd2-story-img { height: 55vw; }
   .wd2-story-copy { padding: 60px 6vw; }
-  .wd2-event-grid { grid-template-columns: 1fr 1fr; }
+  .wd2-event-grid { grid-template-columns: 1fr 1fr; border-bottom: none; }
+  .wd2-event-card { border-bottom: 1px solid var(--border-color); }
   .wd2-gallery-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
   .wd2-g1, .wd2-g2, .wd2-g3, .wd2-g4 { grid-column: auto; grid-row: auto; }
   .wd2-g1 { height: 60vw; }
@@ -610,9 +613,14 @@
   .wd2-events, .wd2-quote, .wd2-cta, .wd2-gallery { padding-left: 6vw; padding-right: 6vw; }
 }
 
+@media (max-width: 768px) {
+  .wd2-hero-scroll { display: none; }
+}
+
 @media (max-width: 600px) {
   .wd2-hero { padding: 115px 6vw 40px; }
-  .wd2-event-grid { grid-template-columns: 1fr; border-left: none; }
+  .wd2-event-grid { grid-template-columns: 1fr; border-left: none; border-top: none; }
   .wd2-event-card { border: none; border-top: 1px solid var(--border-color); }
+  .wd2-event-card:last-child { border-bottom: 1px solid var(--border-color); }
   .wd2-service { grid-template-columns: 40px 1fr 24px; }
 }

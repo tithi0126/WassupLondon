@@ -86,7 +86,7 @@ export default function Navbar() {
 
             // Subpage light/dark detection
             const lightSections = document.querySelectorAll(
-                '.wd2-intro, .wd2-story, .wd2-events, .wd2-gallery, .wd2-quote, .ct2-hero, .ct2-philosophy, .ct2-menus, .ct2-quote'
+                '.wd2-intro, .wd2-story, .wd2-events, .wd2-gallery, .wd2-quote, .ct2-hero, .ct2-philosophy, .ct2-menus, .ct2-quote, .legal-body'
             );
             let isOverLight = false;
             lightSections.forEach((sec) => {

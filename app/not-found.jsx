@@ -4,6 +4,7 @@ import Footer from '@/components/Footer';
 import SvgSymbols from '@/components/SvgSymbols';
 import SmoothScroll from '@/components/SmoothScroll';
 import CursorBubble from '@/components/CursorBubble';
+import '@/app/styles/not-found.css';
 
 export const metadata = {
     title: 'Page Not Found | Wassup London',

@@ -23,5 +23,9 @@
 /* Vimeo hero video player + headline       */
 @import './styles/cursor.css';
 /* Custom cursor bubble + scribble overlay  */
+@import './styles/legal.css';
+/* Legal pages (Privacy Policy & Terms)     */
+@import './styles/not-found.css';
+/* 404 Not Found page                       */
 @import './styles/responsive.css';
 /* Global responsive media queries          */

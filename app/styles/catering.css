@@ -115,6 +115,18 @@
   background: var(--surface-subtle);
 }
 
+.ct2-hero-right::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(180deg, rgba(12, 12, 14, 0.35) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
 .ct2-hero-img-wrap {
   position: absolute;
   inset: 0;
@@ -216,7 +228,6 @@
 .ct2-philosophy {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0;
   padding: 120px 8vw;
   align-items: center;
   gap: 80px;
@@ -611,6 +622,7 @@
 }
 
 @media (max-width: 600px) {
+  .ct2-hero-badge { left: 16px; right: 16px; bottom: 16px; }
   .ct2-menu-grid { grid-template-columns: 1fr; }
   .ct2-stations-grid { grid-template-columns: 1fr; }
   .ct2-cta { padding-left: 6vw; padding-right: 6vw; }
