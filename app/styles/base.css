@@ -47,7 +47,7 @@
     --color-white-muted: rgba(255, 255, 255, 0.72);
     --border-dark: rgba(255, 255, 255, 0.1);
 
-    /* Minimalist Tonal Accents for Service Categories */
+    /* Legacy Tonal Accents (Commented out — unused in current editorial design)
     --color-green: #29725f;
     --color-lightblue: #7188a8;
     --color-darkblue: #1c2738;
@@ -55,6 +55,7 @@
     --color-orange: #9b5a38;
     --color-maroon: #5a2838;
     --color-pink: #dfd5d1;
+    */
 
     /* Modern Typography & Motion Tokens */
     --font-heading: 'Epilogue', sans-serif;
@@ -117,4 +118,9 @@ html {
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
     display: none;
+}
+
+/* ─── Content Section Wrapper ─────────────────────────────────────────────── */
+.content-section {
+    padding: 0;
 }

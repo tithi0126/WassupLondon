@@ -1,4 +1,3 @@
-import SvgSymbols from '@/components/SvgSymbols';
 import Navbar from '@/components/Navbar';
 import VimeoHero from '@/components/VimeoHero';
 import ServiceCards from '@/components/ServiceCards';
@@ -40,7 +39,6 @@ export default function Home() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd) }}
             />
-            <SvgSymbols />
             <SmoothScroll />
             <CursorBubble />
             <header className="main-header">

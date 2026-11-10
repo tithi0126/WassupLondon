@@ -1,5 +1,4 @@
 import Navbar from '@/components/Navbar';
-import SvgSymbols from '@/components/SvgSymbols';
 import SmoothScroll from '@/components/SmoothScroll';
 import CursorBubble from '@/components/CursorBubble';
 import Footer from '@/components/Footer';
@@ -32,7 +31,6 @@ export default function Page() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(packagesJsonLd) }}
             />
-            <SvgSymbols />
             <SmoothScroll />
             <CursorBubble />
             <header className="main-header">

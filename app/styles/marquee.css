@@ -1,4 +1,4 @@
-/* ─── Clean Editorial Minimalist Partners & Marquee ─────────────────────────── */
+/* ─── Clean Editorial Minimalist Partners & Marquee (Commented out — DoubleMarquee currently disabled) ───
 
 .editorial-partners {
     position: relative;
@@ -59,7 +59,7 @@
     color: var(--color-muted);
 }
 
-/* ─── Infinite Smooth Logo Tickers ───────────────────────────────────────────── */
+-- Infinite Smooth Logo Tickers --
 .editorial-partners__marquee-wrap {
     width: 100vw;
     position: relative;
@@ -135,7 +135,7 @@
     filter: grayscale(0%);
 }
 
-/* Responsive */
+-- Responsive --
 @media (max-width: 900px) {
     .editorial-partners__header {
         grid-template-columns: 1fr;
@@ -147,3 +147,4 @@
         padding: 12px 18px;
     }
 }
+──────────────────────────────────────────────────────────────────────────── */

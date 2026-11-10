@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import SvgSymbols from '@/components/SvgSymbols';
 import SmoothScroll from '@/components/SmoothScroll';
 import CursorBubble from '@/components/CursorBubble';
 import '@/app/styles/not-found.css';
@@ -17,7 +16,6 @@ export const metadata = {
 export default function NotFound() {
     return (
         <>
-            <SvgSymbols />
             <SmoothScroll />
             <CursorBubble />
             <header className="main-header">

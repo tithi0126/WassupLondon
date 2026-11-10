@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import SvgSymbols from '@/components/SvgSymbols';
 import SmoothScroll from '@/components/SmoothScroll';
 import CursorBubble from '@/components/CursorBubble';
 import { CONTACT_INFO } from '@/lib/data';
@@ -25,7 +24,6 @@ export default function PrivacyPage() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(privacyJsonLd) }}
             />
-            <SvgSymbols />
             <SmoothScroll />
             <CursorBubble />
             <header className="main-header">

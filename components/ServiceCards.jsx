@@ -32,12 +32,12 @@ export default function ServiceCards() {
       <div className="editorial-services__grid" id="cards-wrapper">
         {CARDS_DATA.map((card, idx) => (
           <article
-            key={card.color}
+            key={card.title}
             className="editorial-service-card"
           >
             <div className="editorial-service-card__top">
               <span className="editorial-service-card__num">{SERVICE_NUMS[idx] || `0${idx + 1}`}</span>
-              <span className="editorial-service-card__category">{card.category || card.sticker}</span>
+              <span className="editorial-service-card__category">{card.category}</span>
             </div>
 
             <h3 className="editorial-service-card__title">

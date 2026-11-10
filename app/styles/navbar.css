@@ -141,6 +141,7 @@
     position: relative;
 }
 
+/* ─── Legacy Services Trigger Pill (Commented out — Services dropdown removed) ───
 .nav-trigger-pill {
     display: inline-flex;
     align-items: center;
@@ -175,6 +176,7 @@
 .nav-trigger-pill:hover .nav-trigger-dot {
     transform: scale(1.4);
 }
+──────────────────────────────────────────────────────────────────────────── */
 
 .nav-links-desktop {
     display: flex;
@@ -384,7 +386,7 @@
     pointer-events: none;
 }
 
-/* ─── Minimalist Popout Menus (Services & WhatsApp) ──────────────────────────── */
+/* ─── Minimalist Popout Menus (WhatsApp Concierge) ──────────────────────────── */
 .nav-popout {
     position: absolute;
     top: calc(100% + 14px);
@@ -396,11 +398,6 @@
     z-index: 100;
 }
 
-.nav-services-wrap .nav-popout {
-    left: 0;
-    width: 360px;
-}
-
 .nav-right .nav-popout {
     right: 0;
     width: 310px;
@@ -408,12 +405,6 @@
 
 .nav-popout-inner {
     padding: 24px;
-}
-
-.nav-popout-header {
-    margin-bottom: 18px;
-    padding-bottom: 14px;
-    border-bottom: 1px solid rgba(18, 18, 20, 0.08);
 }
 
 .nav-popout-kicker {
@@ -424,6 +415,18 @@
     margin-bottom: 4px;
     text-transform: uppercase;
     font-family: var(--font-body);
+}
+
+/* ─── Legacy Services Popout Styles (Commented out — Services dropdown removed) ───
+.nav-services-wrap .nav-popout {
+    left: 0;
+    width: 360px;
+}
+
+.nav-popout-header {
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(18, 18, 20, 0.08);
 }
 
 .nav-popout-title {
@@ -508,6 +511,7 @@
 .nav-work-btn:hover {
     background: var(--color-accent);
 }
+──────────────────────────────────────────────────────────────────────────── */
 
 /* WhatsApp Popout specifics */
 .nav-wa-title {
@@ -763,9 +767,7 @@
         display: none;
     }
 
-    .nav-trigger-pill {
-        display: none;
-    }
+    /* .nav-trigger-pill { display: none; } */
 
     .nav-wa-trigger {
         display: none;

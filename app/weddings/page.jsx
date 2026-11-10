@@ -1,5 +1,4 @@
 import Navbar from '@/components/Navbar';
-import SvgSymbols from '@/components/SvgSymbols';
 import SmoothScroll from '@/components/SmoothScroll';
 import CursorBubble from '@/components/CursorBubble';
 import Footer from '@/components/Footer';
@@ -15,7 +14,6 @@ export default function WeddingsPage() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(weddingsJsonLd) }}
             />
-            <SvgSymbols />
             <SmoothScroll />
             <CursorBubble />
             <header className="main-header">

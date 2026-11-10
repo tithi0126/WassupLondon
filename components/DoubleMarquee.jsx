@@ -1,3 +1,8 @@
+/* ─── Legacy / Disabled Partner Logo Marquee Component ───────────────────────
+   Commented out because `brands` in lib/data.js is currently empty and this
+   component is not imported on any page. Re-enable when official venue/brand
+   partner logos are added.
+
 'use client';
 
 import React from 'react';
@@ -28,7 +33,6 @@ export default function DoubleMarquee() {
                 </p>
             </div>
 
-            {/* Seamless Infinite Monochrome Logo Ticker */}
             <div className="editorial-partners__marquee-wrap">
                 <div className="editorial-partners__track editorial-partners__track--left">
                     {marqueeBrands.map((brand, i) => (
@@ -44,7 +48,6 @@ export default function DoubleMarquee() {
                 </div>
             </div>
 
-            {/* Second row scrolling opposite direction */}
             <div className="editorial-partners__marquee-wrap">
                 <div className="editorial-partners__track editorial-partners__track--right">
                     {marqueeBrands.map((brand, i) => (
@@ -61,4 +64,9 @@ export default function DoubleMarquee() {
             </div>
         </section>
     );
+}
+──────────────────────────────────────────────────────────────────────────── */
+
+export default function DoubleMarquee() {
+    return null;
 }

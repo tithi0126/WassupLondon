@@ -78,7 +78,7 @@
     }
 }
 
-/* ─── Page Transition Minimal Curtain ───────────────────────────────────── */
+/* ─── Legacy Page Transition Rules (Commented out — TransitionScribble uses inline styles) ───
 .transition-scribble {
     position: fixed;
     inset: 0;
@@ -98,7 +98,7 @@
     pointer-events: all;
 }
 
-/* ─── Transition States ──────────────────────────────────────────────────── */
 body.is-transitioning {
     pointer-events: none !important;
 }
+──────────────────────────────────────────────────────────────────────────── */

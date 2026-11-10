@@ -1,4 +1,7 @@
-// Hidden SVG symbol definitions — referenced with <use> throughout the app
+/* ─── Legacy Hidden SVG Symbol Definitions (Commented out — unused) ──────────
+   Neither #bullet-icon nor #card-divider is referenced by <use> in the
+   current editorial design.
+
 export default function SvgSymbols() {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" style={{ display: 'none' }} aria-hidden="true">
@@ -14,4 +17,9 @@ export default function SvgSymbols() {
             </symbol>
         </svg>
     );
+}
+──────────────────────────────────────────────────────────────────────────── */
+
+export default function SvgSymbols() {
+    return null;
 }
