@@ -5,16 +5,26 @@ import SvgSymbols from '@/components/SvgSymbols';
 import SmoothScroll from '@/components/SmoothScroll';
 import CursorBubble from '@/components/CursorBubble';
 import { CONTACT_INFO } from '@/lib/data';
+import { buildPageMetadata, getPageJsonLd } from '@/lib/seo';
 import '@/app/styles/legal.css';
 
-export const metadata = {
-    title: 'Terms of Service | Wassup London',
-    description: 'Terms of Service and booking conditions for Wassup London Events Ltd.',
-};
+export const metadata = buildPageMetadata({
+    title: 'Terms of Service — Booking Conditions & Production Terms | Wassup London',
+    description:
+        'Terms of Service, booking retainers, venue technical requirements, and client engagement terms for Wassup London Events Ltd.',
+    path: '/terms',
+    keywords: ['Wassup London terms of service', 'Wassup London booking terms'],
+});
 
 export default function TermsPage() {
+    const termsJsonLd = getPageJsonLd('terms');
+
     return (
         <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(termsJsonLd) }}
+            />
             <SvgSymbols />
             <SmoothScroll />
             <CursorBubble />

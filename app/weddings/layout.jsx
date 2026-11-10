@@ -1,32 +1,23 @@
-// globals.css and wedding.css are inherited via the root layout + globals import chain
+import { buildPageMetadata } from '@/lib/seo';
 
-export const metadata = {
-    metadataBase: new URL('https://www.wassuplondon.co.uk'),
-    title: 'Wedding Planning London — Wassup London | Bespoke UK Weddings',
-    description: 'Wassup London plans bespoke South Asian and fusion weddings across the UK. Full planning, décor, catering, entertainment and day-of coordination — all under one roof.',
-    openGraph: {
-        title: 'Wedding Planning London — Wassup London',
-        description: 'Bespoke South Asian and fusion weddings across London and the UK. Full planning, décor, catering, entertainment and day-of coordination.',
-        url: 'https://www.wassuplondon.co.uk/weddings',
-        siteName: 'Wassup London',
-        images: [
-            {
-                url: '/logo.png',
-                width: 1024,
-                height: 1024,
-                alt: 'Wassup London Weddings & Events Crest',
-            },
-        ],
-        locale: 'en_GB',
-        type: 'website',
-    },
-    twitter: {
-        card: 'summary_large_image',
-        title: 'Wedding Planning London — Wassup London',
-        description: 'Bespoke UK weddings — full planning, décor, catering, entertainment and day-of coordination.',
-        images: ['/logo.png'],
-    },
-};
+export const metadata = buildPageMetadata({
+    title: 'Wedding Planning London — Bespoke South Asian, Indian & Fusion Weddings | Wassup London',
+    description:
+        'Wassup London plans and produces bespoke South Asian, Hindu, Sikh, Gujarati, Punjabi, and multicultural fusion weddings across London and the UK. Full planning, custom mandaps, floral styling, catering, DJs, and day-of coordination.',
+    path: '/weddings',
+    ogImage: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=85',
+    ogImageAlt: 'Bespoke luxury wedding planning and mandap styling by Wassup London',
+    keywords: [
+        'wedding planner London',
+        'South Asian wedding planner London',
+        'Indian wedding planner UK',
+        'Gujarati wedding planner London',
+        'Punjabi wedding planner London',
+        'mandap hire and floral decor London',
+        'sangeet and mehndi event planner',
+        'fusion wedding coordinator UK',
+    ],
+});
 
 export default function WeddingsLayout({ children }) {
     return children;

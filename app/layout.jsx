@@ -1,42 +1,69 @@
 import './globals.css';
+import { SITE_CONFIG, buildPageMetadata, getGlobalJsonLd } from '@/lib/seo';
+
+export const viewport = {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+    themeColor: [
+        { media: '(prefers-color-scheme: dark)', color: '#0c0c0e' },
+        { media: '(prefers-color-scheme: light)', color: '#fbfaf7' },
+    ],
+    colorScheme: 'dark light',
+};
+
+const baseMeta = buildPageMetadata({
+    title: 'Wassup London — Best Events in London | Weddings, DJ, Catering & Event Production',
+    description:
+        'Creating the best events in London. Based in Paddington, Central London, Wassup London is a full-service event production house delivering bespoke weddings, concert-grade DJ & sound, artisanal catering, and corporate galas across London and the UK.',
+    path: '/',
+    keywords: [
+        'events in London',
+        'best events in London',
+        'best event company in London',
+        'event production London',
+        'Indian wedding planner London',
+        'Asian wedding catering London',
+        'wedding DJ London',
+        'mandap hire London',
+        'corporate event production London',
+        'luxury event management UK',
+    ],
+});
 
 export const metadata = {
-    metadataBase: new URL('https://www.wassuplondon.co.uk'),
-    title: 'Wassup London — Your Event. Your Vision. Our Expertise.',
-    description: 'Wassup London is a full-service event company delivering weddings, DJ & entertainment, catering, corporate and private events across London and the UK.',
+    ...baseMeta,
+    metadataBase: new URL(SITE_CONFIG.url),
+    applicationName: SITE_CONFIG.name,
+    manifest: '/manifest.webmanifest',
     icons: {
-        icon: '/logo.png',
-        shortcut: '/logo.png',
-        apple: '/logo.png',
-    },
-    openGraph: {
-        title: 'Wassup London — Your Event. Your Vision. Our Expertise.',
-        description: 'Full-service events company — weddings, DJ nights, catering, corporate events & private celebrations across London and the UK.',
-        url: 'https://www.wassuplondon.co.uk',
-        siteName: 'Wassup London',
-        images: [
-            {
-                url: '/logo.png',
-                width: 1024,
-                height: 1024,
-                alt: 'Wassup London Weddings & Events Crest',
-            },
+        icon: [
+            { url: '/logo.png', type: 'image/png' },
         ],
-        locale: 'en_GB',
-        type: 'website',
+        shortcut: '/logo.png',
+        apple: [
+            { url: '/logo.png', sizes: '180x180', type: 'image/png' },
+        ],
     },
-    twitter: {
-        card: 'summary_large_image',
-        title: 'Wassup London',
-        description: 'London\'s premier events company — weddings, DJ nights, rooftop parties & corporate events.',
-        images: ['/logo.png'],
+    formatDetection: {
+        email: false,
+        address: false,
+        telephone: false,
     },
 };
 
 export default function RootLayout({ children }) {
+    const globalJsonLd = getGlobalJsonLd();
+
     return (
         <html lang="en-GB" suppressHydrationWarning>
-            <body suppressHydrationWarning>{children}</body>
+            <body suppressHydrationWarning>
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(globalJsonLd) }}
+                />
+                {children}
+            </body>
         </html>
     );
 }

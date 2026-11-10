@@ -106,7 +106,9 @@ export default function CateringPage() {
           <div className="ct2-hero-img-wrap">
             <img className="ct2-hero-img"
               src="https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=1200&q=85"
-              alt="Artisanal catering tablescape"
+              alt="Artisanal Indian, Pan-Asian and fusion wedding catering tablescape in London"
+              fetchPriority="high"
+              decoding="async"
             />
           </div>
           <div className="ct2-hero-badge">
@@ -134,11 +136,13 @@ export default function CateringPage() {
         <div className="ct2-phil-imgs ct2-reveal">
           <img
             src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=85"
-            alt="Chef plating food" className="ct2-phil-img ct2-phil-img-1"
+            alt="Executive chef plating gourmet Indian and fusion banqueting dishes" className="ct2-phil-img ct2-phil-img-1"
+            loading="lazy" decoding="async"
           />
           <img
             src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=85"
-            alt="Gourmet dish presentation" className="ct2-phil-img ct2-phil-img-2"
+            alt="Artisanal wedding catering dish presentation by Wassup London" className="ct2-phil-img ct2-phil-img-2"
+            loading="lazy" decoding="async"
           />
         </div>
         <div className="ct2-phil-copy ct2-reveal">
@@ -170,7 +174,7 @@ export default function CateringPage() {
           {CUISINES.map(item => (
             <div className="ct2-menu-card" key={item.title}>
               <div className="ct2-menu-img-wrap">
-                <img src={item.img} alt={item.title} />
+                <img src={item.img} alt={`${item.title} — ${item.badge} catering menu by Wassup London`} loading="lazy" decoding="async" />
                 <span className="ct2-menu-badge">{item.badge}</span>
               </div>
               <div className="ct2-menu-body">
@@ -215,7 +219,8 @@ export default function CateringPage() {
       <section className="ct2-cta">
         <img
           src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=85"
-          alt="Catering dining experience" className="ct2-cta-bg"
+          alt="Luxury wedding banquet dining experience by Wassup London" className="ct2-cta-bg"
+          loading="lazy" decoding="async"
         />
         <div className="ct2-cta-veil" />
         <div className="ct2-cta-body">

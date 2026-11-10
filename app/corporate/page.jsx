@@ -4,44 +4,44 @@ import SmoothScroll from '@/components/SmoothScroll';
 import CursorBubble from '@/components/CursorBubble';
 import Footer from '@/components/Footer';
 import CorporatePage from '@/components/CorporatePage';
+import { buildPageMetadata, getPageJsonLd } from '@/lib/seo';
 
-export const metadata = {
-    title: 'Corporate Event Production & Gala Dinners London — Wassup London',
-    description: 'End-to-end corporate event production in London: awards galas, brand activations, product launches, company summits, broadcast stage lighting & keynote AV.',
-    openGraph: {
-        title: 'Corporate Event Production & Gala Dinners London — Wassup London',
-        description: 'High-impact corporate galas, brand activations, keynote AV & turnkey event production across London and Europe.',
-        url: 'https://www.wassuplondon.co.uk/corporate',
-        siteName: 'Wassup London',
-        images: [
-            {
-                url: '/logo.png',
-                width: 1024,
-                height: 1024,
-                alt: 'Wassup London Weddings & Events Crest',
-            },
-        ],
-        locale: 'en_GB',
-        type: 'website',
-    },
-    twitter: {
-        card: 'summary_large_image',
-        title: 'Corporate Event Production & Gala Dinners London — Wassup London',
-        description: 'Precision corporate event production, awards galas, brand activations & stagecraft in London.',
-        images: ['/logo.png'],
-    },
-};
+export const metadata = buildPageMetadata({
+    title: 'Corporate Event Production & Gala Dinners London — AV, Staging & Brand Activations | Wassup London',
+    description:
+        'End-to-end corporate event production in London for up to 2,500+ guests: black-tie awards galas, brand activations, product launches, company summits, broadcast stage lighting, P2.6 LED video walls & keynote AV.',
+    path: '/corporate',
+    ogImage: 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=85',
+    ogImageAlt: 'Corporate gala dinner and conference stage production by Wassup London',
+    keywords: [
+        'corporate event production London',
+        'gala dinner production London',
+        'awards ceremony AV production UK',
+        'brand activation agency London',
+        'product launch event planner London',
+        'corporate party planner London',
+        'conference staging and AV hire London',
+    ],
+});
 
 export default function Page() {
+    const corporateJsonLd = getPageJsonLd('corporate');
+
     return (
         <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(corporateJsonLd) }}
+            />
             <SvgSymbols />
             <SmoothScroll />
             <CursorBubble />
             <header className="main-header">
                 <Navbar />
             </header>
-            <CorporatePage />
+            <main>
+                <CorporatePage />
+            </main>
             <footer className="main-footer">
                 <Footer />
             </footer>

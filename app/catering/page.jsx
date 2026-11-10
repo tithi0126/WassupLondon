@@ -4,44 +4,45 @@ import SmoothScroll from '@/components/SmoothScroll';
 import CursorBubble from '@/components/CursorBubble';
 import Footer from '@/components/Footer';
 import CateringPage from '@/components/CateringPage';
+import { buildPageMetadata, getPageJsonLd } from '@/lib/seo';
 
-export const metadata = {
-    title: 'Artisanal Event & Wedding Catering London — Wassup London',
-    description: 'Bespoke Indian, Punjabi, Gujarati, Pan-Asian and contemporary fusion event catering in London. Live chaat counters, robata grills, mixology bars & 100% halal/vegetarian menus.',
-    openGraph: {
-        title: 'Artisanal Event & Wedding Catering London — Wassup London',
-        description: 'Heritage Indian, Pan-Asian and contemporary fusion banqueting, live culinary theatre & bespoke mixology across London and the UK.',
-        url: 'https://www.wassuplondon.co.uk/catering',
-        siteName: 'Wassup London',
-        images: [
-            {
-                url: '/logo.png',
-                width: 1024,
-                height: 1024,
-                alt: 'Wassup London Weddings & Events Crest',
-            },
-        ],
-        locale: 'en_GB',
-        type: 'website',
-    },
-    twitter: {
-        card: 'summary_large_image',
-        title: 'Artisanal Event & Wedding Catering London — Wassup London',
-        description: 'Heritage Indian, Gujarati, Punjabi & Pan-Asian live catering and banqueting across London and the UK.',
-        images: ['/logo.png'],
-    },
-};
+export const metadata = buildPageMetadata({
+    title: 'Artisanal Event & Wedding Catering London — Indian, Gujarati, Punjabi & Pan-Asian | Wassup London',
+    description:
+        'Bespoke Heritage Indian, Punjabi, Gujarati, Pan-Asian, and contemporary Mediterranean fusion event catering in London. Live chaat street counters, robata & tandoor grills, bespoke mixology bars & 100% Halal, Vegetarian, Vegan, and Jain menus.',
+    path: '/catering',
+    ogImage: 'https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=1200&q=85',
+    ogImageAlt: 'Artisanal Indian, Pan-Asian and fusion banqueting by Wassup London',
+    keywords: [
+        'Indian wedding catering London',
+        'Gujarati wedding caterers London',
+        'Punjabi wedding catering UK',
+        'Pan-Asian event catering London',
+        'live chaat counter hire London',
+        'halal wedding catering London',
+        'vegetarian & Jain wedding caterers UK',
+        'bespoke cocktail bar hire London',
+    ],
+});
 
 export default function Page() {
+    const cateringJsonLd = getPageJsonLd('catering');
+
     return (
         <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(cateringJsonLd) }}
+            />
             <SvgSymbols />
             <SmoothScroll />
             <CursorBubble />
             <header className="main-header">
                 <Navbar />
             </header>
-            <CateringPage />
+            <main>
+                <CateringPage />
+            </main>
             <footer className="main-footer">
                 <Footer />
             </footer>

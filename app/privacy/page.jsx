@@ -5,16 +5,26 @@ import SvgSymbols from '@/components/SvgSymbols';
 import SmoothScroll from '@/components/SmoothScroll';
 import CursorBubble from '@/components/CursorBubble';
 import { CONTACT_INFO } from '@/lib/data';
+import { buildPageMetadata, getPageJsonLd } from '@/lib/seo';
 import '@/app/styles/legal.css';
 
-export const metadata = {
-    title: 'Privacy Policy | Wassup London',
-    description: 'Privacy Policy and data protection guidelines for Wassup London Events Ltd.',
-};
+export const metadata = buildPageMetadata({
+    title: 'Privacy Policy — Data Protection & UK GDPR Compliance | Wassup London',
+    description:
+        'Privacy Policy and UK GDPR data protection guidelines for Wassup London Events Ltd across weddings, catering, DJ & sound production, and corporate events.',
+    path: '/privacy',
+    keywords: ['Wassup London privacy policy', 'Wassup London Events Ltd GDPR'],
+});
 
 export default function PrivacyPage() {
+    const privacyJsonLd = getPageJsonLd('privacy');
+
     return (
         <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(privacyJsonLd) }}
+            />
             <SvgSymbols />
             <SmoothScroll />
             <CursorBubble />

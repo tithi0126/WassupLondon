@@ -207,8 +207,10 @@ export default function PackagesPage() {
         <div className="pk2-hero-bg">
           <img
             src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=2200&q=85"
-            alt="Luxury ballroom lighting and event production"
+            alt="Luxury ballroom lighting, sound and event production packages by Wassup London"
             className="pk2-hero-img"
+            fetchPriority="high"
+            decoding="async"
           />
           <div className="pk2-hero-gradient" />
         </div>
@@ -345,8 +347,10 @@ export default function PackagesPage() {
           <div className="pk2-bespoke-visual">
             <img
               src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=85"
-              alt="Bespoke wedding and gala styling"
+              alt="Bespoke luxury wedding mandap and gala staging architecture"
               className="pk2-bespoke-img"
+              loading="lazy"
+              decoding="async"
             />
             <div className="pk2-bespoke-badge">
               <div className="pk2-bespoke-badge-dot" />
@@ -417,8 +421,10 @@ export default function PackagesPage() {
       <section className="pk2-cta-section">
         <img
           src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1800&q=85"
-          alt="Nightclub and party atmosphere"
+          alt="Wassup London concert-grade lighting and dancefloor atmosphere"
           className="pk2-cta-bg"
+          loading="lazy"
+          decoding="async"
         />
         <div className="pk2-cta-overlay" />
         <div className="pk2-cta-content">

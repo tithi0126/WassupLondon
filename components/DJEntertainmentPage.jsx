@@ -108,7 +108,9 @@ export default function DJEntertainmentPage() {
           <img
             className="dj2-hero-video"
             src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1800&q=85"
-            alt="Wassup London club stage and laser production"
+            alt="Wassup London club stage, L-Acoustics sound rig and laser production"
+            fetchPriority="high"
+            decoding="async"
           />
           <div className="dj2-hero-veil" />
         </div>
@@ -167,7 +169,9 @@ export default function DJEntertainmentPage() {
         <div className="dj2-philosophy-img dj2-reveal">
           <img
             src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1200&q=85"
-            alt="Crowd reacting to DJ drop"
+            alt="Packed London dancefloor reacting to live DJ and lighting drop"
+            loading="lazy"
+            decoding="async"
           />
           <span className="dj2-img-badge">Club Heritage</span>
         </div>
@@ -227,7 +231,7 @@ export default function DJEntertainmentPage() {
         <div className="dj2-act-grid">
           {ACTS.map(act => (
             <div className="dj2-act-card" key={act.title}>
-              <img src={act.img} alt={act.title} />
+              <img src={act.img} alt={`${act.title} — Wassup London live event entertainment`} loading="lazy" decoding="async" />
               <div className="dj2-act-overlay">
                 <span className="dj2-act-badge">{act.badge}</span>
                 <h3>{act.title}</h3>
@@ -247,8 +251,10 @@ export default function DJEntertainmentPage() {
       <section className="dj2-cta">
         <img
           src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1600&q=85"
-          alt="Nightclub lasers"
+          alt="Concert stage lasers and intelligent moving-head lighting"
           className="dj2-cta-bg"
+          loading="lazy"
+          decoding="async"
         />
         <div className="dj2-cta-veil" />
         <div className="dj2-cta-body">

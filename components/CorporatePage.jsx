@@ -78,7 +78,9 @@ export default function CorporatePage() {
           <img
             className="cp2-hero-img"
             src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=2000&q=85"
-            alt="Wassup London corporate gala and conference stage production"
+            alt="Wassup London corporate gala dinner and conference stage production"
+            fetchPriority="high"
+            decoding="async"
           />
           <div className="cp2-hero-veil" />
         </div>
@@ -151,7 +153,9 @@ export default function CorporatePage() {
         <div className="cp2-stage-img cp2-reveal">
           <img
             src="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?auto=format&fit=crop&w=1200&q=85"
-            alt="Corporate event production team"
+            alt="Corporate AV, lighting and keynote stagecraft production in London"
+            loading="lazy"
+            decoding="async"
           />
         </div>
         <div className="cp2-stage-copy cp2-reveal">

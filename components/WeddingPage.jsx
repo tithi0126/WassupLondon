@@ -67,7 +67,7 @@ export default function WeddingPage() {
       {/* ── Hero ───────────────────────────────────── */}
       <section className="wd2-hero">
         <div className="wd2-hero-img-wrap">
-          <img className="wd2-hero-img" src={IMAGES.hero} alt="Bespoke luxury wedding celebration by Wassup London" />
+          <img className="wd2-hero-img" src={IMAGES.hero} alt="Bespoke luxury South Asian and fusion wedding celebration by Wassup London" fetchPriority="high" decoding="async" />
           <div className="wd2-hero-veil" />
         </div>
         <div className="wd2-hero-body">
@@ -117,7 +117,7 @@ export default function WeddingPage() {
       {/* ── Story split ────────────────────────────── */}
       <section className="wd2-story">
         <div className="wd2-story-img wd2-reveal">
-          <img src={IMAGES.couple} alt="Couple celebrating together" />
+          <img src={IMAGES.couple} alt="Bride and groom celebrating at a luxury London wedding reception" loading="lazy" decoding="async" />
         </div>
         <div className="wd2-story-copy wd2-reveal">
           <span className="wd2-index-badge">02</span>
