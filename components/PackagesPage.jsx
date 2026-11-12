@@ -309,7 +309,7 @@ export default function PackagesPage() {
                 rel="noopener noreferrer"
                 className="pk2-tier-btn"
               >
-                Inquire on WhatsApp ↗
+                Enquire on WhatsApp ↗
               </a>
             </div>
           ))}

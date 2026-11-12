@@ -67,7 +67,7 @@ export default function PrivacyPage() {
                             </div>
                             <div className="legal-clause__content">
                                 <p>
-                                    Wassup London Events Ltd (&ldquo;Wassup London&rdquo;, &ldquo;we&rdquo;, &ldquo;our&rdquo;, or &ldquo;us&rdquo;) respects your privacy and is committed to protecting the personal data you share with us when inquiring about or booking weddings, private celebrations, artisanal catering, DJ &amp; sound production, and corporate events across London, the United Kingdom, and international destinations.
+                                    Wassup London Events Ltd (&ldquo;Wassup London&rdquo;, &ldquo;we&rdquo;, &ldquo;our&rdquo;, or &ldquo;us&rdquo;) respects your privacy and is committed to protecting the personal data you share with us when enquiring about or booking weddings, private celebrations, artisanal catering, DJ &amp; sound production, and corporate events across London, the United Kingdom, and international destinations.
                                 </p>
                             </div>
                         </section>
@@ -95,7 +95,7 @@ export default function PrivacyPage() {
                             <div className="legal-clause__content">
                                 <p>Your personal information is processed strictly to:</p>
                                 <ul>
-                                    <li>Respond to your inquiries and prepare tailored event proposals, production renders, or private tasting appointments.</li>
+                                    <li>Respond to your enquiries and prepare tailored event proposals, production renders, or private tasting appointments.</li>
                                     <li>Coordinate event logistics with accredited venues and vetted production specialists assigned to your event.</li>
                                     <li>Comply with UK legal, financial, and health-and-safety obligations.</li>
                                 </ul>
@@ -112,7 +112,7 @@ export default function PrivacyPage() {
                             </div>
                             <div className="legal-clause__content">
                                 <p>
-                                    We store client inquiry and event records securely with restricted internal access and retain them only as long as necessary to fulfil contractual obligations and comply with UK statutory requirements under the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018.
+                                    We store client enquiry and event records securely with restricted internal access and retain them only as long as necessary to fulfil contractual obligations and comply with UK statutory requirements under the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018.
                                 </p>
                             </div>
                         </section>
@@ -129,7 +129,7 @@ export default function PrivacyPage() {
                                 <div className="legal-contact-card">
                                     <span className="legal-contact-card__kicker">PRIVACY &amp; COMPLIANCE DESK</span>
                                     <p>
-                                        For any data protection inquiries or subject access requests, please contact our atelier directly:
+                                        For any data protection enquiries or subject access requests, please contact our atelier directly:
                                     </p>
                                     <div className="legal-contact-card__links">
                                         <a href={`mailto:${CONTACT_INFO.email}`}>{CONTACT_INFO.email}</a>

@@ -148,7 +148,7 @@
     border-color: #ffffff;
 }
 
-.editorial-showreel__inquire-link {
+.editorial-showreel__enquire-link {
     font-family: var(--font-body);
     font-size: 12px;
     font-weight: 500;
@@ -159,7 +159,7 @@
     transition: opacity 0.25s ease;
 }
 
-.editorial-showreel__inquire-link:hover {
+.editorial-showreel__enquire-link:hover {
     opacity: 0.8;
 }
 

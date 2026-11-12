@@ -232,7 +232,7 @@ export default function Navbar() {
                         </div>
                     </div>
 
-                    {/* Right: Socials (Instagram & Facebook) + WhatsApp Concierge + Inquiry CTA */}
+                    {/* Right: Socials (Instagram & Facebook) + WhatsApp Concierge + Enquiry CTA */}
                     <div className="nav-right">
                         {/* Social Redirect Icons */}
                         <div className="nav-social-links" role="group" aria-label="Social Profiles">
@@ -308,7 +308,7 @@ export default function Navbar() {
                                     <span className="nav-popout-kicker">INSTANT CONCIERGE</span>
                                     <h4 className="nav-wa-title">Direct Line</h4>
                                     <p className="nav-wa-desc">
-                                        Connect directly with our planning directors for availability and quick inquiries.
+                                        Connect directly with our planning directors for availability and quick enquiries.
                                     </p>
                                     <div className="nav-wa-qr-frame">
                                         <img
@@ -335,9 +335,9 @@ export default function Navbar() {
                             href={CONTACT_INFO.whatsappUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="nav-inquire-btn"
+                            className="nav-enquire-btn"
                         >
-                            <span>Inquire</span>
+                            <span>Enquire</span>
                         </a>
 
                         {/* Mobile Hamburger Toggle */}
@@ -396,7 +396,7 @@ export default function Navbar() {
                                 href={CONTACT_INFO.whatsappUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="nav-mobile-inquire"
+                                className="nav-mobile-enquire"
                             >
                                 Request Proposal on WhatsApp ↗
                             </a>

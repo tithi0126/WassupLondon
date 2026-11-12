@@ -123,7 +123,7 @@ export default function TermsPage() {
                                 <div className="legal-contact-card">
                                     <span className="legal-contact-card__kicker">CONTRACTUAL &amp; BOOKING ENQUIRIES</span>
                                     <p>
-                                        For bespoke production agreements, venue rider coordination, or commercial inquiries, reach out to our directors:
+                                        For bespoke production agreements, venue rider coordination, or commercial enquiries, reach out to our directors:
                                     </p>
                                     <div className="legal-contact-card__links">
                                         <a href={`mailto:${CONTACT_INFO.email}`}>{CONTACT_INFO.email}</a>

@@ -98,7 +98,7 @@ export default function Footer() {
 
                     {/* Column 3: Contact Details */}
                     <div className="editorial-footer__col">
-                        <span className="editorial-footer__col-title">DIRECT INQUIRIES</span>
+                        <span className="editorial-footer__col-title">DIRECT ENQUIRIES</span>
                         <div className="editorial-footer__contact-box">
                             <a href={`mailto:${CONTACT_INFO.email}`} className="editorial-footer__contact-link">
                                 {CONTACT_INFO.email}

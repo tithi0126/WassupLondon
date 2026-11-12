@@ -115,7 +115,7 @@ export default function Showreel() {
                             </button>
                         ))}
                     </div>
-                    <Link href="/packages" className="editorial-showreel__inquire-link">
+                    <Link href="/packages" className="editorial-showreel__enquire-link">
                         Check Date Availability →
                     </Link>
                 </div>
@@ -175,7 +175,7 @@ export default function Showreel() {
                         </p>
                         <div className="showreel-empty-actions">
                             <a href="https://wa.me/447471557773" target="_blank" rel="noopener noreferrer" className="showreel-empty-cta">
-                                Inquire With Atelier Concierge ↗
+                                Enquire With Atelier Concierge ↗
                             </a>
                             <Link href="/packages" className="showreel-empty-secondary">
                                 Explore Packages &amp; Tiers →
