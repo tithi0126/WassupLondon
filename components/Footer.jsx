@@ -8,6 +8,7 @@ import '@/app/styles/footer.css';
 export default function Footer() {
     const [dossierEmail, setDossierEmail] = useState('');
     const [dossierSubmitted, setDossierSubmitted] = useState(false);
+    const [dossierMailto, setDossierMailto] = useState('');
 
     const scrollToTop = () => {
         if (typeof window !== 'undefined' && window.__lenis) {
@@ -21,12 +22,15 @@ export default function Footer() {
         e.preventDefault();
         const trimmed = dossierEmail.trim();
         if (!trimmed) return;
+        const subject = encodeURIComponent('Private Atelier Dossier Request — Wassup London');
+        const body = encodeURIComponent(
+            `Hello Wassup London,\n\nPlease share the Private Atelier Dossier with my email: ${trimmed}\n\nThank you.`
+        );
+        const mailtoUrl = `mailto:${CONTACT_INFO.email}?subject=${subject}&body=${body}`;
+        setDossierMailto(mailtoUrl);
         setDossierSubmitted(true);
         setDossierEmail('');
-        const text = encodeURIComponent(
-            `Hello Wassup London, please share the Private Atelier Dossier with my email: ${trimmed}`
-        );
-        window.open(`${CONTACT_INFO.whatsappUrl}?text=${text}`, '_blank', 'noopener,noreferrer');
+        window.location.href = mailtoUrl;
     };
 
     return (
@@ -150,7 +154,14 @@ export default function Footer() {
                             <span className="editorial-footer__news-label">PRIVATE DOSSIER</span>
                             {dossierSubmitted ? (
                                 <p className="editorial-footer__news-confirm" role="status">
-                                    ✓ Request registered — connecting you with our concierge.
+                                    ✓ Opening your email client — or{' '}
+                                    <a
+                                        href={dossierMailto || `mailto:${CONTACT_INFO.email}`}
+                                        style={{ color: 'inherit', textDecoration: 'underline' }}
+                                    >
+                                        email {CONTACT_INFO.email} directly
+                                    </a>
+                                    .
                                 </p>
                             ) : (
                                 <form
