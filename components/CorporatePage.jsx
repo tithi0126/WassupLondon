@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
+import { CONTACT_INFO } from '@/lib/data';
 import '@/app/styles/corporate.css';
 
 const SOLUTIONS = [
@@ -94,7 +95,7 @@ export default function CorporatePage() {
             celebrations where your brand reputation is front and centre.
           </p>
           <div className="cp2-hero-actions">
-            <a href="https://wa.me/447471557773" target="_blank" rel="noopener noreferrer" className="cp2-btn-primary">
+            <a href={CONTACT_INFO.whatsappUrl} target="_blank" rel="noopener noreferrer" className="cp2-btn-primary">
               Consult With Our Director ↗
             </a>
             <a href="#cp2-solutions" className="cp2-btn-ghost">
@@ -160,7 +161,7 @@ export default function CorporatePage() {
         </div>
         <div className="cp2-stage-copy cp2-reveal">
           <p className="cp2-eyebrow">02 · Technical Rigour</p>
-          <h2>Zero Fluffs.<br /><em>Total Reliability.</em></h2>
+          <h2>Zero Fluff.<br /><em>Total Reliability.</em></h2>
           <p className="cp2-stage-lead">
             Corporate productions have no second takes. When the CEO takes the stage or the
             winner is announced, every cue must fire with millisecond accuracy.
@@ -170,7 +171,7 @@ export default function CorporatePage() {
             safety certifications, and unified show calling so your internal team can relax
             and host.
           </p>
-          <a href="https://wa.me/447471557773" target="_blank" rel="noopener noreferrer" className="cp2-text-link">
+          <a href={CONTACT_INFO.whatsappUrl} target="_blank" rel="noopener noreferrer" className="cp2-text-link">
             Request a production proposal →
           </a>
         </div>
@@ -196,7 +197,7 @@ export default function CorporatePage() {
             Contact our corporate production division to review venue availability,
             stage designs, and turnkey budgets.
           </p>
-          <a className="cp2-cta-btn" href="https://wa.me/447471557773" target="_blank" rel="noopener noreferrer">
+          <a className="cp2-cta-btn" href={CONTACT_INFO.whatsappUrl} target="_blank" rel="noopener noreferrer">
             Connect On WhatsApp ↗
           </a>
         </div>

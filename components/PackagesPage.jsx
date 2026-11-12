@@ -4,13 +4,14 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
+import { CONTACT_INFO } from '@/lib/data';
 import '@/app/styles/packages.css';
 
 const TIERS = [
   {
     tag: 'Boutique & Intimate',
     title: 'Essential',
-    desc: 'For refined engagements, cocktail soirees, and private villa dinners demanding pristine audio clarity and tasteful ambiance.',
+    desc: 'For refined engagements, cocktail soirees, and private villa dinners demanding pristine audio clarity and tasteful ambience.',
     features: [
       'Pro crystal-audio sound rig up to 120 guests',
       'Dual wireless handheld Shure Axient microphones',
@@ -26,7 +27,7 @@ const TIERS = [
     title: 'Elevated',
     desc: 'The gold standard for luxury receptions, rooftop celebrations, and landmark birthday milestones.',
     features: [
-      'Concert-spec d&b Audiotechnik / L-Acoustics system',
+      'Concert-spec d&b audiotechnik / L-Acoustics system',
       'Intelligent DMX moving heads & custom lighting scenes',
       'Seamless gloss white or mirror-gold DJ booth build',
       'Resident open-format DJ + Live Saxophone or Dhol set',
@@ -54,7 +55,7 @@ const TIERS = [
     title: 'Custom Blueprint',
     desc: 'Destination weddings across Europe, historic country estates, or raw blank-canvas venues built from the ground up.',
     features: [
-      '3D CAD spatial visualization & acoustic simulation',
+      '3D CAD spatial visualisation & acoustic simulation',
       'Michelin-calibre multi-course catering curation',
       'International headline artist & DJ talent booking',
       'Custom marquee structure, staging & generator logistics',
@@ -74,12 +75,12 @@ const ADDONS = [
   {
     icon: '⚡',
     title: 'Cold Spark Pyro & FX',
-    desc: 'Indoor-safe cold spark pyrotechnics, cryogenic Co2 jet cannons, and low-lying atmospheric cloud fog.'
+    desc: 'Indoor-safe cold spark pyrotechnics, cryogenic CO₂ jet cannons, and low-lying atmospheric cloud fog.'
   },
   {
     icon: '🪩',
     title: '3D Infinity Dance Floor',
-    desc: 'Pressure-sensitive interactive LED dance floors or high-gloss mirrored staging with personalized monograms.'
+    desc: 'Pressure-sensitive interactive LED dance floors or high-gloss mirrored staging with personalised monograms.'
   },
   {
     icon: '🎥',
@@ -89,7 +90,7 @@ const ADDONS = [
   {
     icon: '🍸',
     title: 'Bespoke Mixology Bar',
-    desc: 'Flair bartenders crafting personalized signature cocktails infused with botanical syrups and smoked aromatics.'
+    desc: 'Flair bartenders crafting personalised signature cocktails infused with botanical syrups and smoked aromatics.'
   },
   {
     icon: '🎙️',
@@ -230,7 +231,7 @@ export default function PackagesPage() {
               Explore Tiers ↓
             </a>
             <a
-              href="https://wa.me/447471557773?text=Hello%20Wassup%20London,%20I%20would%20like%20to%20discuss%20a%20package%20quote"
+              href={`${CONTACT_INFO.whatsappUrl}?text=Hello%20Wassup%20London,%20I%20would%20like%20to%20discuss%20a%20package%20quote`}
               target="_blank"
               rel="noopener noreferrer"
               className="pk2-btn-outline"
@@ -304,7 +305,7 @@ export default function PackagesPage() {
                 ))}
               </ul>
               <a
-                href={`https://wa.me/447471557773?text=Hi%20Wassup%20London,%20I'm%20interested%20in%20the%20${tier.title}%20Tier`}
+                href={`${CONTACT_INFO.whatsappUrl}?text=Hi%20Wassup%20London,%20I'm%20interested%20in%20the%20${tier.title}%20Tier`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="pk2-tier-btn"
@@ -379,7 +380,7 @@ export default function PackagesPage() {
               <div className="pk2-step-card">
                 <div className="pk2-step-num">STEP 02</div>
                 <div className="pk2-step-title">3D Staging Render</div>
-                <p className="pk2-step-desc">Photorealistic lighting & floorplan visualization</p>
+                <p className="pk2-step-desc">Photorealistic lighting & floorplan visualisation</p>
               </div>
               <div className="pk2-step-card">
                 <div className="pk2-step-num">STEP 03</div>
@@ -395,7 +396,7 @@ export default function PackagesPage() {
 
             <div>
               <a
-                href="https://wa.me/447471557773?text=Hello%20Wassup%20London,%20I'd%20like%20to%20arrange%20a%20bespoke%20production%20consultation"
+                href={`${CONTACT_INFO.whatsappUrl}?text=Hello%20Wassup%20London,%20I'd%20like%20to%20arrange%20a%20bespoke%20production%20consultation`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="pk2-btn-primary"
@@ -438,7 +439,7 @@ export default function PackagesPage() {
           <div className="pk2-cta-buttons">
             <a
               className="pk2-btn-primary"
-              href="https://wa.me/447471557773?text=Hi%20Wassup%20London,%20can%20you%20check%20availability%20for%20my%20event%20date?"
+              href={`${CONTACT_INFO.whatsappUrl}?text=Hi%20Wassup%20London,%20can%20you%20check%20availability%20for%20my%20event%20date?`}
               target="_blank"
               rel="noopener noreferrer"
             >

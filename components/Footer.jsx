@@ -196,7 +196,7 @@ export default function Footer() {
                 {/* ─── Bottom Bar ─── */}
                 <div className="editorial-footer__bottom">
                     <div className="editorial-footer__copyright">
-                        © {new Date().getFullYear()} Wassup London Events Ltd. All rights reserved.
+                        © {new Date().getFullYear()} Wassup London Events Ltd · Registered in {CONTACT_INFO.jurisdiction} (Company No. {CONTACT_INFO.companyNumber}). All rights reserved.
                     </div>
                     <div className="editorial-footer__legal">
                         <Link href="/privacy" className="editorial-footer__legal-item">Privacy Policy</Link>

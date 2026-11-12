@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
+import { CONTACT_INFO } from '@/lib/data';
 import '@/app/styles/catering.css';
 
 const CUISINES = [
@@ -94,7 +95,7 @@ export default function CateringPage() {
             the sensory anchor and the warmth people talk about on the journey home.
           </p>
           <div className="ct2-hero-actions">
-            <a href="https://wa.me/447471557773" target="_blank" rel="noopener noreferrer" className="ct2-btn-dark">
+            <a href={CONTACT_INFO.whatsappUrl} target="_blank" rel="noopener noreferrer" className="ct2-btn-dark">
               Request A Menu Tasting ↗
             </a>
             <a href="#ct2-menus" className="ct2-btn-outline">
@@ -157,7 +158,7 @@ export default function CateringPage() {
             dishes live in the venue to guarantee piping-hot flavours, crispy textures, and
             Michelin-worthy presentation.
           </p>
-          <a href="https://wa.me/447471557773" target="_blank" rel="noopener noreferrer" className="ct2-text-link">
+          <a href={CONTACT_INFO.whatsappUrl} target="_blank" rel="noopener noreferrer" className="ct2-text-link">
             Book a consultation call →
           </a>
         </div>
@@ -167,7 +168,7 @@ export default function CateringPage() {
       <section className="ct2-menus" id="ct2-menus">
         <div className="ct2-menus-head ct2-reveal">
           <p className="ct2-eyebrow">02 · Curated Cuisines</p>
-          <h2>Crafted For <em>Every Palette</em></h2>
+          <h2>Crafted For <em>Every Palate</em></h2>
           <p className="ct2-menus-sub">From time-honoured South Asian rituals to modern international culinary theatre.</p>
         </div>
         <div className="ct2-menu-grid">
@@ -230,7 +231,7 @@ export default function CateringPage() {
             Meet our executive head chef at our London tasting kitchen. Sample your proposed menu,
             refine spice balances, and pair signature drinks.
           </p>
-          <a className="ct2-cta-btn" href="https://wa.me/447471557773" target="_blank" rel="noopener noreferrer">
+          <a className="ct2-cta-btn" href={CONTACT_INFO.whatsappUrl} target="_blank" rel="noopener noreferrer">
             Arrange Your Tasting On WhatsApp ↗
           </a>
         </div>

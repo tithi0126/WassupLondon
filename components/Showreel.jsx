@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { EVENTS } from '@/lib/data';
+import { CONTACT_INFO, EVENTS } from '@/lib/data';
 import '@/app/styles/showreel.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -174,7 +174,7 @@ export default function Showreel() {
                             Connect with our atelier concierge to check availability or request our private lookbook.
                         </p>
                         <div className="showreel-empty-actions">
-                            <a href="https://wa.me/447471557773" target="_blank" rel="noopener noreferrer" className="showreel-empty-cta">
+                            <a href={CONTACT_INFO.whatsappUrl} target="_blank" rel="noopener noreferrer" className="showreel-empty-cta">
                                 Enquire With Atelier Concierge ↗
                             </a>
                             <Link href="/packages" className="showreel-empty-secondary">
