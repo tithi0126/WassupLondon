@@ -154,9 +154,9 @@ export default function CateringPage() {
             our head chefs refuse industrial warming trays and tired menus.
           </p>
           <p className="ct2-phil-body">
-            We cook with generational recipes, source locally from British farmers, and finish
-            dishes live in the venue to guarantee piping-hot flavours, crispy textures, and
-            Michelin-worthy presentation.
+            We cook with authentic recipes, source fresh produce from British suppliers, and finish
+            dishes live at your venue to guarantee vibrant flavours, crisp textures, and
+            refined fine-dining presentation.
           </p>
           <a href={CONTACT_INFO.whatsappUrl} target="_blank" rel="noopener noreferrer" className="ct2-text-link">
             Book a consultation call →

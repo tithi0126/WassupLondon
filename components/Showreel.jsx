@@ -71,16 +71,16 @@ export default function Showreel() {
             <div className="editorial-showreel__header">
                 <div className="editorial-showreel__meta">
                     <span className="editorial-showreel__kicker">[ 04 / CURATED REPERTORY ]</span>
-                    <span className="editorial-showreel__status">SELECTED RECENT & UPCOMING PRODUCTIONS</span>
+                    <span className="editorial-showreel__status">2026 / 2027 PRODUCTION CALENDAR</span>
                 </div>
                 <div className="editorial-showreel__title-row">
                     <h2 className="editorial-showreel__title">
-                        DISTINGUISHED NIGHTS. <br />
+                        SIGNATURE NIGHTS. <br />
                         <span className="text-italic">ARCHITECTURAL SOUND.</span>
                     </h2>
                     <p className="editorial-showreel__desc">
-                        A retrospective of bespoke mandap environments, high-intensity club takeovers, 
-                        and private rooftop galas orchestrated throughout the capital.
+                        Curated mandap environments, high-intensity club setups, 
+                        and private rooftop galas designed for modern celebrations across the capital.
                     </p>
                 </div>
             </div>
@@ -95,7 +95,7 @@ export default function Showreel() {
                     />
                     <div className="editorial-showreel__hero-scrim" />
                     <div className="editorial-showreel__hero-badge">
-                        <span>CINEMATIC ARCHIVE · WASSUP LONDON</span>
+                        <span>STUDIO SHOWCASE · WASSUP LONDON</span>
                     </div>
                 </div>
             </div>

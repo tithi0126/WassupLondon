@@ -44,7 +44,7 @@ const ACTS = [
   {
     title: 'Club Resident DJs',
     badge: 'Open-Format',
-    desc: 'Turntablists with Fabric, Ministry of Sound & international festival credentials. Flawless live mixing across genres.',
+    desc: 'Open-format resident turntablists seamlessly blending club anthems, UK garage, Afro-house and Bollywood live.',
     img: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1200&q=85'
   },
   {
@@ -144,8 +144,8 @@ export default function DJEntertainmentPage() {
           </div>
           <div className="dj2-stat-divider" />
           <div className="dj2-stat">
-            <span className="dj2-stat-val">500+</span>
-            <span className="dj2-stat-lbl">Packed Dancefloors</span>
+            <span className="dj2-stat-val">360°</span>
+            <span className="dj2-stat-lbl">DMX &amp; Stage Sync</span>
           </div>
           <div className="dj2-stat-divider" />
           <div className="dj2-stat">
@@ -174,7 +174,7 @@ export default function DJEntertainmentPage() {
             loading="lazy"
             decoding="async"
           />
-          <span className="dj2-img-badge">Club Heritage</span>
+          <span className="dj2-img-badge">Club-Grade Rig</span>
         </div>
         <div className="dj2-philosophy-copy dj2-reveal">
           <p className="dj2-eyebrow">01 · Sound Philosophy</p>

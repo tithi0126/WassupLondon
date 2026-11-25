@@ -8,7 +8,7 @@ import '../app/styles/horizontal-words.css';
 gsap.registerPlugin(ScrollTrigger);
 
 const STATS = [
-    { number: '500+', label: 'Distinguished Productions' },
+    { number: '04', label: 'Unified In-House Disciplines' },
     { number: '100%', label: 'Turnkey Calm & Delivery' },
 ];
 

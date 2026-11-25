@@ -517,8 +517,8 @@ export default function VimeoHero() {
                             <span className="editorial-hero__title-italic">IMMERSIVE CELEBRATIONS.</span>
                         </h1>
                         <p className="editorial-hero__lead">
-                            A singular collective uniting master event directors, club-tier acoustic engineers, 
-                            and Michelin-level culinary artisans under one calm, meticulous point of contact.
+                            A modern collective uniting dedicated event directors, club-tier acoustic engineers, 
+                            and fine-dining culinary specialists under one calm, meticulous point of contact.
                         </p>
                     </div>
 

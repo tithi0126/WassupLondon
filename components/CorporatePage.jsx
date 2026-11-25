@@ -30,7 +30,7 @@ const SOLUTIONS = [
 
 const METRICS = [
   { val: '100%', lbl: 'On-Time Cues' },
-  { val: '2,500+', lbl: 'Capacity Handled' },
+  { val: '2,500+', lbl: 'Guest Scale Capacity' },
   { val: 'Tier-1', lbl: 'AV & Stage Rig' },
 ];
 

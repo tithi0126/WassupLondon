@@ -18,7 +18,7 @@ const DISCIPLINES = [
         num: "02",
         title: "Acoustics & Stage",
         subtitle: "Club-Grade Audio & Intelligent FX",
-        desc: "Equipped with touring-standard sound systems, custom LED staging, and resident DJs playing London’s most legendary dancefloors.",
+        desc: "Equipped with touring-standard sound systems, custom LED staging, and open-format DJs bringing London club energy to your dancefloor.",
         img: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1000&q=80",
         link: "/dj-entertainment",
         tag: "Production"
@@ -27,7 +27,7 @@ const DISCIPLINES = [
         num: "03",
         title: "Artisanal Dining",
         subtitle: "Live Theatrical Food Stations & Banquets",
-        desc: "Michelin-experienced chefs curating vibrant Pan-Asian, Gujarati, Punjabi, and global contemporary tasting menus.",
+        desc: "Dedicated culinary chefs crafting vibrant Pan-Asian, Gujarati, Punjabi, and global contemporary tasting menus.",
         img: "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=1000&q=80",
         link: "/catering",
         tag: "Gastronomy"

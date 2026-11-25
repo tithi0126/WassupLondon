@@ -56,7 +56,7 @@ const TIERS = [
     desc: 'Destination weddings across Europe, historic country estates, or raw blank-canvas venues built from the ground up.',
     features: [
       '3D CAD spatial visualisation & acoustic simulation',
-      'Michelin-calibre multi-course catering curation',
+      'Fine-dining multi-course catering curation',
       'International headline artist & DJ talent booking',
       'Custom marquee structure, staging & generator logistics',
       'End-to-end supplier coordination & rehearsal direction',
